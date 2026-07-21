@@ -1,0 +1,440 @@
+From 5edacdc98f2d545452d44f2b040c08d9708e9fe8 Mon Sep 17 00:00:00 2001
+From: solbounder <solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 20:00:00 +0200
+Subject: [PATCH] feat: improve assembly management and ground leaders
+
+---
+ RogueEssence/Ground/GSceneZone.cs             |   4 +
+ RogueEssence/Lua/ScriptUI.cs                  |  41 ++++++
+ RogueEssence/Menu/Team/AssemblyChosenMenu.cs  |  13 +-
+ RogueEssence/Menu/Team/AssemblyMenu.cs        | 136 +++++++++++++++---
+ RogueEssence/Menu/Team/AssemblyMenuOptions.cs |  13 ++
+ RogueEssence/Menu/Team/AssemblySearchMenu.cs  |  36 +++++
+ 6 files changed, 221 insertions(+), 22 deletions(-)
+ create mode 100644 RogueEssence/Menu/Team/AssemblyMenuOptions.cs
+ create mode 100644 RogueEssence/Menu/Team/AssemblySearchMenu.cs
+
+diff --git a/RogueEssence/Ground/GSceneZone.cs b/RogueEssence/Ground/GSceneZone.cs
+index 4dff8d0f..2265262b 100644
+--- a/RogueEssence/Ground/GSceneZone.cs
++++ b/RogueEssence/Ground/GSceneZone.cs
+@@ -266,6 +266,10 @@ namespace RogueEssence.Ground
+                 else
+                 {
+                     DataManager.Instance.Save.ActiveTeam.LeaderIndex = charIndex;
++                    GroundChar current = ZoneManager.Instance.CurrentGround.ActiveChar;
++                    ZoneManager.Instance.CurrentGround.SetPlayerChar(new GroundChar(
++                        DataManager.Instance.Save.ActiveTeam.Leader, current.MapLoc,
++                        current.CharDir, "PLAYER"));
+                     GameManager.Instance.SE(GraphicsManager.LeaderSE);
+ 
+                     yield return CoroutineManager.Instance.StartCoroutine(GameManager.Instance.FadeOut(false));
+diff --git a/RogueEssence/Lua/ScriptUI.cs b/RogueEssence/Lua/ScriptUI.cs
+index daf35eb8..07e73d2d 100644
+--- a/RogueEssence/Lua/ScriptUI.cs
++++ b/RogueEssence/Lua/ScriptUI.cs
+@@ -737,6 +737,47 @@ namespace RogueEssence.Script
+             }
+         }
+ 
++        /// <summary>
++        /// Displays the assembly with optional localized search/filter controls
++        /// and a quest-defined reward for a confirmed release.
++        /// </summary>
++        public void AssemblyMenu(LuaTable options)
++        {
++            try
++            {
++                AssemblyMenuOptions config = new AssemblyMenuOptions();
++                if (options != null)
++                {
++                    config.SearchLabel = LuaString(options, "SearchLabel", config.SearchLabel);
++                    config.ClearSearchLabel = LuaString(options, "ClearSearchLabel", config.ClearSearchLabel);
++                    config.FavoritesOnlyLabel = LuaString(options, "FavoritesOnlyLabel", config.FavoritesOnlyLabel);
++                    config.ShowAllLabel = LuaString(options, "ShowAllLabel", config.ShowAllLabel);
++                    config.SearchTitle = LuaString(options, "SearchTitle", config.SearchTitle);
++                    config.ReleaseRewardMessage = LuaString(options, "ReleaseRewardMessage", "");
++                    object reward = options["ReleaseReward"];
++                    if (reward != null)
++                        config.ReleaseReward = Math.Max(0, Convert.ToInt32(reward));
++                }
++                m_choiceresult = false;
++                m_curchoice = new AssemblyMenu(MenuLabel.ASSEMBLY_MENU, 0,
++                    () => { m_choiceresult = true; },
++                    RogueEssence.Menu.AssemblyMenu.AssemblySortMode.Recent,
++                    "", false, config);
++            }
++            catch (Exception e)
++            {
++                DiagManager.Instance.LogError(new Exception(String.Format(
++                    "ScriptUI.AssemblyMenu(options): Encountered exception."), e),
++                    DiagManager.Instance.DevMode);
++            }
++        }
++
++        private static string LuaString(LuaTable options, string key, string fallback)
++        {
++            object value = options[key];
++            return value == null ? fallback : value.ToString();
++        }
++
+         /// <summary>
+         /// Displays the Shop menu.
+         /// 
+diff --git a/RogueEssence/Menu/Team/AssemblyChosenMenu.cs b/RogueEssence/Menu/Team/AssemblyChosenMenu.cs
+index 979aab76..7d194abe 100644
+--- a/RogueEssence/Menu/Team/AssemblyChosenMenu.cs
++++ b/RogueEssence/Menu/Team/AssemblyChosenMenu.cs
+@@ -79,6 +79,11 @@ namespace RogueEssence.Menu
+                 choices.Add(new MenuTextChoice(Text.FormatKey("MENU_ASSEMBLY_RELEASE"), ReleaseAction, enabled, enabled ? Color.White : Color.Red));
+             }
+ 
++            choices.Add(new MenuTextChoice(baseMenu.SearchLabel, baseMenu.OpenSearch));
++            if (baseMenu.HasSearch)
++                choices.Add(new MenuTextChoice(baseMenu.ClearSearchLabel, baseMenu.ClearSearch));
++            choices.Add(new MenuTextChoice(baseMenu.FavoritesLabel, baseMenu.ToggleFavorites));
++
+             choices.Add(new MenuTextChoice(Text.FormatKey("MENU_EXIT"), ExitAction));
+ 
+             int choice_width = CalculateChoiceLength(choices, 72);
+@@ -120,8 +125,12 @@ namespace RogueEssence.Menu
+                 null, new EmoteStyle(0), Text.FormatKey("DLG_ASSEMBLY_RELEASE_ASK", player.GetDisplayName(true)), true, false, false, false, () =>
+             {
+                 MenuManager.Instance.RemoveMenu();
+-                baseMenu.ReleaseAssembly(teamSlot);
+-                MenuManager.Instance.AddMenu(MenuManager.Instance.CreateDialogue(Text.FormatKey("DLG_ASSEMBLY_RELEASE", player.GetDisplayName(true))), false);
++                int reward = baseMenu.ReleaseAssembly(teamSlot);
++                string message = Text.FormatKey("DLG_ASSEMBLY_RELEASE", player.GetDisplayName(true));
++                if (reward > 0 && !String.IsNullOrWhiteSpace(baseMenu.ReleaseRewardMessage))
++                    message = String.Format(baseMenu.ReleaseRewardMessage,
++                        player.GetDisplayName(true), reward);
++                MenuManager.Instance.AddMenu(MenuManager.Instance.CreateDialogue(message), false);
+             }, () => { }, true), false);
+         }
+ 
+diff --git a/RogueEssence/Menu/Team/AssemblyMenu.cs b/RogueEssence/Menu/Team/AssemblyMenu.cs
+index 45458724..54e04db5 100644
+--- a/RogueEssence/Menu/Team/AssemblyMenu.cs
++++ b/RogueEssence/Menu/Team/AssemblyMenu.cs
+@@ -30,15 +30,25 @@ namespace RogueEssence.Menu
+ 
+         private List<int> assemblyView;
+         private AssemblySortMode sortMode;
++        private string searchText;
++        private bool favoritesOnly;
++        private AssemblyMenuOptions options;
+ 
+         public AssemblyMenu(int defaultChoice, Action teamChanged, AssemblySortMode sort = AssemblySortMode.Recent) :
+             this(MenuLabel.ASSEMBLY_MENU, defaultChoice, teamChanged, sort) { }
+         public AssemblyMenu(string label, int defaultChoice, Action teamChanged, AssemblySortMode sort = AssemblySortMode.Recent)
++            : this(label, defaultChoice, teamChanged, sort, "", false, new AssemblyMenuOptions()) { }
++        public AssemblyMenu(string label, int defaultChoice, Action teamChanged,
++            AssemblySortMode sort, string searchText, bool favoritesOnly,
++            AssemblyMenuOptions options)
+         {
+             Label = label;
+             int menuWidth = 160;
+             this.teamChanged = teamChanged;
+             sortMode = sort;
++            this.searchText = searchText ?? "";
++            this.favoritesOnly = favoritesOnly;
++            this.options = options ?? new AssemblyMenuOptions();
+ 
+             List<MenuChoice> flatChoices = new List<MenuChoice>();
+             for (int ii = 0; ii < DataManager.Instance.Save.ActiveTeam.Players.Count; ii++)
+@@ -46,7 +56,8 @@ namespace RogueEssence.Menu
+                 int index = ii;
+                 Character character = DataManager.Instance.Save.ActiveTeam.Players[index];
+                 bool enabled = !ChoosingLeader(ii);
+-                MenuText memberName = new MenuText(character.BaseName, new Loc(2, 1), enabled ? Color.Lime : TextIndigo);
++                Color activeColor = enabled ? (character.IsFavorite ? Color.Yellow : Color.Lime) : TextIndigo;
++                MenuText memberName = new MenuText(character.BaseName, new Loc(2, 1), activeColor);
+                 MenuText memberLvLabel = new MenuText(Text.FormatKey("MENU_TEAM_LEVEL_SHORT"), new Loc(menuWidth - 8 * 7 + 6, 1),
+                     DirV.Up, DirH.Right, enabled ? Color.Lime : TextIndigo);
+                 MenuText memberLv = new MenuText(character.Level.ToString(), new Loc(menuWidth - 8 * 7 + 6 + GraphicsManager.TextFont.SubstringWidth(DataManager.Instance.Start.MaxLevel.ToString()), 1), 
+@@ -59,7 +70,7 @@ namespace RogueEssence.Menu
+             {
+                 int index = ii;
+                 Character character = DataManager.Instance.Save.ActiveTeam.Assembly[assemblyView[index]];
+-                Color color = CanChooseAssembly(ii) ? (character.IsFavorite ? Color.Yellow : Color.White) : Color.Red;
++                Color color = CanChooseAssembly(assemblyView[ii]) ? (character.IsFavorite ? Color.Yellow : Color.White) : Color.Red;
+                 MenuText memberName = new MenuText(character.BaseName, new Loc(2, 1), color);
+                 MenuText memberLvLabel = new MenuText(Text.FormatKey("MENU_TEAM_LEVEL_SHORT"), new Loc(menuWidth - 8 * 7 + 6, 1),
+                     DirV.Up, DirH.Right, color);
+@@ -87,11 +98,26 @@ namespace RogueEssence.Menu
+         {
+             List<int> sortedAssembly = new List<int>();
+             for (int ii = 0; ii < DataManager.Instance.Save.ActiveTeam.Assembly.Count; ii++)
+-                sortedAssembly.Add(ii);
++            {
++                Character character = DataManager.Instance.Save.ActiveTeam.Assembly[ii];
++                if ((!favoritesOnly || character.IsFavorite) && MatchesSearch(character))
++                    sortedAssembly.Add(ii);
++            }
+             sortedAssembly.Sort(assemblyCompare);
+             return sortedAssembly;
+         }
+ 
++        private bool MatchesSearch(Character character)
++        {
++            if (String.IsNullOrWhiteSpace(searchText))
++                return true;
++            string species = character.BaseForm.Species ?? "";
++            string localized = DataManager.Instance.GetMonster(species).Name.ToLocal();
++            return character.BaseName.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
++                species.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
++                localized.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0;
++        }
++
+         public int assemblyCompare(int key1, int key2)
+         {
+             CharData data1 = DataManager.Instance.Save.ActiveTeam.Assembly[key1];
+@@ -107,14 +133,22 @@ namespace RogueEssence.Menu
+             switch (sortMode)
+             {
+                 case AssemblySortMode.Level:
+-                    return Math.Sign(-1 * (data1.Level - data2.Level));
++                    {
++                        int comparison = Math.Sign(-1 * (data1.Level - data2.Level));
++                        return comparison != 0 ? comparison : key1.CompareTo(key2);
++                    }
+                 case AssemblySortMode.Nickname:
+-                    return String.Compare(data1.BaseName, data2.BaseName);
++                    {
++                        int comparison = String.Compare(data1.BaseName, data2.BaseName,
++                            StringComparison.CurrentCultureIgnoreCase);
++                        return comparison != 0 ? comparison : key1.CompareTo(key2);
++                    }
+                 case AssemblySortMode.Species:
+                     {
+                         int dex1 = DataManager.Instance.DataIndices[DataManager.DataType.Monster].Get(data1.BaseForm.Species).SortOrder;
+                         int dex2 = DataManager.Instance.DataIndices[DataManager.DataType.Monster].Get(data2.BaseForm.Species).SortOrder;
+-                        return Math.Sign(dex1 - dex2);
++                        int comparison = Math.Sign(dex1 - dex2);
++                        return comparison != 0 ? comparison : key1.CompareTo(key2);
+                     }
+             }
+ 
+@@ -167,14 +201,22 @@ namespace RogueEssence.Menu
+         public void ChooseLeader(int choice)
+         {
+             DataManager.Instance.Save.ActiveTeam.LeaderIndex = choice;
+-            MenuManager.Instance.ReplaceMenu(new AssemblyMenu(CurrentChoiceTotal, teamChanged, sortMode));
++            if (GameManager.Instance.CurrentScene == GroundScene.Instance &&
++                ZoneManager.Instance.CurrentGround != null)
++            {
++                GroundChar current = ZoneManager.Instance.CurrentGround.ActiveChar;
++                ZoneManager.Instance.CurrentGround.SetPlayerChar(new GroundChar(
++                    DataManager.Instance.Save.ActiveTeam.Leader, current.MapLoc,
++                    current.CharDir, "PLAYER"));
++            }
++            Replace(CurrentChoiceTotal);
+             teamChanged();
+         }
+ 
+         public void ChooseTeam(int choice)
+         {
+             GroundScene.Instance.SilentSendHome(choice);
+-            MenuManager.Instance.ReplaceMenu(new AssemblyMenu(CurrentChoiceTotal, teamChanged, sortMode));
++            Replace(CurrentChoiceTotal);
+             teamChanged();
+         }
+ 
+@@ -185,7 +227,7 @@ namespace RogueEssence.Menu
+         public void ChooseAssembly(int choice)
+         {
+             GroundScene.Instance.SilentAddToTeam(choice);
+-            MenuManager.Instance.ReplaceMenu(new AssemblyMenu(CurrentChoiceTotal, teamChanged, sortMode));
++            Replace(CurrentChoiceTotal);
+             teamChanged();
+         }
+ 
+@@ -193,11 +235,18 @@ namespace RogueEssence.Menu
+         /// 
+         /// </summary>
+         /// <param name="choice">Choice must be premapped</param>
+-        public void ReleaseAssembly(int choice)
++        public int ReleaseAssembly(int choice)
+         {
++            if (choice < 0 || choice >= DataManager.Instance.Save.ActiveTeam.Assembly.Count)
++                throw new InvalidOperationException("The selected assembly member no longer exists.");
++            Character character = DataManager.Instance.Save.ActiveTeam.Assembly[choice];
++            if (character.IsFounder || character.IsFavorite)
++                throw new InvalidOperationException("Protected assembly members cannot be released.");
+             DataManager.Instance.Save.ActiveTeam.Assembly.RemoveAt(choice);
+-            assemblyView.RemoveAt(choice);
+-            MenuManager.Instance.ReplaceMenu(new AssemblyMenu(CurrentChoiceTotal, teamChanged, sortMode));
++            DataManager.Instance.Save.ActiveTeam.Money += options.ReleaseReward;
++            teamChanged();
++            Replace(CurrentChoiceTotal);
++            return options.ReleaseReward;
+         }
+         public void ConfirmRename(string name)
+         {
+@@ -205,15 +254,24 @@ namespace RogueEssence.Menu
+             int currentChoice = CurrentChoiceTotal;
+             if (currentChoice < DataManager.Instance.Save.ActiveTeam.Players.Count)
+             {
+-                DataManager.Instance.Save.ActiveTeam.Players[currentChoice].Nickname = name;
+-                teamChanged();
++                Character character = DataManager.Instance.Save.ActiveTeam.Players[currentChoice];
++                if (character.Nickname != name)
++                {
++                    character.Nickname = name;
++                    teamChanged();
++                }
+             }
+             else
+             {
+                 int assemblyIndex = currentChoice - DataManager.Instance.Save.ActiveTeam.Players.Count;
+-                DataManager.Instance.Save.ActiveTeam.Assembly[assemblyView[assemblyIndex]].Nickname = name;
++                Character character = DataManager.Instance.Save.ActiveTeam.Assembly[assemblyView[assemblyIndex]];
++                if (character.Nickname != name)
++                {
++                    character.Nickname = name;
++                    teamChanged();
++                }
+             }
+-            MenuManager.Instance.ReplaceMenu(new AssemblyMenu(CurrentChoiceTotal, teamChanged, sortMode));
++            Replace(CurrentChoiceTotal);
+         }
+         public void ToggleFave()
+         {
+@@ -227,7 +285,44 @@ namespace RogueEssence.Menu
+                 Character chara = DataManager.Instance.Save.ActiveTeam.Assembly[assemblyView[assemblyIndex]];
+                 chara.IsFavorite = !chara.IsFavorite;
+             }
+-            MenuManager.Instance.ReplaceMenu(new AssemblyMenu(CurrentChoiceTotal, teamChanged, sortMode));
++            teamChanged();
++            Replace(CurrentChoiceTotal);
++        }
++
++        public void OpenSearch()
++        {
++            MenuManager.Instance.AddMenu(new AssemblySearchMenu(options.SearchTitle,
++                searchText, SetSearch, () => { }), false);
++        }
++
++        public void SetSearch(string value)
++        {
++            searchText = value ?? "";
++            Replace(DataManager.Instance.Save.ActiveTeam.Players.Count);
++        }
++
++        public void ClearSearch()
++        {
++            searchText = "";
++            Replace(DataManager.Instance.Save.ActiveTeam.Players.Count);
++        }
++
++        public void ToggleFavorites()
++        {
++            favoritesOnly = !favoritesOnly;
++            Replace(DataManager.Instance.Save.ActiveTeam.Players.Count);
++        }
++
++        public string SearchLabel => options.SearchLabel;
++        public string ClearSearchLabel => options.ClearSearchLabel;
++        public string FavoritesLabel => favoritesOnly ? options.ShowAllLabel : options.FavoritesOnlyLabel;
++        public string ReleaseRewardMessage => options.ReleaseRewardMessage;
++        public bool HasSearch => !String.IsNullOrWhiteSpace(searchText);
++
++        private void Replace(int choice)
++        {
++            MenuManager.Instance.ReplaceMenu(new AssemblyMenu(MenuLabel.ASSEMBLY_MENU,
++                choice, teamChanged, sortMode, searchText, favoritesOnly, options));
+         }
+ 
+         protected override void UpdateKeys(InputManager input)
+@@ -236,7 +331,8 @@ namespace RogueEssence.Menu
+             if (input.JustPressed(FrameInput.InputType.SortItems))
+             {
+                 GameManager.Instance.SE("Menu/Sort");
+-                MenuManager.Instance.ReplaceMenu(new AssemblyMenu(DataManager.Instance.Save.ActiveTeam.Players.Count, teamChanged, (AssemblySortMode)(((int)sortMode + 1) % 4)));
++                sortMode = (AssemblySortMode)(((int)sortMode + 1) % 4);
++                Replace(DataManager.Instance.Save.ActiveTeam.Players.Count);
+             }
+             else if (input.JustPressed(FrameInput.InputType.SelectItems))
+             {
+@@ -249,7 +345,7 @@ namespace RogueEssence.Menu
+                         GameManager.Instance.SE("Menu/Toggle");
+                         GroundScene.Instance.SilentSendHome(currentChoice);
+                         teamChanged();
+-                        MenuManager.Instance.ReplaceMenu(new AssemblyMenu(currentChoice, teamChanged, sortMode));
++                        Replace(currentChoice);
+                     }
+                     else
+                         GameManager.Instance.SE("Menu/Cancel");
+@@ -262,7 +358,7 @@ namespace RogueEssence.Menu
+                         GameManager.Instance.SE("Menu/Toggle");
+                         GroundScene.Instance.SilentAddToTeam(assemblyView[assemblyIndex]);
+                         teamChanged();
+-                        MenuManager.Instance.ReplaceMenu(new AssemblyMenu(currentChoice, teamChanged, sortMode));
++                        Replace(currentChoice);
+                     }
+                     else
+                         GameManager.Instance.SE("Menu/Cancel");
+diff --git a/RogueEssence/Menu/Team/AssemblyMenuOptions.cs b/RogueEssence/Menu/Team/AssemblyMenuOptions.cs
+new file mode 100644
+index 00000000..1d9f9c27
+--- /dev/null
++++ b/RogueEssence/Menu/Team/AssemblyMenuOptions.cs
+@@ -0,0 +1,13 @@
++namespace RogueEssence.Menu
++{
++    public class AssemblyMenuOptions
++    {
++        public string SearchLabel { get; set; } = "Search";
++        public string ClearSearchLabel { get; set; } = "Clear search";
++        public string FavoritesOnlyLabel { get; set; } = "Favorites only";
++        public string ShowAllLabel { get; set; } = "Show all";
++        public string SearchTitle { get; set; } = "Search team";
++        public string ReleaseRewardMessage { get; set; } = "";
++        public int ReleaseReward { get; set; }
++    }
++}
+diff --git a/RogueEssence/Menu/Team/AssemblySearchMenu.cs b/RogueEssence/Menu/Team/AssemblySearchMenu.cs
+new file mode 100644
+index 00000000..38c97906
+--- /dev/null
++++ b/RogueEssence/Menu/Team/AssemblySearchMenu.cs
+@@ -0,0 +1,36 @@
++using System;
++
++namespace RogueEssence.Menu
++{
++    public class AssemblySearchMenu : TextInputMenu
++    {
++        public const int MAX_LENGTH = 120;
++        public override int MaxLength => MAX_LENGTH;
++
++        private readonly OnChooseText chooseTextAction;
++        private readonly Action cancelAction;
++
++        public AssemblySearchMenu(string title, string defaultValue,
++            OnChooseText action, Action cancelAction)
++        {
++            Label = "ASSEMBLY_SEARCH_MENU";
++            chooseTextAction = action;
++            this.cancelAction = cancelAction;
++            Initialize(title, "", 256, defaultValue ?? "");
++        }
++
++        protected override void Confirmed()
++        {
++            GameManager.Instance.SE("Menu/Confirm");
++            MenuManager.Instance.RemoveMenu();
++            chooseTextAction(Text.Text.Trim());
++        }
++
++        protected override void Canceled()
++        {
++            GameManager.Instance.SE("Menu/Cancel");
++            MenuManager.Instance.RemoveMenu();
++            cancelAction();
++        }
++    }
++}
+-- 
+2.51.1.windows.1
+

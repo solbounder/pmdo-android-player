@@ -103,7 +103,7 @@ namespace RogueEssence.Content
         {
             if (songs == null) return;
             foreach (SongSetting song in songs.Values)
-                song.Song.Volume = bgmVol * BGMBalance * (float)Math.Log10(song.CrossVolume * 9f + 1f);
+                song.Song.Volume = AudioVolume.Sanitize(bgmVol * BGMBalance * (float)Math.Log10(song.CrossVolume * 9f + 1f));
         }
 
         public static void PlayLoopedSE(string fileName, float volume = 1f)
@@ -114,7 +114,7 @@ namespace RogueEssence.Content
                 LoopedSong effect = null;
                 try
                 {
-                    effect = new LoopedSong(fileName) { Volume = volume * SEBalance };
+                    effect = new LoopedSong(fileName) { Volume = AudioVolume.Sanitize(volume * SEBalance) };
                     effect.Play();
                     loopedSE.Add(fileName, effect);
                     return;
@@ -151,7 +151,7 @@ namespace RogueEssence.Content
 
         public static void SetLoopedSEVolume(string fileName, float volume)
         {
-            if (loopedSE.TryGetValue(fileName, out LoopedSong effect)) effect.Volume = volume * SEBalance;
+            if (loopedSE.TryGetValue(fileName, out LoopedSong effect)) effect.Volume = AudioVolume.Sanitize(volume * SEBalance);
         }
 
         public static void NewFrame(GameTime gameTime)
@@ -231,7 +231,7 @@ namespace RogueEssence.Content
                 try
                 {
                     sound = new DynamicSoundEffectInstance(reader.SampleRate, reader.Channels == 1 ? AudioChannels.Mono : AudioChannels.Stereo);
-                    sound.Volume = volume * seBalance;
+                    sound.Volume = AudioVolume.Sanitize(volume * seBalance);
                     sound.SubmitBuffer(pcm);
                     sound.Play();
                     sounds.Add(sound);

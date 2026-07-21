@@ -1,0 +1,2207 @@
+{
+    "schemaVersion":  1,
+    "questNamespace":  "echoes_of_the_abyss",
+    "questVersion":  "0.8.0",
+    "files":  [
+                  {
+                      "path":  "ATTRIBUTION.md",
+                      "length":  4073,
+                      "sha256":  "2C06C2883A07EF6620BBEDE65346631E59401B5AD1C246B9E463B1D0D43C49C9"
+                  },
+                  {
+                      "path":  "Content/BG/Blizzard.dir",
+                      "length":  200,
+                      "sha256":  "0D1FB18F9AC2B8EA26A376A592E55D32E04312546A12CAF0E259B88FCE2EEFAC"
+                  },
+                  {
+                      "path":  "Content/BG/eota_intro_abyss_01.dir",
+                      "length":  136584,
+                      "sha256":  "97009F6C0A1F1B0421BB7A136B78941A6165DD8306044AF53D2F6207D22CD341"
+                  },
+                  {
+                      "path":  "Content/BG/eota_intro_abyss_02.dir",
+                      "length":  124675,
+                      "sha256":  "F652EDF8C0EC9D6F1976D0387BF739E80BAD47B69FF715068B6AA90787AD1A5F"
+                  },
+                  {
+                      "path":  "Content/BG/eota_intro_abyss_03.dir",
+                      "length":  117967,
+                      "sha256":  "5ECBAEF8FFB39358A1FD1691EA329E464F33D423779E298C46D98059897E577B"
+                  },
+                  {
+                      "path":  "Content/Music/Cryptic Cave.ogg",
+                      "length":  444336,
+                      "sha256":  "C7D0D8CFF28D827FE7AABD97BCE84EDDBE62EBED71B81A9383B51D99D116D69D"
+                  },
+                  {
+                      "path":  "Content/Music/Deep-Sea Current.ogg",
+                      "length":  729109,
+                      "sha256":  "B4C0BD9E7BF17F49A5B263E828C35B5734CF22A6D6FD2C3999320E7FE9C4363A"
+                  },
+                  {
+                      "path":  "Content/Music/Enclosed Island.ogg",
+                      "length":  638117,
+                      "sha256":  "94DBDF5872AFC3591F4CDFF56301BE497FCB55395A9D2419ACBFD6F6789388B3"
+                  },
+                  {
+                      "path":  "Content/Music/Final Island.ogg",
+                      "length":  938914,
+                      "sha256":  "E7620E580451723F80D18C7ADF8C853542C51EBAA2657F87067A46F303B31DD8"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Cave.ogg",
+                      "length":  769094,
+                      "sha256":  "AE26F5D31B41DA3F38544DF5043E3E0B36D1FB7599334B50A720914380B27494"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Field.ogg",
+                      "length":  462267,
+                      "sha256":  "AE6E01C24D4C5E4E7E744820B3DEBA35FF01AC8053CEDA88A761F9F4C18A05FC"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Forest.ogg",
+                      "length":  727100,
+                      "sha256":  "56CB20253D8D39ECE029B39128980242785DF9E5DAEE5878D2253910832EF80B"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Lab.ogg",
+                      "length":  647650,
+                      "sha256":  "A671A372F7F6E25D1492A4DFB569C23435AF7052C30B484797D4528A482245AC"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Oceanic.ogg",
+                      "length":  848199,
+                      "sha256":  "15C6BCDD2AE89691923C4D96D76B18DE78088943D9ED9DD27AC815DBF4BDBF88"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Pond.ogg",
+                      "length":  710999,
+                      "sha256":  "CF8AFF7D52DBB8414A336FF26997F39CCCE69E64E6793887B464067B0DDA80FA"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Steppe.ogg",
+                      "length":  834977,
+                      "sha256":  "8B751F03CFBADF60015A383EE662046C1773C927781B597E93D9DC64EF5B6433"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Swamp.ogg",
+                      "length":  631020,
+                      "sha256":  "EBC734F5ACDBA25D9AF10EB28396470CF296BC0488A780FF6502EEF58A5B9CD1"
+                  },
+                  {
+                      "path":  "Content/Music/Friend Area Wilds.ogg",
+                      "length":  565989,
+                      "sha256":  "F92F2C6577ED4FD2C591FA0B37C98489F981978721C09FB3C808F5CCD031A364"
+                  },
+                  {
+                      "path":  "Content/Music/Healing Forest.ogg",
+                      "length":  563104,
+                      "sha256":  "17F10133DBACC596B8D3A64A000118BED15B20F716FDAD37C53DB2F80439AECE"
+                  },
+                  {
+                      "path":  "Content/Music/Legendary Island.ogg",
+                      "length":  628028,
+                      "sha256":  "3FAD6E8AE1F47F58331798A3AFA62C6A6E5FE39C5AC1460B1A1E8D130359FF31"
+                  },
+                  {
+                      "path":  "Content/Music/Pokémon Square.ogg",
+                      "length":  1120084,
+                      "sha256":  "7030D67E33461959FD351DD91F3D04D89706D712771D93D2DD006E35D6071353"
+                  },
+                  {
+                      "path":  "Content/Music/Rainbow Peak.ogg",
+                      "length":  603897,
+                      "sha256":  "A7B211749BCF926AA952CEA7290337D8D147280DDDF6E2DFF7A4F30E0505266A"
+                  },
+                  {
+                      "path":  "Content/Music/Seafloor Cave.ogg",
+                      "length":  772267,
+                      "sha256":  "823CBD3F3DC8F11BCDA3C121A1E77D3F6F8B8B8D1F12185BA41F84B0FD006069"
+                  },
+                  {
+                      "path":  "Content/Music/Southern Island.ogg",
+                      "length":  957841,
+                      "sha256":  "198F24420DE8B64D7AA0579EC3005C6AA748ED3E1F7E1EE6E0B91520C2CD4525"
+                  },
+                  {
+                      "path":  "Content/Music/Stratos Lookout.ogg",
+                      "length":  761425,
+                      "sha256":  "ABF1DAEC459D449C4F7B130D2FF626AAABA9F1AA1D6889568584EB1AED44BA7E"
+                  },
+                  {
+                      "path":  "Content/Music/Volcanic Pit.ogg",
+                      "length":  460126,
+                      "sha256":  "C62497001863E0D6FCC189BA0068DB9EA9ED9915538751B2682724981D9C9DFB"
+                  },
+                  {
+                      "path":  "Content/Object/A_T.dir",
+                      "length":  6505,
+                      "sha256":  "873FC94832033597B8B1CBC67928D247EFDF2F6D84C5DA79B20ED99C33979896"
+                  },
+                  {
+                      "path":  "Content/Object/Blizzard.dir",
+                      "length":  200,
+                      "sha256":  "BDAFE67B32DB1531E797A34AC444614554E45712460AFF016319AF7F85E5D6A2"
+                  },
+                  {
+                      "path":  "Content/Object/bs_lightball.dir",
+                      "length":  471,
+                      "sha256":  "6129DB6A267EB30DC60F1FD57984FB6BDE4B4B2F28A4DD83A09C8F2EE0B75D6B"
+                  },
+                  {
+                      "path":  "Content/Object/bs_plant.dir",
+                      "length":  1635,
+                      "sha256":  "CBAB45EA6AA72A6F4F31C5414C6D94620F9134E62B732DFB984FC5F94BC22187"
+                  },
+                  {
+                      "path":  "Content/Object/c_magma.dir",
+                      "length":  2271,
+                      "sha256":  "F911729163C4A158B4500264CC65A7F0F607BF27F478B3B58DEE7636AE5E1AB3"
+                  },
+                  {
+                      "path":  "Content/Object/c_smoke_1.dir",
+                      "length":  52104,
+                      "sha256":  "8181507F5951F448BB7F6C208609A23457534C1311CB8ED4929931E81DF844CE"
+                  },
+                  {
+                      "path":  "Content/Object/c_smoke_2.dir",
+                      "length":  27133,
+                      "sha256":  "3B26EC7BB27B20052B8483E0E406E36E747722AB18A26484E3D2492736976052"
+                  },
+                  {
+                      "path":  "Content/Object/c_smoke_3.dir",
+                      "length":  1388,
+                      "sha256":  "94FA401401E2CE204BA7E9C7D446B23BCCE38352CD1A177C05114C153BD54140"
+                  },
+                  {
+                      "path":  "Content/Object/c_smoke_4.dir",
+                      "length":  1397,
+                      "sha256":  "F19A395DD5E886B6DAA1E053C99BBB5C6979DFEF57EA9AEA97680C2CD34212D3"
+                  },
+                  {
+                      "path":  "Content/Object/dl_machine.dir",
+                      "length":  17798,
+                      "sha256":  "EC0F22EFB81D4EF48E390ED40641F21EFFDB849A06FAAD7D2C811BE057F5AE12"
+                  },
+                  {
+                      "path":  "Content/Object/dl_tv_1.dir",
+                      "length":  6318,
+                      "sha256":  "19A073FECDDC00D5E7B112A362F89311E0D15FD313FBB4CB96C4BF92539AD734"
+                  },
+                  {
+                      "path":  "Content/Object/dl_tv_2.dir",
+                      "length":  1005,
+                      "sha256":  "76A689296B2CE2D1C65067F93F3A26DFD566E77E38ADAE4471BE04AC766ABB81"
+                  },
+                  {
+                      "path":  "Content/Object/dl_tv_3.dir",
+                      "length":  945,
+                      "sha256":  "ACE96625B85BCF7DA92F906A77120B92C7011C5917B24F13043EF6C7DE7E6F1F"
+                  },
+                  {
+                      "path":  "Content/Object/dl_tv_4.dir",
+                      "length":  962,
+                      "sha256":  "C3E750D421184E2E57786686606FEF567C37655A3B610D938A2696E71E8F750A"
+                  },
+                  {
+                      "path":  "Content/Object/dl_tv_5.dir",
+                      "length":  1457,
+                      "sha256":  "225132CF57B56FC960AC89473061638E1ABC4D289F94D5F6A12CE0B1B3AE0E7C"
+                  },
+                  {
+                      "path":  "Content/Object/dl_tv_6.dir",
+                      "length":  1388,
+                      "sha256":  "84E3B5DE4847ABE7FDBD6C071A675ABAE4F8750BAE2D44D6438E3D112C16E9D2"
+                  },
+                  {
+                      "path":  "Content/Object/dl_tv_7.dir",
+                      "length":  2203,
+                      "sha256":  "8F01289D80CCC1D3691C2497F50E04BD5558F16DD3D0773B15419223B41E8D23"
+                  },
+                  {
+                      "path":  "Content/Object/dl_water_1.dir",
+                      "length":  661,
+                      "sha256":  "D586E5EBD7B79956EB14DD179DBFFB968FF122877B2246D678D3380E021F8B6E"
+                  },
+                  {
+                      "path":  "Content/Object/dl_water_2.dir",
+                      "length":  677,
+                      "sha256":  "D83CBA92AF078C254F8EC9D0B6FEA0FEEDDADFF827ED924C507C219D1C886525"
+                  },
+                  {
+                      "path":  "Content/Object/DR.dir",
+                      "length":  5993,
+                      "sha256":  "FC75BD72C1BB2988BE45692003F2BC2D3C3763EEA9E1B3D3E80289EAB7D261F2"
+                  },
+                  {
+                      "path":  "Content/Object/dsc_light.dir",
+                      "length":  1845,
+                      "sha256":  "4F10E3E59484383F14693CEC8D1929352E0B97FB8F5BD6F99A55DA327B833BC1"
+                  },
+                  {
+                      "path":  "Content/Object/ec_wave_2.dir",
+                      "length":  2298,
+                      "sha256":  "6ECA763E2597F8705331464422B7367CEFC5BADC2BB0E08AEE5181F6AAF71293"
+                  },
+                  {
+                      "path":  "Content/Object/ec_wave_3.dir",
+                      "length":  552,
+                      "sha256":  "A2C50632B0EB4AEE6CDDD929B4469D9A6350E5E9BC05EE74847C5FFD9B2D7105"
+                  },
+                  {
+                      "path":  "Content/Object/ec_wave_4.dir",
+                      "length":  570,
+                      "sha256":  "C75924F08AA377AC2477D6AFB28121BE66B38A15EB7DF46F1AC32EA7039E10C0"
+                  },
+                  {
+                      "path":  "Content/Object/ec_wave1.dir",
+                      "length":  2032,
+                      "sha256":  "ED945836A7B190578420745D5D579794C767FC0741E9093C12BE240C2A783F3A"
+                  },
+                  {
+                      "path":  "Content/Object/ef_energy.dir",
+                      "length":  475,
+                      "sha256":  "09D74378B9058EAE63BF1C37BBE26D0729DE6CBCE0CFD4960DA40C97C9305B34"
+                  },
+                  {
+                      "path":  "Content/Object/ef_transparency.dir",
+                      "length":  35652,
+                      "sha256":  "C35BB880AFEA71AF9D446839955AA97AE7C4A47615D551F9F07D2C4674551F7D"
+                  },
+                  {
+                      "path":  "Content/Object/ei_light_1.dir",
+                      "length":  264,
+                      "sha256":  "0B58321AE94A9504AA892CAA364FE5EB23317033BAFEC2D424BF24A6197115A3"
+                  },
+                  {
+                      "path":  "Content/Object/ei_light_2.dir",
+                      "length":  202,
+                      "sha256":  "F7A2364500C9A3EE384F6AB5A75D35B9D6CBEA745949EB356AE77484B2B51C33"
+                  },
+                  {
+                      "path":  "Content/Object/ei_light_3.dir",
+                      "length":  165,
+                      "sha256":  "BD02A7CC17A7C442B3D93CB4560E783EC2ED90864ABF012206EA62118E3737D5"
+                  },
+                  {
+                      "path":  "Content/Object/ei_wave.dir",
+                      "length":  66908,
+                      "sha256":  "C0BDABD4701E8E13711429044B2AC8D2785A307CDB584805D7928010871B4F10"
+                  },
+                  {
+                      "path":  "Content/Object/FC.dir",
+                      "length":  18193,
+                      "sha256":  "5A3020A58607D90FD92A54917852BA7C27F9E0654735BAAA330AC851541794A1"
+                  },
+                  {
+                      "path":  "Content/Object/FC1.dir",
+                      "length":  19282,
+                      "sha256":  "0159E602881CB4E630158C81E2789AEAE2C79D5FA6E0C85B16B6574F5D6B540A"
+                  },
+                  {
+                      "path":  "Content/Object/fd_sand.dir",
+                      "length":  61785,
+                      "sha256":  "0CB54CC4559BEE4A133F86A8E3080673586E20589F7F85143AEAFB8C2968624B"
+                  },
+                  {
+                      "path":  "Content/Object/fd_sand_1.dir",
+                      "length":  14234,
+                      "sha256":  "FEA2D573A4F0B4A33006163EBC28C3A59337D1120F7A6A74815DB192ED2478E7"
+                  },
+                  {
+                      "path":  "Content/Object/fd_sand_2.dir",
+                      "length":  12839,
+                      "sha256":  "BE29AE2FC2CD20B6EFBF02F7BD8EA24455ABB940F99A86705F233065835E62DA"
+                  },
+                  {
+                      "path":  "Content/Object/fd_sand_3.dir",
+                      "length":  2223,
+                      "sha256":  "8472A51DB2507C2AFB77ACDD115EBDF6CB573936F881D2994B506E27F949BC7A"
+                  },
+                  {
+                      "path":  "Content/Object/FF.dir",
+                      "length":  36463,
+                      "sha256":  "5E31496891DD14674D311DF77B3C0CA182F96C99D088BF894EF7B8B5AFE16CCE"
+                  },
+                  {
+                      "path":  "Content/Object/ff_cloud_1.dir",
+                      "length":  2139,
+                      "sha256":  "B62B3BFDAFCB5AF2AAA202E0C69215CCA31DE3A1E9641B7D2DB01B688F39516A"
+                  },
+                  {
+                      "path":  "Content/Object/ff_cloud_2.dir",
+                      "length":  1840,
+                      "sha256":  "A638B1748F039A762950B34C756481D07E5FA916B01BA7ED7D7C14553AEBB949"
+                  },
+                  {
+                      "path":  "Content/Object/j_water.dir",
+                      "length":  32597,
+                      "sha256":  "191DF6437636A4081555497A0386A925282A09A0E477AB8A8AD6295F6142480F"
+                  },
+                  {
+                      "path":  "Content/Object/li_lava.dir",
+                      "length":  5539,
+                      "sha256":  "F24C8815095A439E186DB5255A0ED8B4EA811992D284F96F4984DD27E24FFB68"
+                  },
+                  {
+                      "path":  "Content/Object/li_wave.dir",
+                      "length":  3541,
+                      "sha256":  "F925A413A7E9A717BE9967FB661A4299B43142A97279CBFA33BC607E20F8089E"
+                  },
+                  {
+                      "path":  "Content/Object/ligtorb.dir",
+                      "length":  2285,
+                      "sha256":  "0449E0F2AAC9A20AD72008F8A70BF72B385D71B3D08EB9A7AA7CB1504E27FC58"
+                  },
+                  {
+                      "path":  "Content/Object/MC.dir",
+                      "length":  6447,
+                      "sha256":  "FD7DEF2547E51E26358287F49AA940C66BCE402F83A6BE8459140F97D5EA9E72"
+                  },
+                  {
+                      "path":  "Content/Object/MC1.dir",
+                      "length":  7664,
+                      "sha256":  "1C6C5F4E007B4D15761B7B7B37CDA84EDE31DF51FD2A383DA243DFC720A98EA6"
+                  },
+                  {
+                      "path":  "Content/Object/MD1.dir",
+                      "length":  2699,
+                      "sha256":  "5C5EAE2B8895D0959A52384697AF5D39FB672FD724EB3F546D954FC57B9649C2"
+                  },
+                  {
+                      "path":  "Content/Object/MD2.dir",
+                      "length":  2428,
+                      "sha256":  "A3ED6842DF6C3537410051BD833A9E2B9E4506B357AE7B30016C1619BFF57C6D"
+                  },
+                  {
+                      "path":  "Content/Object/MM.dir",
+                      "length":  7203,
+                      "sha256":  "7F503019AA6E83505261ACBD7FFA3C19667814817625AEB5AE6EB35B17FCCB94"
+                  },
+                  {
+                      "path":  "Content/Object/MM1.dir",
+                      "length":  7689,
+                      "sha256":  "AB323D14DBFBD7E36850CD854B0E163007D96EE53CD4649F9F3907FEA2D5AB7B"
+                  },
+                  {
+                      "path":  "Content/Object/MM2.dir",
+                      "length":  7679,
+                      "sha256":  "94D0BEA9309172B81FEFD84F2CFAEBA4C0DDBDAC6108E2E8E82E4B45B63D49EA"
+                  },
+                  {
+                      "path":  "Content/Object/MM3.dir",
+                      "length":  5336,
+                      "sha256":  "BE8C71CAB282DF540B80249106794FE3191255FDAEAE486A22FD76A9D0CD4802"
+                  },
+                  {
+                      "path":  "Content/Object/MRF.dir",
+                      "length":  58700,
+                      "sha256":  "3EA705D84765181827ECE6A38C3A335E20516A023165CCC63DEA41568EF2221F"
+                  },
+                  {
+                      "path":  "Content/Object/MRF1.dir",
+                      "length":  17195,
+                      "sha256":  "024F5AF1866395A0CBE6D5B480A936A62807CF7F9E2FD08E00DB5070AD47D527"
+                  },
+                  {
+                      "path":  "Content/Object/MRF2.dir",
+                      "length":  17073,
+                      "sha256":  "A76BBA6325D5C5598CC423D4D2FDFDA8B8D1CDC9FEBF2FEEBFC39ECE5FD9C507"
+                  },
+                  {
+                      "path":  "Content/Object/mv_moon.dir",
+                      "length":  6940,
+                      "sha256":  "7FFD37647FDE556236D1B45CD75ED21F89C478CF5A00977EE9D36CC3EC61EEB1"
+                  },
+                  {
+                      "path":  "Content/Object/OF.dir",
+                      "length":  40820,
+                      "sha256":  "AAFC65AA3A8D7F0523175E6707CD8B9E4402565F0A0E7D8873187999F0328635"
+                  },
+                  {
+                      "path":  "Content/Object/OF1.dir",
+                      "length":  28113,
+                      "sha256":  "8F49742A26B3BAF3BB1FF64CBF7156EA0AF72B53CD99FBB7416D8EF16DB53AAC"
+                  },
+                  {
+                      "path":  "Content/Object/pp_fan.dir",
+                      "length":  4955,
+                      "sha256":  "F4C0119D8D22282CB02855D8D05801585FF5FB94651C8A8D89EE51F4CEEF5030"
+                  },
+                  {
+                      "path":  "Content/Object/pp_machine.dir",
+                      "length":  5532,
+                      "sha256":  "79854630C6650014CA576A51011A3BD5BCB6D2F8BD7EB03E8EB3B87F84C1393F"
+                  },
+                  {
+                      "path":  "Content/Object/pp_machine_1.dir",
+                      "length":  933,
+                      "sha256":  "41DD993273341FF4874DC6F58734F2C4AB4653AFCB17DD2FF28ACB5FD580C1B9"
+                  },
+                  {
+                      "path":  "Content/Object/PS.dir",
+                      "length":  12938,
+                      "sha256":  "16F6B0958E288B10ABFCB9764CCD597408447FA163489286EB7BACE3BFDD9219"
+                  },
+                  {
+                      "path":  "Content/Object/ps_bubble.dir",
+                      "length":  793,
+                      "sha256":  "95096452D1CD9D5ADDA31CE3B50779EFDEC529CD7E923A1D8E0A542D4E1D5B52"
+                  },
+                  {
+                      "path":  "Content/Object/ps_bubble_1.dir",
+                      "length":  335,
+                      "sha256":  "2C34DEE776EF1751CB9FD5A39BA023FD3CFACB83742E102F1F67400E3BF02785"
+                  },
+                  {
+                      "path":  "Content/Object/PS1.dir",
+                      "length":  8246,
+                      "sha256":  "235CE08E3163548226635F4CB1AAC8F24E4B76B22EDA95E2813D49808BF080A5"
+                  },
+                  {
+                      "path":  "Content/Object/RADR.dir",
+                      "length":  3594,
+                      "sha256":  "77273EAFE818C451AACE34D33E626B7205190CB957741DF83ACDDD9AB4185638"
+                  },
+                  {
+                      "path":  "Content/Object/Roxk.dir",
+                      "length":  35671,
+                      "sha256":  "3B4D00FAA776F6D8B7E95E50DADC1277726DBFA1F06A7423A36F3FF66B64C26A"
+                  },
+                  {
+                      "path":  "Content/Object/S1.dir",
+                      "length":  46713,
+                      "sha256":  "B066125AF780E82D6E7928524FE3497E71491589820081D296D6B505C492C3C3"
+                  },
+                  {
+                      "path":  "Content/Object/S2.dir",
+                      "length":  46496,
+                      "sha256":  "7AD3F920D5945CC8E8B92E7D99B16EC6723E07F41E1CA643CCD888BF5108C734"
+                  },
+                  {
+                      "path":  "Content/Object/sand1.dir",
+                      "length":  20880,
+                      "sha256":  "9DFB00C449110EDF3639EDB7BBA09558AC7FF75D52354E9A121698ABE2CE362C"
+                  },
+                  {
+                      "path":  "Content/Object/si_flower_1.dir",
+                      "length":  1210,
+                      "sha256":  "2825374A03873E0C7A94569D2703F3E7774184F0A541C6429CFD715B5C5C1E23"
+                  },
+                  {
+                      "path":  "Content/Object/si_flower_2.dir",
+                      "length":  1098,
+                      "sha256":  "0C1B7ACDCF2F2E5E983B2F9BF69100C08FF1867B7765CE733D15E96F9E711658"
+                  },
+                  {
+                      "path":  "Content/Object/si_light_1.dir",
+                      "length":  353,
+                      "sha256":  "78E70BBF7B34F35FCCA91FD3093D333EFC1F0E47311A52F6B07F98483A98888A"
+                  },
+                  {
+                      "path":  "Content/Object/si_light_2.dir",
+                      "length":  349,
+                      "sha256":  "277FDFE39E765BC1C3619B26732E7FD15D280E5016C73A61C21C8FF47E7796CF"
+                  },
+                  {
+                      "path":  "Content/Object/si_light_3.dir",
+                      "length":  246,
+                      "sha256":  "BEBD1D5C8C7274CD662AE74CDDBABC157D736180DE82A92B7EF217DBF0C79AAB"
+                  },
+                  {
+                      "path":  "Content/Object/si_wave.dir",
+                      "length":  10466,
+                      "sha256":  "7B2805BD4869ACA40B1A15EC890FA4E6468C0F22A2B68ED9D0A8F33728AE6C7F"
+                  },
+                  {
+                      "path":  "Content/Object/Snow.dir",
+                      "length":  815,
+                      "sha256":  "A784731B6D6C7C11BD6F04C385A62BC76D3D053324F4069DDD6F687E9AACC30D"
+                  },
+                  {
+                      "path":  "Content/Object/sp_fire_1.dir",
+                      "length":  1941,
+                      "sha256":  "C94C8602ADC57055B1FA71EF7EE21DC1B798BA9CD834B4A8DAD26951C72AD751"
+                  },
+                  {
+                      "path":  "Content/Object/sp_fire_2.dir",
+                      "length":  1877,
+                      "sha256":  "8A9508717D048FB88223BD0269D822350C25E8449BDAE08DBF1B78141AB2D85F"
+                  },
+                  {
+                      "path":  "Content/Object/sp_fire_3.dir",
+                      "length":  961,
+                      "sha256":  "AB06490B275E2F87379F7825F4ACC7C6CCCC097DC0DAF1E7858CB97A0AB28220"
+                  },
+                  {
+                      "path":  "Content/Object/sp_fire_4.dir",
+                      "length":  958,
+                      "sha256":  "32198BD3DD37E5DBE31A59BF54639251E48C3BA7FB2EEF45AD0FC8D429FEFA0F"
+                  },
+                  {
+                      "path":  "Content/Object/sp_fire_5.dir",
+                      "length":  370,
+                      "sha256":  "B68A9565ECDBAD221E1286E3DBF0F715950E980659626DE93CE9FD405C00C6BA"
+                  },
+                  {
+                      "path":  "Content/Object/sp_fire_6.dir",
+                      "length":  217,
+                      "sha256":  "77DCABA0BE83EF0B0DF4BD419764A2E83E6179E75DE79757778BB4B6B6749761"
+                  },
+                  {
+                      "path":  "Content/Object/tf_stone.dir",
+                      "length":  26499,
+                      "sha256":  "96ECA6E4FF8CDC3230E578E5F17DBE8543508DD35D482B0D6346DE2B8A28765C"
+                  },
+                  {
+                      "path":  "Content/Object/TM.dir",
+                      "length":  8819,
+                      "sha256":  "2A7B908EDC42360110A0BF4D781EF58C677723EDFB4049EF5AEE4F6FFE7D21A6"
+                  },
+                  {
+                      "path":  "Content/Object/tm_thunder_1.dir",
+                      "length":  809,
+                      "sha256":  "61CBE520B035B9E62F086786E0111F0BEDE3F4163F10924F3CAF00ABDB030F37"
+                  },
+                  {
+                      "path":  "Content/Object/tm_thunder_2.dir",
+                      "length":  801,
+                      "sha256":  "E0237A7CF2027C433FD2958CDD16D6CB7574B6796C672CFD8BD1792476643DB6"
+                  },
+                  {
+                      "path":  "Content/Object/tm_thunder_3.dir",
+                      "length":  478,
+                      "sha256":  "53E61C885596BE15C03CAF667F0428A541C767F0C6DAB61DA4983E9691DB5750"
+                  },
+                  {
+                      "path":  "Content/Object/tm_thunder_4.dir",
+                      "length":  475,
+                      "sha256":  "44AACB1381071811778EF1D6869F727E99DA938BFCAF62DABFB0475E59B89F43"
+                  },
+                  {
+                      "path":  "Content/Object/tm_thunder_5.dir",
+                      "length":  276,
+                      "sha256":  "B6D458904242957F834EE8EFD5298BB27040A034552381824D93EFFF4EED5FE2"
+                  },
+                  {
+                      "path":  "Content/Object/tp_ripples.dir",
+                      "length":  520,
+                      "sha256":  "8666923EA9EEA922D085BD98E3FDCAAF40137813C0D90D914BE5C6886A809A43"
+                  },
+                  {
+                      "path":  "Content/Object/tup_ripples.dir",
+                      "length":  520,
+                      "sha256":  "F1F4A7E0305E18CDB4FCEBB938EC97B6185F3C2AF97AB32C3FFDFBE34BBE6426"
+                  },
+                  {
+                      "path":  "Content/Object/vp_erupt.dir",
+                      "length":  3875,
+                      "sha256":  "1C1A287F802A621728312BDDFAC7198F9785D1492192D0385CF3716BE018F6D1"
+                  },
+                  {
+                      "path":  "Content/Object/vp_erupt_1.dir",
+                      "length":  14471,
+                      "sha256":  "600AC3EEE31492864D252EDEEEE86163B717BCF13FCBBA914B26BC7418BE8A28"
+                  },
+                  {
+                      "path":  "Content/Object/vp_erupt_2.dir",
+                      "length":  7812,
+                      "sha256":  "976C22EDC234661E87DBD25C49885F6956FDAB015549D11A6ABCBF35066B3715"
+                  },
+                  {
+                      "path":  "Content/Object/vp_erupt_3.dir",
+                      "length":  4564,
+                      "sha256":  "C3B957864B03494CC069550B109B1C4484A7C086B404E66199A22B4412E26D71"
+                  },
+                  {
+                      "path":  "Content/Object/vp_pop_1.dir",
+                      "length":  450,
+                      "sha256":  "70188C686EB817F82E37CC488F62AA5A2BD756E5DAB97FD5E203D5A78B00D3BD"
+                  },
+                  {
+                      "path":  "Content/Object/vp_pop_2.dir",
+                      "length":  643,
+                      "sha256":  "A0E7C086EE8099A28E483F64613A6FDADCFAE03660AC5FD52F34E7454D3FEF3C"
+                  },
+                  {
+                      "path":  "Content/Object/vp_pop_3.dir",
+                      "length":  133678,
+                      "sha256":  "806B09B1814211163114E882009810487FE49285AFCE6BE42F5BA246DDAC4884"
+                  },
+                  {
+                      "path":  "Content/Object/vp_pop_4.dir",
+                      "length":  939,
+                      "sha256":  "A8C5B81EF0EF8670ED24214DAEACC1ABB9ADF72E4FF33EE4314B3EA922525D65"
+                  },
+                  {
+                      "path":  "Content/Tile/5359 (1).tile",
+                      "length":  127060,
+                      "sha256":  "84D26E51BA6BE40E741A3DF368C24077ECE4E24F39CF7F24457FA31DD819B0E6"
+                  },
+                  {
+                      "path":  "Content/Tile/5365.tile",
+                      "length":  692647,
+                      "sha256":  "5F7CD0A9A3618DC9A01052FDA589D689362C0AEB39A145A2FF2E8A3602E81676"
+                  },
+                  {
+                      "path":  "Content/Tile/5387.tile",
+                      "length":  105711,
+                      "sha256":  "0852759167397A7255D5A82481CF82B345909A090B3458E25703BD1C2B565096"
+                  },
+                  {
+                      "path":  "Content/Tile/Aged Chamber AN.tile",
+                      "length":  214741,
+                      "sha256":  "81A64B2D6179F801CD18D93383B5D29C47D9A336EB59CEE2AFE3903FD773B1EE"
+                  },
+                  {
+                      "path":  "Content/Tile/Aged_Chamber_AN_RTRB.tile",
+                      "length":  127747,
+                      "sha256":  "E36838909ABBA2C8AEABA8C1B1A8630DEF7201A82DF298C1EC816F206D63150C"
+                  },
+                  {
+                      "path":  "Content/Tile/Aged_Chamber_O_RTRB.tile",
+                      "length":  127218,
+                      "sha256":  "EC74EA4130D80079D8536E188FC94E0AA27BEBA9DBC65926CA83E065DFCDFDE1"
+                  },
+                  {
+                      "path":  "Content/Tile/Ancient_Relic_RTRB.tile",
+                      "length":  151999,
+                      "sha256":  "3736C976CB82083F4811B6C1AC4A33CF404B7BCA6D89DD71D4481175A6BD40AF"
+                  },
+                  {
+                      "path":  "Content/Tile/Beau_Plains_RTRB.tile",
+                      "length":  92872,
+                      "sha256":  "0A21CD79C3AA8F19EE12D37AB9F1A6F0F1CEC59F1F8E8D858D1FC992DBC5AF9C"
+                  },
+                  {
+                      "path":  "Content/Tile/Blizzard.16.tile",
+                      "length":  208,
+                      "sha256":  "FA6D4A527CE2392CA198BF5818F82395013FC89DE93E1380287A9EB4FA28BE83"
+                  },
+                  {
+                      "path":  "Content/Tile/Boulder_Cave_RTRB.tile",
+                      "length":  108865,
+                      "sha256":  "1A46FD441FE042F2819C1D9B0B7638F8DE77E56FFE562BC788E1C2E4BF2E6F00"
+                  },
+                  {
+                      "path":  "Content/Tile/Bountiful_Sea_RTRB.tile",
+                      "length":  153898,
+                      "sha256":  "1DCE10468EF5C2616DCF863D0CDB72B8B60491519C4211FE27334485AE2FF082"
+                  },
+                  {
+                      "path":  "Content/Tile/Crater_RTRB.tile",
+                      "length":  114530,
+                      "sha256":  "50304D2EED715A6CF759CC9C38A1D0023FEDAC38863E2CCFE85E3B09F5253875"
+                  },
+                  {
+                      "path":  "Content/Tile/Cryptic_Cave_RTRB.tile",
+                      "length":  53663,
+                      "sha256":  "FC7099B569D25D292B3011A61A3A95DD416E72DF35EBC7986E441E4A7500CFAE"
+                  },
+                  {
+                      "path":  "Content/Tile/Darkness_Ridge_RTRB.tile",
+                      "length":  74743,
+                      "sha256":  "433C5E8A382A5549D2075679038CB3DA4C24529FE592D7E2836134CC36A39474"
+                  },
+                  {
+                      "path":  "Content/Tile/Decrepit_Lab_RTRB.tile",
+                      "length":  90737,
+                      "sha256":  "754B4CF96E303B29AB8DED4C7D92407C6FB4447135FA81E13EB3E373B0EB151A"
+                  },
+                  {
+                      "path":  "Content/Tile/Deep_Sea_Floor_RTRB.tile",
+                      "length":  91547,
+                      "sha256":  "5E5A50CF2B1A65AA98A3586302FDA4BCD68D0BB7D0F85E9B58BEAEA10F73392F"
+                  },
+                  {
+                      "path":  "Content/Tile/Deep-Sea_Current_RTRB.tile",
+                      "length":  52948,
+                      "sha256":  "AA330A6C62A780454FF21537F1198162D7D890AA53922395A868ECD9B57DE854"
+                  },
+                  {
+                      "path":  "Content/Tile/Dragon_Cave_RTRB.tile",
+                      "length":  76548,
+                      "sha256":  "40ACE3E3488257BE5EF9923B8B8C9902FD573DE3554FC438BF4D65EF4E1BAFBA"
+                  },
+                  {
+                      "path":  "Content/Tile/Echo_Cave_RTRB.tile",
+                      "length":  99445,
+                      "sha256":  "B1C7B5A32AC9C6FAF5ACF0F8D75B4EE989B785476B2E842C604237C528CA90C1"
+                  },
+                  {
+                      "path":  "Content/Tile/Enclosed_Island_RTRB.tile",
+                      "length":  51343,
+                      "sha256":  "E3CE2135112BEE02AE7C4B157EE13ADC3140A33FF701D3E5BEBDBA441559F8D2"
+                  },
+                  {
+                      "path":  "Content/Tile/Energetic_Forest_RTRB.tile",
+                      "length":  95752,
+                      "sha256":  "DF0759E08947E8EA8D807F23D1C16207A2A1878A0CBC1C8A5F685736792737C5"
+                  },
+                  {
+                      "path":  "Content/Tile/FA_Map (1).tile",
+                      "length":  233457,
+                      "sha256":  "112E28327E0898DDD33442F248B386B83D1AE00B49C0188479CD7CB18AC94D73"
+                  },
+                  {
+                      "path":  "Content/Tile/FIbg.tile",
+                      "length":  17188,
+                      "sha256":  "C85ECF4DE0F9096AA480CB67098E4DD557E277A024892E8E987A8903DA960A49"
+                  },
+                  {
+                      "path":  "Content/Tile/Final_Island_RTRB.tile",
+                      "length":  70222,
+                      "sha256":  "3D5E2178AAE6E8A6010068D0E687A7004FCC1B66976C453643BFC8A95FA15D25"
+                  },
+                  {
+                      "path":  "Content/Tile/Flyaway_Forest_RTRB.tile",
+                      "length":  56295,
+                      "sha256":  "CC50C7F31DE4BBC0BAAEBEE8BEFC701A1568A3B4417F6CA7787F5E5820F5A6DC"
+                  },
+                  {
+                      "path":  "Content/Tile/Frigid_Cavern_RTRB.tile",
+                      "length":  103239,
+                      "sha256":  "72DC80D6A1A236C8DE5E673A03D57C04E2CEA4F4A32F36BC9B7E5EF123735BBB"
+                  },
+                  {
+                      "path":  "Content/Tile/Furnace_Desert_RTRB.tile",
+                      "length":  81542,
+                      "sha256":  "3FD688AD162D6C59E0F9DC600F86FDCA9952A5B31999E36182A946FA60E7A14B"
+                  },
+                  {
+                      "path":  "Content/Tile/Game Boy Advance - Pokemon Mystery Dungeon Red Rescue Team - Echo Cave_preview_rev_2.tile",
+                      "length":  7855,
+                      "sha256":  "22ED8AAFD60D54E1A543BEAE567B9DADF2D8942B5BE6D7F4F53230CD9D5397E9"
+                  },
+                  {
+                      "path":  "Content/Tile/Healing_Forest_RTRB.tile",
+                      "length":  110782,
+                      "sha256":  "687205040820CE46FF823133F845EE0238825D40DC7F612B4DC4EA96ADDC7E6C"
+                  },
+                  {
+                      "path":  "Content/Tile/Ice_Floe_Beach_RTRB.tile",
+                      "length":  69527,
+                      "sha256":  "0D59B062C707AAF0993E9762163AA954E8196C9F70FB4AD279AA356D9FCE79AC"
+                  },
+                  {
+                      "path":  "Content/Tile/index.idx",
+                      "length":  576791,
+                      "sha256":  "2E4BEC276C33FCEF5A22FCE5C4C3C94E820D807DAA9097AB67DFE58352F2E6A9"
+                  },
+                  {
+                      "path":  "Content/Tile/Jungle_RTRB.tile",
+                      "length":  84679,
+                      "sha256":  "E50AEB43E0CE3971139117A8006EF23F9D04CFB6A10DAFD8231C89F9A35342FA"
+                  },
+                  {
+                      "path":  "Content/Tile/Legendary_Island_RTRB.tile",
+                      "length":  73996,
+                      "sha256":  "06D64223C4F2F8D46E152916ECE3FAD623A05CA5E55AB0860816BCEF1C6EF11D"
+                  },
+                  {
+                      "path":  "Content/Tile/Magnetic_Quarry_RTRB.tile",
+                      "length":  116103,
+                      "sha256":  "7233ADD2B593B4483631EE1E0A12399CCFEBDD487EC29ED30B3929812AC384B5"
+                  },
+                  {
+                      "path":  "Content/Tile/Mist-Rise_Forest_RTRB.tile",
+                      "length":  72658,
+                      "sha256":  "E78A488314B11F69D246764870ADC53F522FAADAFC40EEA7720EF3B93BDF7DBB"
+                  },
+                  {
+                      "path":  "Content/Tile/Mt._Cleft_RTRB.tile",
+                      "length":  176702,
+                      "sha256":  "7E7AA098D3486A5CB03383D9DA38823608DD168E4B27CF108229EEEE47A6244C"
+                  },
+                  {
+                      "path":  "Content/Tile/Mt._Deepgreen_RTRB.tile",
+                      "length":  99541,
+                      "sha256":  "86063B9780E264F78A700F3AE9427530FA94716F2A6C6D89B7FF36CCC755E601"
+                  },
+                  {
+                      "path":  "Content/Tile/Mt._Discipline_RTRB.tile",
+                      "length":  124823,
+                      "sha256":  "90A2690C4FDCB5F8974F707A2725909D42A28649D93212A152916A5C0EB2EFF2"
+                  },
+                  {
+                      "path":  "Content/Tile/Mt._Moonview_RTRB.tile",
+                      "length":  87659,
+                      "sha256":  "1952BDE6E2C01FEBA9D3DB7875358E154DAE12C98DD3D4C7E45C39DB9173C308"
+                  },
+                  {
+                      "path":  "Content/Tile/Mushroom_Forest_RTRB.tile",
+                      "length":  91972,
+                      "sha256":  "DE502FD476975AEF0FA39AD45B4231FCB84B9B2C6FE999325D7A9D0BF2B35C9B"
+                  },
+                  {
+                      "path":  "Content/Tile/Mystic_Lake_RTRB.tile",
+                      "length":  122968,
+                      "sha256":  "61114DCC9DB95AF735533D80D51A7FAA9365658C978F05408A17122A33EB4243"
+                  },
+                  {
+                      "path":  "Content/Tile/Overgrown_Forest_RTRB.tile",
+                      "length":  112248,
+                      "sha256":  "3BC12AFA5216C0C1FD0AC736B7CE87BF8CF2654AB9D2138647C11544DCDB73FB"
+                  },
+                  {
+                      "path":  "Content/Tile/Peanut_Swamp_RTRB.tile",
+                      "length":  84866,
+                      "sha256":  "58611627784B0BAF844C24C4CBE23BAF53411EEB2D12BCF7B99960BBA9E00781"
+                  },
+                  {
+                      "path":  "Content/Tile/Poison_Swamp_RTRB.tile",
+                      "length":  71208,
+                      "sha256":  "EBA7902753E89B8BCB4F377E1667F07DFF0D25A13FD2D427759E01D647B989C6"
+                  },
+                  {
+                      "path":  "Content/Tile/Power_Plant_RTRB.tile",
+                      "length":  79813,
+                      "sha256":  "1629944608200BB54F11980B976ADB3367945691F99BC0D74867038A88867650"
+                  },
+                  {
+                      "path":  "Content/Tile/Rainbow_Peak_RTRB.tile",
+                      "length":  81942,
+                      "sha256":  "1390CA9020ACC5EBF012621C99F5814909CD2B3EB556537031FEAFB12D1BE31F"
+                  },
+                  {
+                      "path":  "Content/Tile/Ravaged_Field_RTRB.tile",
+                      "length":  112062,
+                      "sha256":  "9393EF56546E8CAB800D9AE2FFE3FF8BF329921407720291F8DDCFA23508468C"
+                  },
+                  {
+                      "path":  "Content/Tile/Rescue_Team_Base.tile",
+                      "length":  218351,
+                      "sha256":  "15C94F87996B50E531AC73A1F28F258E6EE92160B1A54916AF41840807AA4330"
+                  },
+                  {
+                      "path":  "Content/Tile/Rescue_Team_Base_Flag.tile",
+                      "length":  4307,
+                      "sha256":  "3DF3877A694AA4A325B870B733A292C8F2665EBE2D7E6F7035DA1425692F3DC4"
+                  },
+                  {
+                      "path":  "Content/Tile/Rescue_Team_Base_Inside.tile",
+                      "length":  74110,
+                      "sha256":  "C09BA6CC742C4AFEBD0B6564E73A3DA3DC213F2B4699463DB1D30EF7886E22CC"
+                  },
+                  {
+                      "path":  "Content/Tile/Rub-a-Dub_River_RTRB.tile",
+                      "length":  66023,
+                      "sha256":  "E412BCEFA5580F398825DEC35E4C7760521B1BB590F37E827365B0F9BE9FEB83"
+                  },
+                  {
+                      "path":  "Content/Tile/Sacred_Field_RTRB.tile",
+                      "length":  92469,
+                      "sha256":  "602EE420477924CCD11721A8F767A2D94A3335CCE882ED15B15576D5BBADC45B"
+                  },
+                  {
+                      "path":  "Content/Tile/Safari_RTRB.tile",
+                      "length":  104098,
+                      "sha256":  "146CDDA771974737026EF43172A2A14CE6500C5C589E6D4BA3CA5D8FECDEF5AD"
+                  },
+                  {
+                      "path":  "Content/Tile/Scorched_Plains_RTRB.tile",
+                      "length":  72259,
+                      "sha256":  "73E779B28B46C9147729834B786D47FC73DD88E1990CB25EBAB9450B70F43486"
+                  },
+                  {
+                      "path":  "Content/Tile/Seafloor_Cave_RTRB.tile",
+                      "length":  81995,
+                      "sha256":  "E30C94AA656F53742083FC82C5A928D5D6E9D480F5873519242E74CE7F6E8653"
+                  },
+                  {
+                      "path":  "Content/Tile/Secretive_Forest_RTRB.tile",
+                      "length":  94295,
+                      "sha256":  "CBA4E3B45E2CF69F9EB880E51985D3ED3EB46416B8D9D1A389545AD63A34B0D9"
+                  },
+                  {
+                      "path":  "Content/Tile/Serene_Sea_RTRB.tile",
+                      "length":  117823,
+                      "sha256":  "966574DF2F01B2895B46929968FE131D3B9ECA87C058DF32A0E5920AB05343C9"
+                  },
+                  {
+                      "path":  "Content/Tile/Shallow_Beach_RTRB.tile",
+                      "length":  96016,
+                      "sha256":  "ADC6FE6881AFC6AEE03CE08A900317BFF54002105B999DD66BBF92EF7FAAFB07"
+                  },
+                  {
+                      "path":  "Content/Tile/Sky_Blue_Plains_RTRB.tile",
+                      "length":  65742,
+                      "sha256":  "21054BD7B9DA27586457BC426B0078AEAC02313CBFD15A07B033BF99BC90F312"
+                  },
+                  {
+                      "path":  "Content/Tile/Southern_Island_RTRB.tile",
+                      "length":  73199,
+                      "sha256":  "3242411CD4CE79FC68121736E0C1CC6B4E518A55AAF39DCF15E459348399CD79"
+                  },
+                  {
+                      "path":  "Content/Tile/Stratos_Lookout_RTRB.tile",
+                      "length":  112627,
+                      "sha256":  "E97458D01362EFC21083C511AD03C02D1867309110F7A428387D831E044F7576"
+                  },
+                  {
+                      "path":  "Content/Tile/Tadpole_Pond_RTRB.tile",
+                      "length":  114028,
+                      "sha256":  "3CF53F91DA2F1AE68645C1512BB3A3E37544B9FD009B951806FF00DE630A0921"
+                  },
+                  {
+                      "path":  "Content/Tile/Thunder Meadow.tile",
+                      "length":  189801,
+                      "sha256":  "9F7735EEBA28FC1EF0CDF40E26432C1CC8C38C128A5F805D190773AD7FAF5E92"
+                  },
+                  {
+                      "path":  "Content/Tile/Thunder_Meadow_RTRB.tile",
+                      "length":  64739,
+                      "sha256":  "24B1822F1251772F3D7D43954E2486859A7F18B46F415D74D8DD82FBE2A74A58"
+                  },
+                  {
+                      "path":  "Content/Tile/Transform_Forest_RTRB.tile",
+                      "length":  139158,
+                      "sha256":  "A15E1E9EC0F9810A9BD9C4E236C11264710BCF2842D3E200ACA00F07DA5BE994"
+                  },
+                  {
+                      "path":  "Content/Tile/Treasure_Sea_RTRB.tile",
+                      "length":  92387,
+                      "sha256":  "FCD842477ABCF2487EBEE7B1829330A0AECD56BA52F08B70784249B7229E4D75"
+                  },
+                  {
+                      "path":  "Content/Tile/Turtleshell_Pond_RTRB.tile",
+                      "length":  89527,
+                      "sha256":  "255BEA1A896A91B62D48E2F59C7169F19627CA0997D96BBD1C9069E86706F9CF"
+                  },
+                  {
+                      "path":  "Content/Tile/Volcanic_Pit_RTRB.tile",
+                      "length":  89101,
+                      "sha256":  "975946E2F60640AA49240B96D8A86C0A900997B31307D325D4917CE7D463138D"
+                  },
+                  {
+                      "path":  "Content/Tile/Waterfall_Lake_RTRB.tile",
+                      "length":  72915,
+                      "sha256":  "549DB17994C46EEE93F41415555CD2C57630CD093E91A2043FDF5AB443337418"
+                  },
+                  {
+                      "path":  "Content/Tile/Wild_Plains_RTRB.tile",
+                      "length":  63894,
+                      "sha256":  "5719A1A9602D97DE1BC0783A608526EC3BC736454BAC396F0786FEEAB97C2049"
+                  },
+                  {
+                      "path":  "Content/UI/Title.png",
+                      "length":  78044,
+                      "sha256":  "7CA78E156CCD7C7E289A33428CE4A1EF31899BA2FA614DA09308F4A87C569EEE"
+                  },
+                  {
+                      "path":  "Data/Ground/aged_chamber_an.rsground",
+                      "length":  392857,
+                      "sha256":  "AD7F717DD8B407BE7BF9BF3F0D052B19F3FF8DF91AB700F477E42F7958F57E4F"
+                  },
+                  {
+                      "path":  "Data/Ground/aged_chamber_o.rsground",
+                      "length":  265685,
+                      "sha256":  "7C20D5F2C5DED9D781B37709BD1E870BD6A23430586296B52E2E35080DB79DF4"
+                  },
+                  {
+                      "path":  "Data/Ground/ancient_relic.rsground",
+                      "length":  264165,
+                      "sha256":  "C4671BF823882AF5CCBCFC6853241A7DDD5B149C738B280601176EF8D3E18898"
+                  },
+                  {
+                      "path":  "Data/Ground/base_camp.rsground",
+                      "length":  619057,
+                      "sha256":  "59ED9EF090E045AC75482ECF90D709D91BED00AC1A52EBCD2DC5FDDADC9D4424"
+                  },
+                  {
+                      "path":  "Data/Ground/base_camp_2.rsground",
+                      "length":  3060280,
+                      "sha256":  "2DB8B78A0E6E90F7065339F5EB7E5D1115D42A7CDEFC39CAE192C97AA3F6C6ED"
+                  },
+                  {
+                      "path":  "Data/Ground/beau_plains.rsground",
+                      "length":  287063,
+                      "sha256":  "75E632C03FE64FF36708F54971FF38517D7E178A5274F5B06742975F19098438"
+                  },
+                  {
+                      "path":  "Data/Ground/boulder_cave.rsground",
+                      "length":  311919,
+                      "sha256":  "FE98AFDB68E992E54946DECBA3015776CCEFD4EE725FFC8980E4FB497DC20DE4"
+                  },
+                  {
+                      "path":  "Data/Ground/bountiful_sea.rsground",
+                      "length":  196452,
+                      "sha256":  "BB2FD595D14CE86F302FCDA59FD1412511F9A869585346D11CF5267E6141DF62"
+                  },
+                  {
+                      "path":  "Data/Ground/crater.rsground",
+                      "length":  246398,
+                      "sha256":  "0A4486FF9F8729CD3D84C96735FCFB5F39F1D687BA51719B96D044316C71F4FB"
+                  },
+                  {
+                      "path":  "Data/Ground/cryptic_cave.rsground",
+                      "length":  186400,
+                      "sha256":  "AE0FA0D1ACC2FA2501C0621393E1D694934DE9EE76DBABD8D796C893B8AC7804"
+                  },
+                  {
+                      "path":  "Data/Ground/darkness_ridge.rsground",
+                      "length":  268628,
+                      "sha256":  "2F259725D7E52F978F2808C08BDC9B81A90A892CC81D641CB2722FB2BD92D3E2"
+                  },
+                  {
+                      "path":  "Data/Ground/decrepit_lab.rsground",
+                      "length":  262624,
+                      "sha256":  "F95E47CB84BA3F6D8B6DB28AB743F276E4CFFC4090E77A8589F97D4A351817E4"
+                  },
+                  {
+                      "path":  "Data/Ground/deep_sea_current.rsground",
+                      "length":  236365,
+                      "sha256":  "263A0CEF2C7739122068C55F158F30C375D79B48F84CB16B991F37A1AE486188"
+                  },
+                  {
+                      "path":  "Data/Ground/deep_sea_floor.rsground",
+                      "length":  282041,
+                      "sha256":  "22A99831240C375612F15AEFE5B7ECD6CB33B5C3A7C68AF52566870491324C6C"
+                  },
+                  {
+                      "path":  "Data/Ground/dragon_cave.rsground",
+                      "length":  242639,
+                      "sha256":  "FC445ED55DCEBEB7AC4C943BFA2586455727521B37AD0F7AEC6F1D80D1C1F9C4"
+                  },
+                  {
+                      "path":  "Data/Ground/echo_cave.rsground",
+                      "length":  308830,
+                      "sha256":  "44BB27AE203794BEACEA4DB02420F80BDB7421464EB25C7BF00484E82F31E90E"
+                  },
+                  {
+                      "path":  "Data/Ground/enclosed_island.rsground",
+                      "length":  280050,
+                      "sha256":  "0BD1C0E846C5114DB354D47A5D8C939984246C962786FB41ECC8880EE4C938FF"
+                  },
+                  {
+                      "path":  "Data/Ground/eota_abyss_route.rsground",
+                      "length":  5838634,
+                      "sha256":  "1D015F60FC19DB5F12933ED6F59F9034CB77A8C96D4828A9FA9638C21C5F3DF1"
+                  },
+                  {
+                      "path":  "Data/Ground/eota_echohaven.rsground",
+                      "length":  2705437,
+                      "sha256":  "7CD33ABBCD76E88C87B85F00CBEEEA50BC1D3E7EDA151F2D2732970B12CBAAF8"
+                  },
+                  {
+                      "path":  "Data/Ground/eota_intro_clearing.rsground",
+                      "length":  1591729,
+                      "sha256":  "FE6462FD69AE154D4D28922DD6478ACA28F19BE202F816ADFFB7FEDFF868F071"
+                  },
+                  {
+                      "path":  "Data/Ground/eota_post_office.rsground",
+                      "length":  143737,
+                      "sha256":  "E2A2DE9342E13C3EE51C306EF46EB79CE237610B5CF1F8E553A96BF6A5972BC3"
+                  },
+                  {
+                      "path":  "Data/Ground/eota_team_house.rsground",
+                      "length":  146097,
+                      "sha256":  "20BF3C6FC574EF29C05B14BCFCDB34389DB9D7E2274D99730DCF29774CCDCC71"
+                  },
+                  {
+                      "path":  "Data/Ground/final_island.rsground",
+                      "length":  289109,
+                      "sha256":  "52FC0632A85EAFDCA4D0F17459AEAFCFEDBE5F09B8AE6BE1C878864CB65B2793"
+                  },
+                  {
+                      "path":  "Data/Ground/flyaway_forest.rsground",
+                      "length":  260191,
+                      "sha256":  "39858BF14D5A4729316E42E29BF6E65F4E4F09C72B9AE6AB908B934D8F23339D"
+                  },
+                  {
+                      "path":  "Data/Ground/friend_area_map.rsground",
+                      "length":  636471,
+                      "sha256":  "81DFFE401E48DD3844A2BA33B15811016929EE2E2E7CA4CCF87A19D1C67CEEEB"
+                  },
+                  {
+                      "path":  "Data/Ground/frigid_cavern.rsground",
+                      "length":  351324,
+                      "sha256":  "02A62DDF662DF4FAFA72FB7E7D365B7BFAADD9165A4E909531A549F2E297910C"
+                  },
+                  {
+                      "path":  "Data/Ground/furnace_desert.rsground",
+                      "length":  271077,
+                      "sha256":  "6BBC86478A678A4E46EE9838A938A4F761E35EA179CC86D52FB9E6562BB80B70"
+                  },
+                  {
+                      "path":  "Data/Ground/gourd_swamp.rsground",
+                      "length":  302823,
+                      "sha256":  "EB6C8621669F5ED235AD8CDA7D8822DEC7FB479B0A5899E225DC68E1BDF72CD5"
+                  },
+                  {
+                      "path":  "Data/Ground/healing_forest.rsground",
+                      "length":  266998,
+                      "sha256":  "B96E657533011116F42FA9D088B8DBD021CCD0F6F6609ECCBD78C174B9431AFD"
+                  },
+                  {
+                      "path":  "Data/Ground/ice_floe_beach.rsground",
+                      "length":  240545,
+                      "sha256":  "484E493BF291851654C06F8B1B1B7A44B99D88D203F9470D8D742A49212AC13F"
+                  },
+                  {
+                      "path":  "Data/Ground/jungle.rsground",
+                      "length":  270692,
+                      "sha256":  "175A1449FD0AB130647C7904D667E9458AEFECF1A0E36F325D0E8D324F98BDA9"
+                  },
+                  {
+                      "path":  "Data/Ground/legendary_island.rsground",
+                      "length":  217607,
+                      "sha256":  "CFAFC4AFB9639ED8B33B9B4A8F9AE3647D7F9BABF9B5E7A0A7F0B85828180FBB"
+                  },
+                  {
+                      "path":  "Data/Ground/magnetic_quarry.rsground",
+                      "length":  255913,
+                      "sha256":  "14AF99A2824FA40BCDE276ABD053E30839CE61AB5F18EE78C45033D3066DB713"
+                  },
+                  {
+                      "path":  "Data/Ground/mist_rise_forest.rsground",
+                      "length":  252272,
+                      "sha256":  "4C2D14390F01CAB2AAE0694E940F48B8191D77836686C1CA7370938DB2153CC9"
+                  },
+                  {
+                      "path":  "Data/Ground/mt_cleft.rsground",
+                      "length":  675604,
+                      "sha256":  "990AB2570FE313F805BBBDFB5BB5357C4E065A6621E2A752F29E0650488499E8"
+                  },
+                  {
+                      "path":  "Data/Ground/mt_deepgreen.rsground",
+                      "length":  297469,
+                      "sha256":  "4CC20212650880EDA53DD72A15A9C0E80A8EDD387947263706DCE68B23E9D246"
+                  },
+                  {
+                      "path":  "Data/Ground/mt_discipline.rsground",
+                      "length":  289852,
+                      "sha256":  "B9B1FD2D99820B92E8B3AD7CB5AAF5CA053121ADA3812D2D72985C5EFBF34C6F"
+                  },
+                  {
+                      "path":  "Data/Ground/mt_moonview.rsground",
+                      "length":  280197,
+                      "sha256":  "61CB12403165FDAFE55797F0751E7D2762FF081C6501DFA5F4ADC8DC20A96420"
+                  },
+                  {
+                      "path":  "Data/Ground/mushroom_forest.rsground",
+                      "length":  264076,
+                      "sha256":  "A9C4711D7FADCE70743AE4A905E9A8A72D8BEBE79E24B4CC939F297A64E3A4BC"
+                  },
+                  {
+                      "path":  "Data/Ground/mystic_lake.rsground",
+                      "length":  271164,
+                      "sha256":  "F511A7AB7906E49D872F0CC6C4CFB3DEEC1FC1A87D7C74FF865A749989F0A82A"
+                  },
+                  {
+                      "path":  "Data/Ground/overgrown_forest.rsground",
+                      "length":  268868,
+                      "sha256":  "7E04E9CA32438D5571B6A7FC14D5FC9BC9DA90C9D822DF047063C9C8F2035F94"
+                  },
+                  {
+                      "path":  "Data/Ground/poison_swamp.rsground",
+                      "length":  270933,
+                      "sha256":  "144AFA083154E0835D3DC5B70AEF8AA9B6493EC1BDF326F742D7D694AA9B6FA0"
+                  },
+                  {
+                      "path":  "Data/Ground/power_plant.rsground",
+                      "length":  278922,
+                      "sha256":  "BA49B1AC1851EAAEFFC01E658978A499E66554C66647A4E046CF2DF9A9AE6BB8"
+                  },
+                  {
+                      "path":  "Data/Ground/rainbow_peak.rsground",
+                      "length":  235364,
+                      "sha256":  "160CA5D89D53FAD23CCFBAF079E166247CF9131E5DCED1601AC88C25842D754C"
+                  },
+                  {
+                      "path":  "Data/Ground/ravaged_field.rsground",
+                      "length":  266677,
+                      "sha256":  "59E4EDBA5F11F633E57D1DE385900C446F3D7373D7659E400B5755BB21D3A8C5"
+                  },
+                  {
+                      "path":  "Data/Ground/rescue_base_camp.rsground",
+                      "length":  1649037,
+                      "sha256":  "28365777FFBB22891F71C704E032F28E1C393CC87E7F6AAE8FA9C2086BF30D3E"
+                  },
+                  {
+                      "path":  "Data/Ground/rescue_base_camp_inside.rsground",
+                      "length":  147699,
+                      "sha256":  "7ADAA598D5A70AADEA1F3013F5A2C86EC5DAE6AEB0567E6165C15D4F1402C8E1"
+                  },
+                  {
+                      "path":  "Data/Ground/rub_a_dub_river.rsground",
+                      "length":  283868,
+                      "sha256":  "974344E8FAC3AAFE608804A6CF74D860723D4FC04A715AF09A8A9223B5356DF9"
+                  },
+                  {
+                      "path":  "Data/Ground/sacred_field.rsground",
+                      "length":  250115,
+                      "sha256":  "F7A98EEE512B65AAB237A6EBE649B23EAB6ECC527631791FA8A0D5568FC1FD65"
+                  },
+                  {
+                      "path":  "Data/Ground/safari.rsground",
+                      "length":  283688,
+                      "sha256":  "C28AC316758733264B840AC51FFC288AB8411BD4F8D8C37CDBBC9DD0288F4311"
+                  },
+                  {
+                      "path":  "Data/Ground/scorched_plains.rsground",
+                      "length":  281608,
+                      "sha256":  "B653E87F9721E57D1A468CA18F61ACCADF0EDFDCDF7BB9E5CB57EFDC3D426EE8"
+                  },
+                  {
+                      "path":  "Data/Ground/seafloor_cave.rsground",
+                      "length":  226237,
+                      "sha256":  "9003AB01459546A98260BE4A297EC0EDA1598F4A947DC90F4235E090F01729E9"
+                  },
+                  {
+                      "path":  "Data/Ground/secretive_forest.rsground",
+                      "length":  251407,
+                      "sha256":  "13F8E76E6B3C62B605572FFC0B563DF3C29EAFEF7E1350E0B7AF373BD21D12F7"
+                  },
+                  {
+                      "path":  "Data/Ground/serene_sea.rsground",
+                      "length":  321622,
+                      "sha256":  "2ABA079695427D9F1F1026402EB768C2AADB05655B2CC6E099CD0BEBE3770E14"
+                  },
+                  {
+                      "path":  "Data/Ground/shallow_beach.rsground",
+                      "length":  325115,
+                      "sha256":  "AE817682659A046DC8FB5A472DC5DE560F1A2D16204D1176D080F5BB7820D9EA"
+                  },
+                  {
+                      "path":  "Data/Ground/sky_blue_plains.rsground",
+                      "length":  281082,
+                      "sha256":  "10F188BE1067FF159AC9C764BAF66458F79C191A271170F76BB7DE092EDB512D"
+                  },
+                  {
+                      "path":  "Data/Ground/southern_island.rsground",
+                      "length":  284320,
+                      "sha256":  "21037EC362699FEC389567B5DAC3A9D979F3E3617DB124979AC86BF540793AB0"
+                  },
+                  {
+                      "path":  "Data/Ground/stratos_lookout.rsground",
+                      "length":  248394,
+                      "sha256":  "82D8431ABD4BFDDF9E36C995F96EC18BC394A54B9FCB7189C1210DE54FA3E2F4"
+                  },
+                  {
+                      "path":  "Data/Ground/tadpole_pond.rsground",
+                      "length":  290892,
+                      "sha256":  "1F9A35553A1DC84A0BB32EBD943EE1B00DAF59552C556E5D2F2636B71F65B783"
+                  },
+                  {
+                      "path":  "Data/Ground/thunder_meadow.rsground",
+                      "length":  388378,
+                      "sha256":  "6307B22604E19982F0F899A0E2BB0D880CC33C42373299961D0AB752FF45711D"
+                  },
+                  {
+                      "path":  "Data/Ground/transform_forest.rsground",
+                      "length":  259186,
+                      "sha256":  "BA724F84CFAFD5F40882AA3283824D440FF2A78304426CEB070744EB1AEC6BA1"
+                  },
+                  {
+                      "path":  "Data/Ground/treasure_sea.rsground",
+                      "length":  277717,
+                      "sha256":  "EC7B3C33E50A3BE8F54CB236AC8C78D6C6A403567F89F64C5229B46BA04218FD"
+                  },
+                  {
+                      "path":  "Data/Ground/turtleshell_pond.rsground",
+                      "length":  278846,
+                      "sha256":  "304792101B226FF17262679C9AE1220222DF056DF4D7CE1D59B545D3179C288D"
+                  },
+                  {
+                      "path":  "Data/Ground/vibrant_forest.rsground",
+                      "length":  298739,
+                      "sha256":  "924D4A70E912C1FC29A65E3F6B150578439B1E0751C525DA161283D86F5E00F1"
+                  },
+                  {
+                      "path":  "Data/Ground/volcanic_pit.rsground",
+                      "length":  260279,
+                      "sha256":  "31CF45458F90E0922BC8A632A89CBB852186F6902BCBA954CBEDDBF1D8150F68"
+                  },
+                  {
+                      "path":  "Data/Ground/waterfall_lake.rsground",
+                      "length":  244636,
+                      "sha256":  "9E56506709021DB528B2B09D4B6B6474FAFA19AD795FAEA6E9871100592965B5"
+                  },
+                  {
+                      "path":  "Data/Ground/wild_plains.rsground",
+                      "length":  270534,
+                      "sha256":  "D62AD0A98EAA59FD977D1C860C971C8762CEC3E0473E663E17565E992408AD18"
+                  },
+                  {
+                      "path":  "Data/Item/index.idx",
+                      "length":  220,
+                      "sha256":  "3AA2058666596118493260C9E3D548D805E67F4F65DCC0A932EF33F12829D4F3"
+                  },
+                  {
+                      "path":  "Data/Map/boss_beehive.rsmap",
+                      "length":  245785,
+                      "sha256":  "10577D17DEA72A189C98662E108A2B2729BA03919F011469D1029DF4B1E5FA7B"
+                  },
+                  {
+                      "path":  "Data/Map/special_rby_fossil.rsmap",
+                      "length":  618222,
+                      "sha256":  "BAAA5407E3D7D16CDB15BCFB9C0E627978DBE8EADBCEE0E7E80F61EE07F8A5E8"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/abyss_map.lua",
+                      "length":  9894,
+                      "sha256":  "4842D790A78F7C36A2741307D4F665BBAD964AE5353E95EB568E267A0283CA3A"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/attempt.lua",
+                      "length":  13067,
+                      "sha256":  "CAA3660D4FBF372B066FBB2C6E190C9C0D2D5D3FF12BCC22B8CEA5B66B21135F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/boss.lua",
+                      "length":  7203,
+                      "sha256":  "7BAC69DA8596F5E8F3AB858C8232E359484D7AF597584F3424B120DAD2BCE6CD"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/campaign.lua",
+                      "length":  10398,
+                      "sha256":  "F5115F1D33BAAA7BEBF50AD50901ED563CD46EAB6D1E98EF6ACFDCDC47E87129"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/construction.lua",
+                      "length":  5477,
+                      "sha256":  "403E38BF5A6F34522561098AD23B06797739E5791C6C4EB64751906D2DE0EF9E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/debug.lua",
+                      "length":  6143,
+                      "sha256":  "F46A0A1A56B7A5985EA2858BA99D024915072DC26FF0AA8E44B019BE504EF442"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/defeats.lua",
+                      "length":  1607,
+                      "sha256":  "F117DE22497702067C65BE524FF2B882120953DB0A1D44DE9D989BA7778A9CEA"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/dev_team_probe.lua",
+                      "length":  3604,
+                      "sha256":  "E178F22F5D7E7A957C50CD7F052A3EEC7F40580BF5DFD50E11B7C76B994553DE"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/dialogue.lua",
+                      "length":  7842,
+                      "sha256":  "C4D2BEA1AD3B23209221B670F7C95F7D02D3CB3F774763E8D6E6EF3216D21970"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/event.lua",
+                      "length":  44,
+                      "sha256":  "E23B4F4B4C92361899D475EFB37E038C9B3D9F5186D0DA04C8D125EF8B260A9B"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/event_single.lua",
+                      "length":  484,
+                      "sha256":  "9E1BB7A0F9D4298DBC5F759A5D19F1A5415B4F945490057078500199016EFEB5"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/export.lua",
+                      "length":  7440,
+                      "sha256":  "5688C574BB1CF3E3A0A47AAA1B6ED5A1576A5F3AE9A8F2951B5763F09CBCEC21"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/facilities.lua",
+                      "length":  35036,
+                      "sha256":  "11FA631172BE663FE7B70CF38F5B31FA96D5F40B225C8603202D3F5B82C5E820"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/facility_contracts.lua",
+                      "length":  5317,
+                      "sha256":  "18AD366ABEBC3CE7C0A357CE47298291374EAAA54DC237ACD5FE93C71ED8339C"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/facility_upgrade_menu.lua",
+                      "length":  7738,
+                      "sha256":  "C68B795D2C02E62E7078BC3FCA533E6FD41DA58D17381B721637BBD0232150B4"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/friend_areas.lua",
+                      "length":  29370,
+                      "sha256":  "823D7D41C139636CB07F7DA5797DD729F0443FFC8DC8A2A83168F4605F24AFDE"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/generated/abyss_catalog.lua",
+                      "length":  33799,
+                      "sha256":  "18BB0C9501C1A2CBEACF095CD133E832C7A4B33ADFCC428EF03887C513925139"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/aged_chamber_an/init.lua",
+                      "length":  3814,
+                      "sha256":  "C13D4F4F4539F7178D9EE893EF4AED91B9E8D61C6A577AC24BA02B7C92A1CABE"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/aged_chamber_o/init.lua",
+                      "length":  3562,
+                      "sha256":  "7FB5E697D1EBE2B65372F3B6CAFBA138E8A661EA73ACEAB761D675DB1E8EC861"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/ancient_relic/init.lua",
+                      "length":  4097,
+                      "sha256":  "2F2105956D97C5AA0C1175E0C150EF32234C8CD7F61524FB6C4E672B489CF70F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/beau_plains/init.lua",
+                      "length":  3224,
+                      "sha256":  "B6E915333BBC4B0973D20899C780EB451A6451FBA3F68F8840A48B1274EDD14F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/boulder_cave/init.lua",
+                      "length":  3454,
+                      "sha256":  "7823EFF24D23D02DEC2D26470130EF7B15D48F9AC03D3B33C842D3A959799E15"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/bountiful_sea/init.lua",
+                      "length":  3163,
+                      "sha256":  "37531866CC50D902D9C4B814DBBD024755177BC5CC3C5CEF7EF95F0CEF3CBF71"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/crater/init.lua",
+                      "length":  2953,
+                      "sha256":  "73BDAD3375AEAC4FEADBF142964DF9302F8D84136E1A9B74D98EC220FBCC6624"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/cryptic_cave/init.lua",
+                      "length":  2607,
+                      "sha256":  "1744A243390F39232159C59B0B1D5C0568A748D9441766F92F421D0F5C215F0F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/darkness_ridge/init.lua",
+                      "length":  4524,
+                      "sha256":  "E3410B08E921EB567CEF395CE1FA5BC5DE7F9786095202BF6A3BA5E4C746C3C7"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/decrepit_lab/init.lua",
+                      "length":  3055,
+                      "sha256":  "FBBEE3653061C0FADAD3104ED9608E3034D57CB3EF1BFF46EAA4E0DE06AF63AE"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/deep_sea_current/init.lua",
+                      "length":  2668,
+                      "sha256":  "CA3EFBA971DBA80A02F1CC166CCCE1CD619A2DB5E5A9F95335D158AE1E157A49"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/deep_sea_floor/init.lua",
+                      "length":  3296,
+                      "sha256":  "C21E45EB297C8A88F9E963FEAB31CA11313147D6BE5E7B2BA4136F17B9852EA2"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/dragon_cave/init.lua",
+                      "length":  2942,
+                      "sha256":  "C59DD5BB42CB82A55D501F30EF706C09CCCB2B06D75536E697B916C72597F25B"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/echo_cave/init.lua",
+                      "length":  3073,
+                      "sha256":  "AD4BD96F6E54EB3611A86D3AD24066AAAB8537814E15F53DFEEAAE6E76087194"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/enclosed_island/init.lua",
+                      "length":  2524,
+                      "sha256":  "3346D60A2563A510F19285EB8B1EFA2825333EDB1E2396706A7E751DC1E72ED7"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_abyss_route/init.lua",
+                      "length":  1106,
+                      "sha256":  "457EDE6F0DB0DE74D002DF650FCCEA21BB2F79D2E64AFAB95E654973EFCEEAAD"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_abyss_route/strings.de.resx",
+                      "length":  4159,
+                      "sha256":  "BF5D707970C1EC6FB2FA95A0B50C7CC8AEB94F46F9D7E9BBE1A8E0A9C5915CB5"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_abyss_route/strings.resx",
+                      "length":  3973,
+                      "sha256":  "E3A8942615668FC033FAEDC0DDF220E631BA6293D9C5CAFF4244B067AC474485"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_echohaven/init.lua",
+                      "length":  53038,
+                      "sha256":  "AB456D01703F9EF03961F21D4F5303050127766AA75A07217174404AFBF466DB"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_echohaven/strings.de.resx",
+                      "length":  61592,
+                      "sha256":  "F0AD65E8BB5E6CA45B084166D643AAA68DF7113C3B7C342882C9AA79B7FC68B7"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_echohaven/strings.resx",
+                      "length":  58841,
+                      "sha256":  "6A5655E3B9B8A2937CF99392D39F5950D25741A5D1B068D1E2FDC38141A0A352"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_intro_clearing/init.lua",
+                      "length":  818,
+                      "sha256":  "BBA4F38C4AAD058F4CAC82D450BC5B3073E5908EA420E81099FBE2E604C2B813"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_intro_clearing/strings.de.resx",
+                      "length":  2819,
+                      "sha256":  "7B91A9C91C9393D14A6B10F5A50C34F75A02A956CB3AA6C732D89D485C4BD8C4"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_intro_clearing/strings.resx",
+                      "length":  2733,
+                      "sha256":  "E8ADE3210560830028DE8992617138FF0DA57BA97350099959E625EA5C2281D0"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_post_office/init.lua",
+                      "length":  2018,
+                      "sha256":  "11872CB1E46123821DE281B4C51171A90291D56EC77FD8F100BC55848CA7BFA1"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_post_office/strings.de.resx",
+                      "length":  2194,
+                      "sha256":  "C913745802F092C900A9AB5D8FFA4E752ABFF2A3608EBDEA807C09B4C512D77A"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_post_office/strings.resx",
+                      "length":  2134,
+                      "sha256":  "C9F7536B7BA835FDC2597C4F4FF63644C01AC70D3C57AC2280554D6B0FCECF94"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_team_house/init.lua",
+                      "length":  1049,
+                      "sha256":  "BB90379967F35BE6DB8C256FCD90754651F2326DEE5A7E1AE12B63B8BEFBD8E3"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_team_house/strings.de.resx",
+                      "length":  1051,
+                      "sha256":  "5BE19231B4EA1F815C9064225DF1BAA26A679711570D573CDC5861C02C873CAC"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/eota_team_house/strings.resx",
+                      "length":  1029,
+                      "sha256":  "F9F001A0EA5E3702FF82180C4BA0EE3F82D62742B68A0EA6CABC700B0A84E502"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/final_island/init.lua",
+                      "length":  2456,
+                      "sha256":  "F89DC4FBD0FFCD9A48963D6AF8957B87A48B613739A3E3F792A371040FD2CFC1"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/flyaway_forest/init.lua",
+                      "length":  4124,
+                      "sha256":  "84FCE6CCC04395F8ABB338DE2B653371FE4FAB688A0ABA9BBA73BA7E80CACBE8"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/friend_area_map/init.lua",
+                      "length":  10289,
+                      "sha256":  "C4280ED6287B0D8ABC673E66F54B1BBCBDF97CAB0522705691B6932636326F29"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/frigid_cavern/init.lua",
+                      "length":  3935,
+                      "sha256":  "05D6CE26F19D2545026C99DB6F0025590B27376E4A7A3BBC4D5CF026CB07BF5D"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/furnace_desert/init.lua",
+                      "length":  3613,
+                      "sha256":  "9D18469873CD4081567F2D6FC844E492F381BFA8871FA50992925DCEE55FD9A2"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/gourd_swamp/init.lua",
+                      "length":  2941,
+                      "sha256":  "2E335F8B84824FDE39030138C71D87545CEB8D85C272B3F7B003732CE2A46B54"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/healing_forest/init.lua",
+                      "length":  2679,
+                      "sha256":  "AAA079CB524FA46ECCA508BDB0C8AD3B37BB30A58FA1DD5706EAE7BCA5BBE81E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/ice_floe_beach/init.lua",
+                      "length":  3069,
+                      "sha256":  "A27B59480B4CB9AD4A780E64C780FF94E3C88996E0AEA42E48DAC1785C101D7F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/jungle/init.lua",
+                      "length":  3548,
+                      "sha256":  "A4DD93D326CF11186EBB91994FE68C62D3760F272C2832BA79247BB706134CA4"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/legendary_island/init.lua",
+                      "length":  3270,
+                      "sha256":  "D8D9BCC3B6A5BAD5AFF65327A1BB550EBFBEE60B72C1E63F13CAE0E49482365D"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/magnetic_quarry/init.lua",
+                      "length":  2977,
+                      "sha256":  "1B834754C6C87304E598BE5E1CB5F89B4AF4D29D29EFF9210DE0A0B7DBB86B62"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/mist_rise_forest/init.lua",
+                      "length":  3284,
+                      "sha256":  "355011153359AFBB615E435A12CB2AFDF70DE8C62EAF597EE2CBE6F7C58FB692"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/mt_cleft/init.lua",
+                      "length":  3280,
+                      "sha256":  "8C9DC0FE7E15662D2C4CC56F05F45B1FD445CEFACCED73BFC3AE5941ADF8BBB9"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/mt_deepgreen/init.lua",
+                      "length":  3920,
+                      "sha256":  "29B4E4A0C31F5D730A4FAEB6D3C49035C93569D3C0ED5F8410F3157BBECA620F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/mt_discipline/init.lua",
+                      "length":  4197,
+                      "sha256":  "C8270095C9E6784BA9C3F190B12CF396BCD9EEED0D30B59243232573E4754C08"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/mt_moonview/init.lua",
+                      "length":  3694,
+                      "sha256":  "1A62751E96B5BE38CD90742781340CD5A81C248C5CA63DE6566E24DC16FB884E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/mushroom_forest/init.lua",
+                      "length":  3147,
+                      "sha256":  "316E0A9CF2246EADAA44CE18F8C535BF26B5B9104A81374BB503397DE265EF39"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/mystic_lake/init.lua",
+                      "length":  3035,
+                      "sha256":  "DDE12DA85B4742114CAF7CAE5A42962F0A3A7841050220C7F40E1231BB213B8E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/overgrown_forest/init.lua",
+                      "length":  3573,
+                      "sha256":  "42ECA088AB2B21A8350250243E9D96FD11C62F18945FA2F5C203B30DC84F8014"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/poison_swamp/init.lua",
+                      "length":  3129,
+                      "sha256":  "E5FECAF332F6DF5ABAC82E950B0C50E15BD296A33AD4D25552DFB858960F5E45"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/power_plant/init.lua",
+                      "length":  3401,
+                      "sha256":  "6B8D06BEE58EDD8AFD8D66FC95AC65118219BB77EB33196A5E2AB590BEFF0F09"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/rainbow_peak/init.lua",
+                      "length":  2752,
+                      "sha256":  "D9EE75202CCB1ED737346A54C636C299B1AE339D34DE7F48FCB2717E312FFACB"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/ravaged_field/init.lua",
+                      "length":  3822,
+                      "sha256":  "29EBD2AB21F378B36E12CA47E318C2D64196C22A1157B301FEC2B054D17E415A"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/rub_a_dub_river/init.lua",
+                      "length":  3146,
+                      "sha256":  "DB47605A0946C6145872507CAACE41AE5531C6D854EA7BC46550B7C51D892502"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/sacred_field/init.lua",
+                      "length":  2685,
+                      "sha256":  "A1DE7780AA2B9C23B131DC169984644DA25EBA306914ABF288FB24EC0F474222"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/safari/init.lua",
+                      "length":  3176,
+                      "sha256":  "4A74AA3F4773C77CF0A139B8DCA08C5DE05F2546F6D7A43500A0CCD0EF69E7C5"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/scorched_plains/init.lua",
+                      "length":  4098,
+                      "sha256":  "7A3ACCACF70FBF2E19D1AEDD83239126D4079706FA05B2A5D538527B8DEEBD05"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/seafloor_cave/init.lua",
+                      "length":  2604,
+                      "sha256":  "71881C11BC9AADC469ECB8F600AADBC0E242A3C782C2850BA12E6DBEC118928A"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/secretive_forest/init.lua",
+                      "length":  3401,
+                      "sha256":  "9221CD0439C2EDE6CE3821E5E27A1F14152A9C15703921081EE35378CC90FD0D"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/serene_sea/init.lua",
+                      "length":  2925,
+                      "sha256":  "CF303353C34B48C7F2F8829DAE454B8D201E92A9C2C82AD9AB4D8CEA9F4D1626"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/shallow_beach/init.lua",
+                      "length":  3766,
+                      "sha256":  "4E35F77C2BCF2C59C41621E0CDD4DBAC0651617FBCD5A606C323A20357364575"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/sky_blue_plains/init.lua",
+                      "length":  3646,
+                      "sha256":  "4DA6244F2EAAD9D7255562CD118B67469CB4E2F8DCAC4117DA0D5562B6EED1B7"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/southern_island/init.lua",
+                      "length":  2522,
+                      "sha256":  "627E8F92F6B4D79309BE89DC0622079D85EAE6D1A436AB622F426A7E8F6166FD"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/stratos_lookout/init.lua",
+                      "length":  2522,
+                      "sha256":  "44956E77C3E6C265C313D3360AC6DDF0B38B0E1C170AA2153A344329C62EB46B"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/tadpole_pond/init.lua",
+                      "length":  2907,
+                      "sha256":  "5A3B606D6D71692DE71CCA7514179C14B6170C2C1A9C59829930FB324868C94E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/thunder_meadow/init.lua",
+                      "length":  4019,
+                      "sha256":  "E1A23CC5FE99770D7A4B1C6ADF49E7B5A5D3B864C2FC28024F07FECB9BE680F3"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/transform_forest/init.lua",
+                      "length":  3593,
+                      "sha256":  "C5ECD691577D9893886D4CB47202A717B2489CC14556D5E26A51502B17BCD6F9"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/treasure_sea/init.lua",
+                      "length":  3087,
+                      "sha256":  "DA32FC906070D9056F18F7B81FE880BFFA8E605F66553F76E9719606FB1FFC36"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/turtleshell_pond/init.lua",
+                      "length":  2994,
+                      "sha256":  "1060316C460FA2D245DD481043A046E0BB071DF8D88455733B41BAAF61DC8AD6"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/vibrant_forest/init.lua",
+                      "length":  3928,
+                      "sha256":  "893E8214C21504C19BEB3AE8439DE3771C7AD523F0D2A42636E020F492499F4D"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/volcanic_pit/init.lua",
+                      "length":  2581,
+                      "sha256":  "3AC5E8B1302A9A281F65BD68DD3631AA239D7B5856D05AF82C1BF09EE719BBB7"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/waterfall_lake/init.lua",
+                      "length":  2897,
+                      "sha256":  "BD909A77DCC91AABE36387D4B38762CDC5230A69835545F2380662A3F083658C"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground/wild_plains/init.lua",
+                      "length":  3286,
+                      "sha256":  "FD8350C64A1065FD43C9A899F591803C804D545F2C33ED667536AEED3C07313E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/ground_generator.lua",
+                      "length":  19279,
+                      "sha256":  "55FF0A2AAEA763C7DCFB322C7A2FC55B603543E22DBA8C53C129FEFFE6A7A254"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/hub.lua",
+                      "length":  3593,
+                      "sha256":  "CAA7409FCEE7D96A1B7C0E8C89E169CF08FCC8E540EFAFA55E118AF685685253"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/hub_physical_probe.lua",
+                      "length":  19198,
+                      "sha256":  "3B6725949086E7BAE08CC39FFA09D892FBD0F0160033557FBE229DD077A6954B"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/intro.lua",
+                      "length":  35710,
+                      "sha256":  "D981B0186914BEA10309CF7D999CA06DAC0AF4EFBC53E7572910697DAE444279"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/intro_state.lua",
+                      "length":  9658,
+                      "sha256":  "4325AC59884ACD811F5239EEFEC488DB4543DF419E6BDC46EE03E1D33F2F39B5"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/main.lua",
+                      "length":  2569,
+                      "sha256":  "F8809D24C1DF60D87D5D0B2ED6D195F7FABBD7377ED28D11B536F6546CCF6039"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/meta.lua",
+                      "length":  8658,
+                      "sha256":  "9CF8E8D44B58B1CA2A2D7F7EC97596DD30C388EADF6714D171255A63929CF6AB"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/population.lua",
+                      "length":  3406,
+                      "sha256":  "049601466EEECA99F3AF137DF0260EC9EDD4C0FFB355D9A21E387F1438BD3191"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/population_dialogue.lua",
+                      "length":  4031,
+                      "sha256":  "05A6AC2C1211D364242EE8C1EA86341DFA6E05FF4075EB10F241C7FCBF21151C"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/recovery.lua",
+                      "length":  6461,
+                      "sha256":  "536772B6C301A8D7F95ED00474C040555F60B9C66609407C41680C25EB31F982"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/recruitment.lua",
+                      "length":  25563,
+                      "sha256":  "46D627ABE2D2D4F2F8CA9C8727EFB54C812E90D3BA118232D507B62BF7DE171D"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/recruitment_catalog.lua",
+                      "length":  149396,
+                      "sha256":  "4857F5F9B0A7E5770F08ECDA24A61BBBECD0B362797D339540D35B96ABDA1D15"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/recruitment_menu.lua",
+                      "length":  4957,
+                      "sha256":  "17B44A34C6E854534C79E3F1026F19C76465B5064FBF78530FFFD06715247736"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/run.lua",
+                      "length":  6723,
+                      "sha256":  "511FA61B213D2508F63B5CFA1D1E369AF8C44375974DB4894A1F683642DB6D64"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/salvage.lua",
+                      "length":  6746,
+                      "sha256":  "CB15B2375F9DDFE1C7CEE267165000BD2A421A0D7D00578FB88B121418B5A994"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/secret_routes.lua",
+                      "length":  1846,
+                      "sha256":  "B6C8627111AA9181A7934A871AE27CBDF17EBD5F0F0AE73715E23671213692B6"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/services/dev_automation/init.lua",
+                      "length":  15039,
+                      "sha256":  "174597F81DD611973AEAACF0BDC30229CE1CAB5F5D09BB8BBA51685EB6BE4196"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/services/run_service/init.lua",
+                      "length":  2593,
+                      "sha256":  "DC40254E98BC0C779E8A5AE263609A50CC83E8D0921B2B0BEE0151BCC339D86B"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/settlement.lua",
+                      "length":  10503,
+                      "sha256":  "E822FB0C59FA1DD393E0681FAE36B656085D9366F47AAC8A2B598711737F37D4"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/settlement_journal.lua",
+                      "length":  7314,
+                      "sha256":  "08F20D5BE7D4E28CBC940FD4DAD66D8A9416CCD66B90836495A3504412D603C6"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/shop.lua",
+                      "length":  16116,
+                      "sha256":  "7F86945230E5E91C59640F9780CDF757896E3C165BF16F2CA1556D075C318B26"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/state.lua",
+                      "length":  43297,
+                      "sha256":  "ECF74294CFE072FBB3F2B2BF57E149FCEF7570C8FC3CDD21D5FD610CF41682B2"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story.lua",
+                      "length":  9941,
+                      "sha256":  "9DFF3AD76BF376654EA2E1F99F29FF6397294E8DD2BAF4074B89AC79F036DAEB"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story_dialogue.lua",
+                      "length":  4368,
+                      "sha256":  "18B6112E725FC93152C5A9618F3E37718D185C860031BF0AA3CA3F09AE0DA4D4"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story_direction.lua",
+                      "length":  4683,
+                      "sha256":  "57BF6017F9EAB53179A0B02BE60A61868E96AE86E22F93A0EB4DEBB7FBCC8866"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story_registry.lua",
+                      "length":  2502,
+                      "sha256":  "06189F73E0FF35C20147645FD37A676645277C2C917F17D693A1A848FD985409"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story_runtime_probe.lua",
+                      "length":  2723,
+                      "sha256":  "6AB3E860642FCDA7CC8EA4A05E43BE06DA8063C90E86AB7F8A394D05765B63E3"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story_scene.lua",
+                      "length":  2097,
+                      "sha256":  "72C3CD5CD9CBAF2414D99653F012923ACCCC003171DA30C6B50110F17FF7F6E5"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story_scenes.lua",
+                      "length":  21528,
+                      "sha256":  "F4B16C978C0E940559CFAEC69988D78ABE8137D627EFDB691F176DFD3257359E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/story_state.lua",
+                      "length":  4225,
+                      "sha256":  "02C9727BDBB2EB88363131E036A5D17FB1FD4C66D9693AB561BE4C0EA43670EE"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/team.lua",
+                      "length":  8735,
+                      "sha256":  "9568CB93D84725CFE736A9C03CC4ADEDF17FCB39D8E74B1B68C1CCCA4185430D"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/team_house.lua",
+                      "length":  1371,
+                      "sha256":  "25873F2F42B248BCE0D61D39751B9BCDCAA85698B2A1C3D4D502B757E87FCB90"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/town.lua",
+                      "length":  5195,
+                      "sha256":  "2878E7B021DA8575B9DDC09114206F04F6A2C477E8E8659841D3580B12334693"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/town_hub.lua",
+                      "length":  12002,
+                      "sha256":  "2048B3D7987FE1C48132C207AB9A4E5E0A369DFFB15BE1771A2D66B4D3400A35"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_bramble_woods/init.lua",
+                      "length":  1321,
+                      "sha256":  "B9E50817A894B763F923731B256BF18F5CC4BE9FC0DDA6AF4308132855413E38"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_champions_road/init.lua",
+                      "length":  1324,
+                      "sha256":  "3586F076C8E3A9FDE2EA0351883F02DF74319446648577851D9D66925985A244"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_copper_quarry/init.lua",
+                      "length":  1327,
+                      "sha256":  "5456627CE0EAE13C42674E6E292EAB387331481F7BD0DEB96FBAB199836078FD"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_faultline_ridge/init.lua",
+                      "length":  1326,
+                      "sha256":  "7171729D811B868911481B39585C589B564BA4B5A54C3939DC6A2B94A88F349F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_fertile_valley/init.lua",
+                      "length":  1325,
+                      "sha256":  "893A821A2A560706AA73AEFE1E4F90517D1EB7CC83BB8ADDC4BE477C56547219"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_flyaway_cliffs/init.lua",
+                      "length":  1326,
+                      "sha256":  "A5B8E8E8848C74600AD53FF16A65BE1B9E0962FF8310C678DFB4AB3994DBA52A"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_forsaken_desert/init.lua",
+                      "length":  1329,
+                      "sha256":  "F06CE8E3FA440314CE97C70C212E43EAF2A2D9D2294B4974BC749108C93E446E"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_friend_area/init.lua",
+                      "length":  335,
+                      "sha256":  "6F0BDF4110AF460348C5C54B6B45EDBCFBA513EA3F4F7D986C531C8CDD6614BF"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_geode_crevice/init.lua",
+                      "length":  1326,
+                      "sha256":  "B5C6B78B3673265863EDE08047C8EE355928D164C3F28E4F45560FBE805A536B"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_guildmaster_trail/init.lua",
+                      "length":  1330,
+                      "sha256":  "3728A622EE069D45FB286BAAEF79920B91364F127DC384D8F0CEFE5E3B84AB4C"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_moonlit_courtyard/init.lua",
+                      "length":  1331,
+                      "sha256":  "15F3D455916FD8671431F566ABD1F73AEFB97891460B73ED2360880358D44649"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_relic_tower/init.lua",
+                      "length":  1319,
+                      "sha256":  "DFD03829BE2E46BC611F8383BB8AAA47ACBE2AA71A3A38F4641E3A3BE36C0FE1"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_secret_garden/init.lua",
+                      "length":  1325,
+                      "sha256":  "4FE0519322BE6183E66139641D0B04920E4A3EE7BC1B632D96451C0271A2CA50"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_sleeping_caldera/init.lua",
+                      "length":  1330,
+                      "sha256":  "4E9D05DD50DDA1162C659FE4862F191FEFA3866D679F19A7D013F229A439F1F9"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_snowbound_path/init.lua",
+                      "length":  1329,
+                      "sha256":  "5747B9E432680679FA122095D4D39982AF6D8C50B4C36D78FC8CA25EEBEE17AD"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_thunderstruck_pass/init.lua",
+                      "length":  1336,
+                      "sha256":  "808A9310184434927B63D9532A955D1FC6CAF3B3D3FD3B669A6CE0894CD5455F"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_tiny_tunnel/init.lua",
+                      "length":  1320,
+                      "sha256":  "BA8866407C18B91754785B8904889E3EE96CA93BACF2DB59EE8DDEA74E019882"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_treacherous_mountain/init.lua",
+                      "length":  1335,
+                      "sha256":  "A77F779C66FA7C15A6AECF42E946CA90ACAE1EE9CAD3FCA7FDF8D2C26759B195"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_veiled_ridge/init.lua",
+                      "length":  1319,
+                      "sha256":  "A28C5683BA37519EB4F1FF4701FDAB180925C8B99A2397CA5603C19560FA5584"
+                  },
+                  {
+                      "path":  "Data/Script/echoes_of_the_abyss/zone/eota_wayward_wetlands/init.lua",
+                      "length":  1329,
+                      "sha256":  "162C3322368FF03F6909B052EA23FD955EE3CB3E5DD6064C96CD6D552128CD8D"
+                  },
+                  {
+                      "path":  "Data/Skill/index.idx",
+                      "length":  220,
+                      "sha256":  "3AA2058666596118493260C9E3D548D805E67F4F65DCC0A932EF33F12829D4F3"
+                  },
+                  {
+                      "path":  "Data/StartParams.xml",
+                      "length":  1071,
+                      "sha256":  "C413C5E8078C19399E058051027CD7223C01AC8615D59A9F6F655228088E0C2B"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_bramble_woods.json",
+                      "length":  3456136,
+                      "sha256":  "B348D3C534ED01282184E6490CE8EF029F2978845228C44575F45D9FF345C03B"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_champions_road.json",
+                      "length":  7074098,
+                      "sha256":  "B0B9B524473BEF3EA2A3A438C00A6AEA6C290821BCEDEB4261724FCB250EAB9F"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_copper_quarry.json",
+                      "length":  7025788,
+                      "sha256":  "A8EFF2024D1DE9589F02DAA2C2332A36A20CFBF9A318062191187B700BF854EC"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_echohaven.json",
+                      "length":  1534,
+                      "sha256":  "A32FAAA813E983BCA48689DA268D5A20F15F95165D5D47F05E1816A71F4ED2CB"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_faultline_ridge.json",
+                      "length":  2296021,
+                      "sha256":  "DB12E504272DFB4566341106E4A21D62A033E9D63DC2BB9CF2E7F1B7AD180161"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_fertile_valley.json",
+                      "length":  3998010,
+                      "sha256":  "5DCD013D7F6ACF9AA51E046961EDE4D54F0C3B8AE2516B32213C97182BA6B64D"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_flyaway_cliffs.json",
+                      "length":  3072149,
+                      "sha256":  "A49A598185F9239277B5870A53D291C665B8310F3CCD9AEA6CE4D02F7737336B"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_forsaken_desert.json",
+                      "length":  2410420,
+                      "sha256":  "FD21453A09D1C81FB821809A685B2ACDDF393A5E2CFEB77A6822382BC8DEBAF9"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_friend_area.json",
+                      "length":  4682,
+                      "sha256":  "1644ED96B4392DD733CB8CCE7F0DC0C9C6A27CFEB7E866C574E3C661C0935EC6"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_geode_crevice.json",
+                      "length":  3424675,
+                      "sha256":  "E0F805BE78BB5BB620669A88C5325222BB881ECA05FF5F2C3F9CDA77D58BB40C"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_guildmaster_trail.json",
+                      "length":  18341829,
+                      "sha256":  "44CA70CE28874EDF3AAF045EBD0D6095BEB160527ADDD4EECB78738AE16C1F6C"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_moonlit_courtyard.json",
+                      "length":  8191573,
+                      "sha256":  "B615FF83D61A8F9673DAF440D3577E367328699968BECB4DDCBB143743BED7E5"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_relic_tower.json",
+                      "length":  6108088,
+                      "sha256":  "45E46CFBC5C8B9826612593C16DC3C07EC8AFDBF9D88222D2C743BCE5A59C4CC"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_secret_garden.json",
+                      "length":  14294782,
+                      "sha256":  "F32DD6BDACD69E5211345CFF6B220AD0E5FDE4C2783A695D577F9B4629686DE2"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_sleeping_caldera.json",
+                      "length":  5570958,
+                      "sha256":  "AE7BE537943417771C6F94D42EDD8A7EAAC5627784077DCD16EF29C4C24D2219"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_snowbound_path.json",
+                      "length":  8097413,
+                      "sha256":  "0F9AF0A846D2B900CCDFEAB264D627555860A3DAF0572F6E341CCC18D9F34C24"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_thunderstruck_pass.json",
+                      "length":  4996646,
+                      "sha256":  "F604F8B85A094142C3F119B400E49E25D2812ABABD216AD9FBF967A8EF3E80CC"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_tiny_tunnel.json",
+                      "length":  1389777,
+                      "sha256":  "101BADDE785EAE33C88EE4A05D0189697591A190A077601A379FF0841CE67A2E"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_treacherous_mountain.json",
+                      "length":  6056866,
+                      "sha256":  "D614D1C63EE33943F278D0BD0CA1658756F5FE1B22C1FABD9736F224B8B53E75"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_veiled_ridge.json",
+                      "length":  7909885,
+                      "sha256":  "5B69FEF116A25F228CE9D3848DCFA80EFA99E0C8507EEAB4691D1B18BE7B07B6"
+                  },
+                  {
+                      "path":  "Data/Zone/eota_wayward_wetlands.json",
+                      "length":  5270648,
+                      "sha256":  "9C421D7ED98790BDB99867CF6BDCBAEF6D20C2BD7D77707224FF28F94D9A8A63"
+                  },
+                  {
+                      "path":  "Data/Zone/index.idx",
+                      "length":  89104,
+                      "sha256":  "52E42E1F5F874B323A467EA765AFFBAF4436E70A3C6E4FDCAE5352C3D2874F83"
+                  },
+                  {
+                      "path":  "Licenses/PMDO-Origins-LICENSE.txt",
+                      "length":  940,
+                      "sha256":  "192FC677A23F7ED7292F50D397ABA1081FFDF8E29FE617B28FBB19FC1A4178A4"
+                  },
+                  {
+                      "path":  "Licenses/PMDO-Origins-README.txt",
+                      "length":  8215,
+                      "sha256":  "AF47ED25ADACC0FD943BA57FACF96C0EACDB28F68E929BE1627BCA356ACF7666"
+                  },
+                  {
+                      "path":  "Mod.xml",
+                      "length":  430,
+                      "sha256":  "043FCC1B1E72E96C8868DD0084FE22E581DC3AA552DB077E93081E7451E754C1"
+                  },
+                  {
+                      "path":  "Strings/strings.de.resx",
+                      "length":  35681,
+                      "sha256":  "F3712F665AAB77326DEABCEC7025313D812C2477D888D537C902636F81CE227E"
+                  },
+                  {
+                      "path":  "Strings/strings.resx",
+                      "length":  33956,
+                      "sha256":  "8C6D8AF810B574E61142A600B4BF95148A89B72804C6D84980601411ED53B27B"
+                  }
+              ]
+}

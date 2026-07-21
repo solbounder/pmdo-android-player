@@ -1,0 +1,85 @@
+From 5c901c8dc5776723c90477379890f7a0062055c0 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 14:15:00 +0200
+Subject: [PATCH 17/17] fix: bound fanfare audio volumes
+
+---
+ RogueEssence/Content/AudioMath.cs  | 13 +++++++++++++
+ RogueEssence/Content/LoopedSong.cs |  2 +-
+ RogueEssence/Scene/MusicEffect.cs  | 10 ++++++++--
+ 3 files changed, 22 insertions(+), 3 deletions(-)
+ create mode 100644 RogueEssence/Content/AudioMath.cs
+
+diff --git a/RogueEssence/Content/AudioMath.cs b/RogueEssence/Content/AudioMath.cs
+new file mode 100644
+index 00000000..e01f6404
+--- /dev/null
++++ b/RogueEssence/Content/AudioMath.cs
+@@ -0,0 +1,13 @@
++using System;
++
++namespace RogueEssence.Content
++{
++    public static class AudioMath
++    {
++        public static float NormalizeVolume(float value)
++        {
++            float finiteValue = float.IsNaN(value) ? 0f : value;
++            return Math.Max(0f, Math.Min(1f, finiteValue));
++        }
++    }
++}
+diff --git a/RogueEssence/Content/LoopedSong.cs b/RogueEssence/Content/LoopedSong.cs
+index 03c9c5ff..0d962acd 100644
+--- a/RogueEssence/Content/LoopedSong.cs
++++ b/RogueEssence/Content/LoopedSong.cs
+@@ -19,7 +19,7 @@ namespace RogueEssence.Content
+         public float Volume
+         {
+             get { return soundStream.Volume; }
+-            set { soundStream.Volume = value; }
++            set { soundStream.Volume = AudioMath.NormalizeVolume(value); }
+         }
+ 
+         public SoundState State { get { return soundStream.State; } }
+diff --git a/RogueEssence/Scene/MusicEffect.cs b/RogueEssence/Scene/MusicEffect.cs
+index f41b3937..fd7f67b8 100644
+--- a/RogueEssence/Scene/MusicEffect.cs
++++ b/RogueEssence/Scene/MusicEffect.cs
+@@ -193,9 +193,9 @@ namespace RogueEssence
+                 FanfareTime -= elapsedTime;
+                 if (CurrentPhase == FanfarePhase.PhaseOut)
+                 {
+-                    musicFadeFraction *= FanfareTime.FractionOf(FANFARE_FADE_START);
+                     if (FanfareTime <= FrameTick.Zero)
+                     {
++                        musicFadeFraction *= 0f;
+                         int pauseFrames = 0;
+                         if (File.Exists(PathMod.ModPath(GraphicsManager.SOUND_PATH + Fanfare + ".ogg")))
+                             pauseFrames = SoundManager.PlaySound(PathMod.ModPath(GraphicsManager.SOUND_PATH + Fanfare + ".ogg"), 1) + FANFARE_WAIT_EXTRA;
+@@ -203,6 +203,8 @@ namespace RogueEssence
+                         if (FanfareTime < pauseFrames)
+                             FanfareTime = FrameTick.FromFrames(pauseFrames);
+                     }
++                    else
++                        musicFadeFraction *= FanfareTime.FractionOf(FANFARE_FADE_START);
+                 }
+                 else if (CurrentPhase == FanfarePhase.Wait)
+                 {
+@@ -215,9 +217,13 @@ namespace RogueEssence
+                 }
+                 else if (CurrentPhase == FanfarePhase.PhaseIn)
+                 {
+-                    musicFadeFraction *= (1f - FanfareTime.FractionOf(FANFARE_FADE_END));
+                     if (FanfareTime <= FrameTick.Zero)
++                    {
++                        musicFadeFraction *= 1f;
+                         CurrentPhase = FanfarePhase.None;
++                    }
++                    else
++                        musicFadeFraction *= (1f - FanfareTime.FractionOf(FANFARE_FADE_END));
+                 }
+             }
+         }
+-- 
+2.51.1.windows.1

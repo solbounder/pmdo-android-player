@@ -17,3 +17,4 @@
 local.properties
 runtime-manifest.local.json
 test-results/
+release/*.zip
