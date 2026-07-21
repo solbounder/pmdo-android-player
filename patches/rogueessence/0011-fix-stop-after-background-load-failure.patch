@@ -1,0 +1,36 @@
+From 5851636c0ba058929395344815a16972c467f8b6 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 07:00:00 +0200
+Subject: [PATCH] fix: stop after background load failure
+
+---
+ RogueEssence/GameBase.cs | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/RogueEssence/GameBase.cs b/RogueEssence/GameBase.cs
+index 2790a0a4..d09d8ec0 100644
+--- a/RogueEssence/GameBase.cs
++++ b/RogueEssence/GameBase.cs
+@@ -39,6 +39,7 @@ namespace RogueEssence
+         private int splashFrames;
+         private bool drawTurn;
+         private bool backgroundLoaded;
++        private bool backgroundLoadFailed;
+         private bool firstUpdate;
+ 
+         public GameBase()
+@@ -110,10 +111,13 @@ namespace RogueEssence
+             }
+             catch (Exception ex)
+             {
++                backgroundLoadFailed = true;
++                CurrentPhase = LoadPhase.Error;
+                 DiagManager.Instance.LogError(ex);
+             }
+             backgroundLoaded = true;
+-            DiagManager.Instance.LoadMsg = Text.FormatKey("GAME_LOAD_READY");
++            if (!backgroundLoadFailed)
++                DiagManager.Instance.LoadMsg = Text.FormatKey("GAME_LOAD_READY");
+         }
+ 
+         /// <summary>

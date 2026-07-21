@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>33</SupportedOSPlatformVersion>
+    <OutputType>Library</OutputType>
+    <AssemblyName>RogueEssence</AssemblyName>
+    <RootNamespace>RogueEssence</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <DefineConstants>TRACE;__MOBILE__;__ANDROID__</DefineConstants>
+    <PublishTrimmed>false</PublishTrimmed>
+    <NoWarn>$(NoWarn);CA1416;CS0618;CS0649;CS0169;CS0414</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\**\*.cs"
+             Exclude="$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\bin\**;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\obj\**;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Content\SoundManager.cs;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Content\LoopedSong.cs;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Ground\GroundChar.cs;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Dev\GroundEditScene.cs;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Dev\DungeonEditScene.cs;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Content\CharSheet.cs;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Dungeon\Characters\Character.cs;$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\Versioning.cs"
+             Link="upstream\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="Platform\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="RogueEssence.PlatformGamePad" Alias="GamePad" />
+    <PackageReference Include="MonoGame.Framework.Android" />
+    <PackageReference Include="NVorbis" />
+    <PackageReference Include="JsonDiffPatch.Net" />
+    <PackageReference Include="LiteNetLib" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="ResXResourceReader.NetStandard" />
+    <PackageReference Include="System.Resources.Extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NLua.Android\NLua.Android.csproj" />
+    <ProjectReference Include="..\RogueElements.Android\RogueElements.Android.csproj" />
+  </ItemGroup>
+  <Target Name="VerifyRogueEssenceSources" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(PMDODumpRoot)\PMDC\RogueEssence\RogueEssence\RogueEssence.csproj')"
+           Text="Locked RogueEssence sources are missing. Run tools/Get-Upstream.ps1." />
+  </Target>
+</Project>

@@ -1,0 +1,42 @@
+From ccd57dc78b20123b8718f8b9d76ef6b7456548d6 Mon Sep 17 00:00:00 2001
+From: Codex <codex@local>
+Date: Mon, 20 Jul 2026 00:30:00 +0200
+Subject: [PATCH] feat: allow persistent engine error observers
+
+---
+ RogueEssence/DiagManager.cs | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/RogueEssence/DiagManager.cs b/RogueEssence/DiagManager.cs
+index 1897f2a5..d57c3eb6 100644
+--- a/RogueEssence/DiagManager.cs
++++ b/RogueEssence/DiagManager.cs
+@@ -36,6 +36,7 @@ namespace RogueEssence
+ 
+         private bool inError;
+         private LogAdded errorAddedEvent;
++        private LogAdded errorObservedEvent;
+         private ErrorTrace errorTraceEvent;
+ 
+         public bool RecordingInput { get { return (ActiveDebugReplay == null && inputWriter != null); } }
+@@ -107,6 +108,11 @@ namespace RogueEssence
+             errorTraceEvent = errorTrace;
+         }
+ 
++        public void AddErrorObserver(LogAdded errorObserved)
++        {
++            errorObservedEvent += errorObserved;
++        }
++
+         public void ListenToMapGen()
+         {
+             GenContextDebug.OnError += logRogueElementsError;
+@@ -279,6 +285,8 @@ namespace RogueEssence
+ 
+                     if (errorAddedEvent != null && signal)
+                         errorAddedEvent(exception.Message);
++                    if (errorObservedEvent != null && signal)
++                        errorObservedEvent(exception.Message);
+ 
+ 
+                     string filePath = LOG_PATH + String.Format("{0:yyyy-MM-dd}", DateTime.Now) + ".txt";

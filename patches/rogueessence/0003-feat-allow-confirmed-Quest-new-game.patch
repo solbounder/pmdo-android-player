@@ -1,0 +1,201 @@
+From 1088dc6d32fc2ec261f300b52c437db878de09f3 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Thu, 16 Jul 2026 13:42:20 +0200
+Subject: [PATCH 3/3] feat: allow confirmed Quest new game
+
+---
+ RogueEssence/Data/DataManager.cs | 45 ++++++++++++++++++++++++++
+ RogueEssence/Menu/Top/TopMenu.cs | 55 +++++++++++++++++++++++++++-----
+ 2 files changed, 92 insertions(+), 8 deletions(-)
+
+diff --git a/RogueEssence/Data/DataManager.cs b/RogueEssence/Data/DataManager.cs
+index 5a9311ba..bcbccd04 100644
+--- a/RogueEssence/Data/DataManager.cs
++++ b/RogueEssence/Data/DataManager.cs
+@@ -144,8 +144,11 @@ namespace RogueEssence.Data
+         public const string SAVE_BACKUP_FILE_PATH = SAVE_FILE_PATH + ".bak";
+         public const string SAVE_PENDING_FILE_PATH = SAVE_FILE_PATH + ".pending";
+         public const string SAVE_WRITE_FILE_PATH = SAVE_FILE_PATH + ".write";
++        public const string SAVE_NEW_GAME_BACKUP_FILE_PATH = SAVE_FILE_PATH + ".new-game.bak";
++        public const string SAVE_BACKUP_NEW_GAME_BACKUP_FILE_PATH = SAVE_BACKUP_FILE_PATH + ".new-game.bak";
+         public const string QUICKSAVE_EXTENSION = ".rsqs";
+         public const string QUICKSAVE_FILE_PATH = "QUICKSAVE" + QUICKSAVE_EXTENSION;
++        public const string QUICKSAVE_NEW_GAME_BACKUP_FILE_PATH = QUICKSAVE_FILE_PATH + ".new-game.bak";
+ 
+         public const string SOS_EXTENSION = ".sosmail";
+         public const string AOK_EXTENSION = ".aokmail";
+@@ -2811,6 +2814,48 @@ namespace RogueEssence.Data
+             }
+         }
+ 
++        /// <summary>
++        /// Archives the current Quest save boundary before an explicitly
++        /// confirmed New Game.  Base-game and other Quest namespaces use
++        /// different ModSavePath roots and are never touched.
++        /// </summary>
++        public void ArchiveSaveForNewGame()
++        {
++            if (!PathMod.Quest.IsValid())
++                throw new InvalidOperationException("New Game archival is only valid inside a Quest save namespace.");
++
++            string savePath = PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH);
++            string backupPath = PathMod.ModSavePath(SAVE_PATH, SAVE_BACKUP_FILE_PATH);
++            string quicksavePath = PathMod.ModSavePath(SAVE_PATH, QUICKSAVE_FILE_PATH);
++            string pendingPath = PathMod.ModSavePath(SAVE_PATH, SAVE_PENDING_FILE_PATH);
++            string writePath = PathMod.ModSavePath(SAVE_PATH, SAVE_WRITE_FILE_PATH);
++
++            void archive(string source, string destination)
++            {
++                if (File.Exists(source))
++                    File.Copy(source, destination, true);
++            }
++
++            // Copy every recoverable source first.  Nothing is removed until
++            // all requested archives have succeeded.
++            archive(savePath, PathMod.ModSavePath(SAVE_PATH, SAVE_NEW_GAME_BACKUP_FILE_PATH));
++            archive(backupPath, PathMod.ModSavePath(SAVE_PATH, SAVE_BACKUP_NEW_GAME_BACKUP_FILE_PATH));
++            archive(quicksavePath, PathMod.ModSavePath(SAVE_PATH, QUICKSAVE_NEW_GAME_BACKUP_FILE_PATH));
++            archive(pendingPath, pendingPath + ".new-game.bak");
++            archive(writePath, writePath + ".new-game.bak");
++
++            if (File.Exists(quicksavePath))
++                File.Delete(quicksavePath);
++            if (File.Exists(pendingPath))
++                File.Delete(pendingPath);
++            if (File.Exists(writePath))
++                File.Delete(writePath);
++            if (File.Exists(backupPath))
++                File.Delete(backupPath);
++            if (File.Exists(savePath))
++                File.Delete(savePath);
++        }
++
+         /// <summary>
+         /// Deletes replays from the replay folder corresponding to the current mod.
+         /// </summary>
+diff --git a/RogueEssence/Menu/Top/TopMenu.cs b/RogueEssence/Menu/Top/TopMenu.cs
+index 411a1bac..00c4927d 100644
+--- a/RogueEssence/Menu/Top/TopMenu.cs
++++ b/RogueEssence/Menu/Top/TopMenu.cs
+@@ -34,6 +34,12 @@ namespace RogueEssence.Menu
+                 }
+                 else
+                     choices.Add(new MenuTextChoice(MenuLabel.TOP_CONTINUE, Text.FormatKey("MENU_TOP_CONTINUE"), () => { Continue(null); }));
++
++                // Quests own an isolated save namespace.  Let their players
++                // intentionally restart without leaving the Quest, while a
++                // double confirmation and archival copy protect the old run.
++                if (inQuest)
++                    choices.Add(new MenuTextChoice(MenuLabel.TOP_NEW, Text.FormatKey("MENU_TOP_NEW"), ConfirmNewQuestGame));
+             }
+             else
+                 choices.Add(new MenuTextChoice(MenuLabel.TOP_NEW, Text.FormatKey("MENU_TOP_NEW"), () => { StartFlow(MonsterID.Invalid, null, -1); }));
+@@ -100,6 +106,21 @@ namespace RogueEssence.Menu
+             GameBase.CurrentPhase = GameBase.LoadPhase.Unload;
+         }
+ 
++        private static void ConfirmNewQuestGame()
++        {
++            MenuManager.Instance.AddMenu(MenuManager.Instance.CreateDialogue(
++                MonsterID.Invalid, null, new EmoteStyle(0), true,
++                () =>
++                {
++                    MenuManager.Instance.AddMenu(MenuManager.Instance.CreateQuestion(
++                        MonsterID.Invalid, null, new EmoteStyle(0),
++                        Text.FormatKey("DLG_DELETE_CONFIRM"), true, false, false, false,
++                        () => { StartFlow(MonsterID.Invalid, null, -1, true); },
++                        () => { }, true), false);
++                },
++                -1, false, false, false, Text.FormatKey("DLG_DELETE_SAVE")), false);
++        }
++
+ 
+         private static void cannotRead(string path)
+         {
+@@ -272,7 +293,7 @@ namespace RogueEssence.Menu
+             }
+         }
+ 
+-        private static void StartFlow(MonsterID monId, string name, int backPhase)
++        private static void StartFlow(MonsterID monId, string name, int backPhase, bool archiveQuestSave = false)
+         {
+             if (String.IsNullOrEmpty(monId.Species) || backPhase == 0)
+             {
+@@ -286,7 +307,7 @@ namespace RogueEssence.Menu
+                         string newName = null;
+                         if (DataManager.Instance.Start.Chars[index].Name != "")
+                             newName = DataManager.Instance.Start.Chars[index].Name;
+-                        StartFlow(DataManager.Instance.Start.Chars[index].ID, newName, -1);
++                        StartFlow(DataManager.Instance.Start.Chars[index].ID, newName, -1, archiveQuestSave);
+                     }, () => { }), false);
+                     return;
+                 }
+@@ -300,8 +321,7 @@ namespace RogueEssence.Menu
+                 }
+                 else
+                 {
+-                    MenuManager.Instance.ClearMenus();
+-                    GameManager.Instance.SceneOutcome = Begin(DataManager.Instance.DefaultMonsterID, "");
++                    StartNewGameAfterChoices(DataManager.Instance.DefaultMonsterID, "", archiveQuestSave);
+                     return;
+                 }
+             }
+@@ -327,7 +347,7 @@ namespace RogueEssence.Menu
+                             startIndex = choices.Count;
+                         choices.Add(new DialogueChoice(menuGender, () =>
+                         {
+-                            StartFlow(new MonsterID(monId.Species, monId.Form, monId.Skin, gender), name, -1);
++                            StartFlow(new MonsterID(monId.Species, monId.Form, monId.Skin, gender), name, -1, archiveQuestSave);
+                         }));
+                     }
+                     choices.Add(new DialogueChoice(Text.FormatKey("MENU_CANCEL"), () => { }));
+@@ -337,7 +357,7 @@ namespace RogueEssence.Menu
+                 }
+                 else if (backPhase == 1)
+                 {
+-                    StartFlow(new MonsterID(monId.Species, monId.Form, monId.Skin, Gender.Unknown), name, 0);
++                    StartFlow(new MonsterID(monId.Species, monId.Form, monId.Skin, Gender.Unknown), name, 0, archiveQuestSave);
+                     return;
+                 }
+                 else
+@@ -348,16 +368,35 @@ namespace RogueEssence.Menu
+             {
+                 MenuManager.Instance.AddMenu(new NicknameMenu((string name) =>
+                 {
+-                    StartFlow(monId, name, -1);
++                    StartFlow(monId, name, -1, archiveQuestSave);
+                 }, () =>
+                 {
+-                    StartFlow(monId, null, 1);
++                    StartFlow(monId, null, 1, archiveQuestSave);
+                 }), false);
+                 return;
+             }
+ 
+             //begin
+ 
++            StartNewGameAfterChoices(monId, name, archiveQuestSave);
++        }
++
++        private static void StartNewGameAfterChoices(MonsterID monId, string name, bool archiveQuestSave)
++        {
++            if (archiveQuestSave)
++            {
++                try
++                {
++                    DataManager.Instance.ArchiveSaveForNewGame();
++                }
++                catch (Exception ex)
++                {
++                    DiagManager.Instance.LogError(ex, false);
++                    cannotRead(DataManager.SAVE_PATH + DataManager.SAVE_FILE_PATH);
++                    return;
++                }
++            }
++
+             MenuManager.Instance.ClearMenus();
+             GameManager.Instance.SceneOutcome = Begin(monId, name);
+         }
+-- 
+2.51.1.windows.1
+

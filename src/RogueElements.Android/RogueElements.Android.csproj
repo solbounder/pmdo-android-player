@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>33</SupportedOSPlatformVersion>
+    <OutputType>Library</OutputType>
+    <AssemblyName>RogueElements</AssemblyName>
+    <RootNamespace>RogueElements</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <DefineConstants>TRACE;__MOBILE__;__ANDROID__</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(PMDODumpRoot)\PMDC\RogueEssence\RogueElements\RogueElements\**\*.cs"
+             Exclude="$(PMDODumpRoot)\PMDC\RogueEssence\RogueElements\RogueElements\bin\**;$(PMDODumpRoot)\PMDC\RogueEssence\RogueElements\RogueElements\obj\**"
+             Link="upstream\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <Target Name="VerifyRogueElementsSources" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(PMDODumpRoot)\PMDC\RogueEssence\RogueElements\RogueElements\RogueElements.csproj')"
+           Text="Locked RogueElements sources are missing. Run tools/Get-Upstream.ps1." />
+  </Target>
+</Project>

@@ -1,0 +1,30 @@
+From d67d4fb4b530b4d5515de4ef833c2d98f59f0588 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 07:53:07 +0200
+Subject: [PATCH] fix: block all ground input during map handoff
+
+---
+ RogueEssence/Ground/GroundScene.cs | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/RogueEssence/Ground/GroundScene.cs b/RogueEssence/Ground/GroundScene.cs
+index 60b3bf46..bf780e99 100644
+--- a/RogueEssence/Ground/GroundScene.cs
++++ b/RogueEssence/Ground/GroundScene.cs
+@@ -174,6 +174,13 @@ namespace RogueEssence.Ground
+ 
+         IEnumerator<YieldInstruction> ProcessInput(InputManager input)
+         {
++            // The scene can remain active for a frame while a destination map
++            // is being installed.  No input path (including menus) is safe
++            // until that map exposes its active character.
++            GroundMap currentGround = ZoneManager.Instance.CurrentGround;
++            if (currentGround == null || currentGround.ActiveChar == null)
++                yield break;
++
+             if (FreeCamCenter.HasValue)
+                 yield break;
+             if (DataManager.Instance.Save.CutsceneMode)
+-- 
+2.51.1.windows.1
+

@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="MonoGame.Framework.Android" Version="3.8.5" />
+    <PackageVersion Include="NVorbis" Version="0.10.5" />
+    <PackageVersion Include="JsonDiffPatch.Net" Version="2.3.0" />
+    <PackageVersion Include="LiteNetLib" Version="0.9.5.2" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageVersion Include="ResXResourceReader.NetStandard" Version="1.0.1" />
+    <PackageVersion Include="System.Resources.Extensions" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageVersion Include="coverlet.collector" Version="10.0.1" />
+  </ItemGroup>
+</Project>

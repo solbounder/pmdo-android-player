@@ -1,0 +1,29 @@
+From e372157d5a2227f8ec454dd5ec8b2b11b544929d Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 07:30:00 +0200
+Subject: [PATCH] fix: ignore ground actions during map handoff
+
+---
+ RogueEssence/Ground/GSceneZone.cs | 9 ++++++++ -
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/RogueEssence/Ground/GSceneZone.cs b/RogueEssence/Ground/GSceneZone.cs
+index 4dff8d0f..fb16b3a4 100644
+--- a/RogueEssence/Ground/GSceneZone.cs
++++ b/RogueEssence/Ground/GSceneZone.cs
+@@ -108,7 +108,14 @@ namespace RogueEssence.Ground
+ 
+         public IEnumerator<YieldInstruction> ProcessInput(GameAction action)
+         {
+-            GroundChar character = FocusedCharacter;
++            // A scene transition can leave GroundScene active for a frame before
++            // the destination map has installed its player character.  Ignore
++            // controller/touch actions until that handoff is complete.
++            GroundMap currentGround = ZoneManager.Instance.CurrentGround;
++            if (currentGround == null || currentGround.ActiveChar == null)
++                yield break;
++
++            GroundChar character = currentGround.ActiveChar;
+ 
+             switch (action.Type)
+             {

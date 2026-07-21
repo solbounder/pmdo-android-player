@@ -1,0 +1,32 @@
+From 4444444444444444444444444444444444444444 Mon Sep 17 00:00:00 2001
+From: PMDO Android <pmdo-android@localhost>
+Date: Sun, 19 Jul 2026 21:35:00 +0200
+Subject: [PATCH] fix: auto-continue Android splash after loading
+
+---
+ RogueEssence/GameBase.cs | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/RogueEssence/GameBase.cs b/RogueEssence/GameBase.cs
+index 030b3953..f970bd13 100644
+--- a/RogueEssence/GameBase.cs
++++ b/RogueEssence/GameBase.cs
+@@ -178,8 +178,16 @@ namespace RogueEssence
+                         }
+                         else if (fadeFrames == 0)
+                         {
++#if __ANDROID__
++                            // Android already presents a native launcher before this
++                            // screen.  Continue as soon as background loading is done;
++                            // otherwise SurfaceView/controller timing can leave the
++                            // player on a fully faded black frame waiting for input.
++                            fadeFrames++;
++#else
+                             if (Keyboard.GetState().GetPressedKeys().Length > 0 || GamePad.GetState(PlayerIndex.One).Buttons != new GamePadButtons())
+                                 fadeFrames++;
++#endif
+                         }
+                         else
+                         {
+-- 
+2.50.1.windows.1

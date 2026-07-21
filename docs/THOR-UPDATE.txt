@@ -1,0 +1,43 @@
+PMDO ANDROID – UPDATE FÜR EINE BESTEHENDE THOR-INSTALLATION
+===========================================================
+
+Dieses kleine ZIP enthält nur:
+
+  PMDO-Android-Player-v0.1.4.apk
+  THOR-UPDATE.txt
+
+Die App NICHT deinstallieren. Dadurch bleiben die bereits importierte
+PMDO-Runtime, Echoes of the Abyss und alle Spielstände erhalten.
+
+1. ZIP auf den Thor in "Interner Speicher\Download" kopieren.
+2. ZIP vollständig entpacken.
+3. Die APK antippen und "Aktualisieren" beziehungsweise "Installieren"
+   bestätigen.
+4. PMDO Android Player öffnen und direkt "Spiel starten" drücken. Runtime und Mod
+   müssen nicht erneut importiert werden.
+
+Neu in dieser Version:
+
+  - Appname und APK-Dateiname heißen jetzt "PMDO Android Player"
+  - Android-Appsymbol ist das goldene Schlüsselsymbol der Windows-Version
+  - kurzlebige Dungeon-Soundeffekte geben ihre Android-Audioquellen nach dem
+    Abspielen zuverlässig frei; überlappende Effekte verdrängen im Grenzfall
+    nur den ältesten kurzen Effekt, nicht Musik oder Dauerschleifen
+  - "Max 4:3" ist der Standard; unter "Bildschirmgröße" stehen zusätzlich
+    gestrecktes Vollbild, 320x240, 640x480, 960x720 und 1280x960 bereit
+    und Änderungen greifen sofort
+  - stabilere Musik in der Stadt und automatische Erholung bei Audio-Underruns
+  - Touch-Steuerung kehrt nach dem nächsten Fingertipp zurück, nachdem eine
+    Thor-Taste sie ausgeblendet hat
+  - Tastatursymbol kompakt mittig am oberen Bildschirmrand
+
+Falls Android statt eines Updates einen Signaturkonflikt meldet: NICHT
+deinstallieren, sondern den Dialog fotografieren. Die vorhandenen App-Daten
+bleiben dann unangetastet.
+
+Version: 0.1.4 (versionCode 5)
+Signaturzertifikat SHA-256:
+81EF0C48E32C988BA8259CA135ACBC8C812BD9798B8D6B5F1D3750E119459DFB
+
+APK SHA-256:
+AF22996270009FFA2791750DD7E19AF7ED7CA7C03AABAB3391993D44E7410332

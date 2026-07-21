@@ -1,0 +1,25 @@
+From 1111111111111111111111111111111111111111 Mon Sep 17 00:00:00 2001
+From: PMDO Android <pmdo-android@localhost>
+Date: Sun, 19 Jul 2026 16:15:00 +0200
+Subject: [PATCH] feat: recognize Android Lua module path
+
+---
+ RogueEssence/Lua/LuaEngine.cs | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/RogueEssence/Lua/LuaEngine.cs b/RogueEssence/Lua/LuaEngine.cs
+index 2cfb7a74..1a8186d9 100644
+--- a/RogueEssence/Lua/LuaEngine.cs
++++ b/RogueEssence/Lua/LuaEngine.cs
+@@ -384,6 +384,8 @@ namespace RogueEssence.Script
+                 return DataManager.DATA_PATH + "Script/bin/osx-x64/";
+             else if (OperatingSystem.IsLinux())
+                 return DataManager.DATA_PATH + "Script/bin/linux-x64/";
++            else if (OperatingSystem.IsAndroid())
++                return DataManager.DATA_PATH + "Script/bin/android/";
+             throw new PlatformNotSupportedException();
+         }
+ 
+-- 
+2.50.1.windows.1
+

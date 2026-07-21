@@ -1,0 +1,88 @@
+From 6a9138a85a7d62b65c1c4bbc2c27db92e66410ad Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 09:33:43 +0200
+Subject: [PATCH] feat: add Android display modes
+
+---
+ RogueEssence/GameBase.cs                        |  4 ++++
+ RogueEssence/Menu/Settings/SettingsMenu.cs      | 10 ++++++++++
+ RogueEssence/Menu/Settings/SettingsTitleMenu.cs | 10 ++++++++++
+ 3 files changed, 24 insertions(+)
+
+diff --git a/RogueEssence/GameBase.cs b/RogueEssence/GameBase.cs
+index d09d8ec0..99789b01 100644
+--- a/RogueEssence/GameBase.cs
++++ b/RogueEssence/GameBase.cs
+@@ -48,7 +48,11 @@ namespace RogueEssence
+             IsFixedTimeStep = true;
+             graphics = new GraphicsDeviceManager(this);
+             graphics.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
++#if __ANDROID__
++            GraphicsManager.InitBase(graphics, PlatformDisplay.GetRenderScale(DiagManager.Instance.CurSettings.Window));
++#else
+             GraphicsManager.InitBase(graphics, DiagManager.Instance.CurSettings.Window);
++#endif
+             IsMouseVisible = true;
+             Window.Title = Text.FormatKey("GAME_TITLE");
+             Content.RootDirectory = "Content";
+diff --git a/RogueEssence/Menu/Settings/SettingsMenu.cs b/RogueEssence/Menu/Settings/SettingsMenu.cs
+index 3fd09155..fcf11f05 100644
+--- a/RogueEssence/Menu/Settings/SettingsMenu.cs
++++ b/RogueEssence/Menu/Settings/SettingsMenu.cs
+@@ -70,8 +70,14 @@ namespace RogueEssence.Menu
+ 
+             List<string> windowChoices = new List<string>();
+             windowChoices.Add(Text.FormatKey("MENU_SETTINGS_FULL_SCREEN"));
++#if __ANDROID__
++            for (int ii = 1; ii < PlatformDisplay.MaximumAspectMode; ii++)
++                windowChoices.Add(String.Format("{0}x{1}", GraphicsManager.ScreenWidth * ii, GraphicsManager.ScreenHeight * ii));
++            windowChoices.Add("Max 4:3");
++#else
+             for (int ii = 1; ii < 9; ii++)
+                 windowChoices.Add(String.Format("{0}x{1}", GraphicsManager.ScreenWidth * ii, GraphicsManager.ScreenHeight * ii));
++#endif
+             totalChoices.Add(new MenuSetting(Text.FormatKey("MENU_SETTINGS_WINDOW_SIZE"), 88, 72, windowChoices, DiagManager.Instance.CurSettings.Window, confirmAction));
+ 
+             if (!inGame)
+@@ -108,7 +114,11 @@ namespace RogueEssence.Menu
+             DiagManager.Instance.CurSettings.MinimapColor = (Settings.MinimapStyle)TotalChoices[6].CurrentChoice;
+             DiagManager.Instance.CurSettings.Border = TotalChoices[7].CurrentChoice;
+             DiagManager.Instance.CurSettings.Window = TotalChoices[8].CurrentChoice;
++#if __ANDROID__
++            PlatformDisplay.SetWindowMode(DiagManager.Instance.CurSettings.Window);
++#else
+             GraphicsManager.SetWindowMode(DiagManager.Instance.CurSettings.Window);
++#endif
+ 
+ 
+             bool changeLanguage = false;
+diff --git a/RogueEssence/Menu/Settings/SettingsTitleMenu.cs b/RogueEssence/Menu/Settings/SettingsTitleMenu.cs
+index 8acdc07c..a1e30e11 100644
+--- a/RogueEssence/Menu/Settings/SettingsTitleMenu.cs
++++ b/RogueEssence/Menu/Settings/SettingsTitleMenu.cs
+@@ -149,12 +149,22 @@ namespace RogueEssence.Menu
+ 
+             List<string> windowChoices = new List<string>();
+             windowChoices.Add(Text.FormatKey("MENU_SETTINGS_FULL_SCREEN"));
++#if __ANDROID__
++            for (int ii = 1; ii < PlatformDisplay.MaximumAspectMode; ii++)
++                windowChoices.Add(String.Format("{0}x{1}", GraphicsManager.ScreenWidth * ii, GraphicsManager.ScreenHeight * ii));
++            windowChoices.Add("Max 4:3");
++#else
+             for (int ii = 1; ii < 9; ii++)
+                 windowChoices.Add(String.Format("{0}x{1}", GraphicsManager.ScreenWidth * ii, GraphicsManager.ScreenHeight * ii));
++#endif
+             origin.AddSetting(Text.FormatKey("MENU_SETTINGS_WINDOW_SIZE"), windowChoices, DiagManager.Instance.CurSettings.Window, setting =>
+             {
+                 DiagManager.Instance.CurSettings.Window = setting.CurrentChoice;
++#if __ANDROID__
++                PlatformDisplay.SetWindowMode(DiagManager.Instance.CurSettings.Window);
++#else
+                 GraphicsManager.SetWindowMode(DiagManager.Instance.CurSettings.Window);
++#endif
+             });
+ 
+             if (!InGame)
+-- 
+2.51.1.windows.1
+

@@ -1,0 +1,61 @@
+From 82a50214d7dab7a146e1c0df067f3f32e4ce310b Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 07:35:00 +0200
+Subject: [PATCH] fix: release exhausted sound effect sources
+
+---
+ RogueEssence/Content/SoundManager.cs | 34 +++++++++++++++++++++-------
+ 1 file changed, 26 insertions(+), 8 deletions(-)
+
+diff --git a/RogueEssence/Content/SoundManager.cs b/RogueEssence/Content/SoundManager.cs
+index c0e478b5..bc09165c 100644
+--- a/RogueEssence/Content/SoundManager.cs
++++ b/RogueEssence/Content/SoundManager.cs
+@@ -147,6 +147,7 @@ namespace RogueEssence.Content
+                 if (sounds[ii].PendingBufferCount == 0)
+                 {
+                     sounds[ii].Stop();
++                    sounds[ii].Dispose();
+                     sounds.RemoveAt(ii);
+                 }
+             }
+@@ -197,14 +198,31 @@ namespace RogueEssence.Content
+             FAudio.stb_vorbis_close(stbVorbisData);
+ 
+ 
+-            DynamicSoundEffectInstance soundStream = new DynamicSoundEffectInstance(
+-                (int)fileInfo.sample_rate,
+-                (fileInfo.channels == 1) ? AudioChannels.Mono : AudioChannels.Stereo
+-            );
+-            soundStream.Volume = volume * seBalance;
+-            soundStream.SubmitFloatBufferEXT(chunk, 0, framesRead * fileInfo.channels);
+-            soundStream.Play();
+-            sounds.Add(soundStream);
++            DynamicSoundEffectInstance soundStream = null;
++            try
++            {
++                soundStream = new DynamicSoundEffectInstance(
++                    (int)fileInfo.sample_rate,
++                    (fileInfo.channels == 1) ? AudioChannels.Mono : AudioChannels.Stereo
++                );
++                soundStream.Volume = volume * seBalance;
++                soundStream.SubmitFloatBufferEXT(chunk, 0, framesRead * fileInfo.channels);
++                soundStream.Play();
++                sounds.Add(soundStream);
++            }
++            catch (InstancePlayLimitException)
++            {
++                // OpenAL exposes a finite source pool on mobile.  Dropping an
++                // effect is preferable to entering the engine error handler,
++                // which itself attempts to play a sound and can recurse.
++                soundStream?.Dispose();
++                return 0;
++            }
++            catch
++            {
++                soundStream?.Dispose();
++                throw;
++            }
+ 
+             return (int)total_frames;
+         }

@@ -1,0 +1,27 @@
+From 2222222222222222222222222222222222222222 Mon Sep 17 00:00:00 2001
+From: PMDO Android <pmdo-android@localhost>
+Date: Sun, 19 Jul 2026 16:34:00 +0200
+Subject: [PATCH] feat: allow Android touch paste in text menus
+
+---
+ RogueEssence/Menu/TextInputMenu.cs | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/RogueEssence/Menu/TextInputMenu.cs b/RogueEssence/Menu/TextInputMenu.cs
+index 373fcf83..5511ed6e 100644
+--- a/RogueEssence/Menu/TextInputMenu.cs
++++ b/RogueEssence/Menu/TextInputMenu.cs
+@@ -298,6 +298,10 @@ namespace RogueEssence.Menu
+ 
+         protected bool PressedPaste(InputManager input)
+         {
++#if __ANDROID__
++            if (input.BaseButtonPressed(Buttons.LeftStick))
++                return true;
++#endif
+             bool holdCtrl = false;
+             if (OperatingSystem.IsMacOS())
+                 holdCtrl = (input.BaseKeyDown(Keys.LeftWindows) || input.BaseKeyDown(Keys.RightWindows));
+-- 
+2.50.1.windows.1
+

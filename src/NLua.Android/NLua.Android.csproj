@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>33</SupportedOSPlatformVersion>
+    <OutputType>Library</OutputType>
+    <AssemblyName>NLua</AssemblyName>
+    <RootNamespace>NLua</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>disable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <DefineConstants>TRACE;__MOBILE__;__ANDROID__</DefineConstants>
+    <PublishTrimmed>false</PublishTrimmed>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(PMDODumpRoot)\PMDC\RogueEssence\NLua\src\**\*.cs"
+             Link="upstream\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KeraLua.Android\KeraLua.Android.csproj" />
+  </ItemGroup>
+  <Target Name="VerifyNLuaSources" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(PMDODumpRoot)\PMDC\RogueEssence\NLua\src\Lua.cs')"
+           Text="Locked NLua sources are missing. Run tools/Get-Upstream.ps1." />
+  </Target>
+</Project>

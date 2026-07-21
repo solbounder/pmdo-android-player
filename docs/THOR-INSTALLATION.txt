@@ -1,0 +1,73 @@
+PMDO ANDROID + ECHOES OF THE ABYSS – AYN THOR
+================================================
+
+Dieses ZIP enthält alles, was auf den Thor kopiert werden muss:
+
+  PMDO-Android-Player-v0.1.4.apk
+  DumpAsset\
+  Echoes_of_the_Abyss\
+
+Voraussetzung: Android 13 oder neuer und mindestens 2 bis 2,5 GB freier
+Speicher während Installation und Import.
+
+UPDATE BEI BEREITS IMPORTIERTEM SPIEL
+-------------------------------------
+
+Wenn PMDO und Echoes of the Abyss bereits importiert wurden, nur die neue APK
+über die vorhandene App installieren. Die App nicht deinstallieren und die
+Schritte 4 und 5 nicht wiederholen; dadurch bleiben die privaten Spieldaten und
+Spielstände erhalten.
+
+1. ZIP AUF DEN THOR KOPIEREN
+----------------------------
+
+Thor per USB-C verbinden, in der USB-Benachrichtigung "Dateiübertragung"
+auswählen und dieses komplette ZIP nach "Interner Speicher\Download" kopieren.
+
+2. ZIP AUF DEM THOR ENTPACKEN
+-----------------------------
+
+In der Dateien-App das ZIP unter "Download" auswählen und vollständig
+entpacken. Danach muss der entpackte Ordner direkt die APK sowie die beiden
+Ordner "DumpAsset" und "Echoes_of_the_Abyss" enthalten.
+
+3. APP INSTALLIEREN
+-------------------
+
+Die Datei "PMDO-Android-Player-v0.1.4.apk" antippen. Falls Android
+die Installation blockiert, für die verwendete Dateien-App "Aus dieser Quelle
+zulassen" aktivieren. Eine eventuelle Play-Protect-Rückfrage mit
+"Trotzdem installieren" bestätigen.
+
+4. PMDO-RUNTIME IMPORTIEREN
+---------------------------
+
+PMDO Android Player öffnen und "PMDO-0.8.12-Ordner importieren" drücken. Im
+Android-Dateidialog den entpackten Ordner "DumpAsset" öffnen. Dort müssen direkt
+"Base", "CONFIG", "Content", "Data" und "Strings" sichtbar sein. Dann
+"Diesen Ordner verwenden" drücken und warten, bis "PMDO 0.8.12 importiert"
+erscheint. Die App zeigt dabei die Anzahl kopierter Dateien und MiB an. Während
+des Imports die App nicht schließen.
+
+5. ECHOES OF THE ABYSS IMPORTIEREN
+----------------------------------
+
+"Mod-Ordner importieren" drücken, den entpackten Ordner
+"Echoes_of_the_Abyss" auswählen und "Diesen Ordner verwenden" bestätigen.
+Die Datei "Mod.xml" muss direkt in diesem Ordner liegen. Auf die Meldung
+"Echoes of the Abyss importiert und aktiviert" warten.
+
+6. SPIEL STARTEN
+----------------
+
+"Spiel starten" drücken. Nach einem erfolgreichen Start dürfen das ZIP und die
+beiden entpackten Datenordner aus "Download" gelöscht werden; die App besitzt
+dann ihre eigene private Kopie. Die APK kann für spätere Neuinstallationen
+aufbewahrt werden.
+
+Falls ein "PMDO-Fehler auf diesem Gerät"-Dialog erscheint: den Dialog
+fotografieren oder "Text kopieren" drücken. Nach der Rückkehr zum Launcher kann
+das gespeicherte Protokoll durch Antippen der Statuszeile erneut geöffnet werden.
+
+APK SHA-256:
+AF22996270009FFA2791750DD7E19AF7ED7CA7C03AABAB3391993D44E7410332

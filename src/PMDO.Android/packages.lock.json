@@ -1,0 +1,117 @@
+{
+  "version": 2,
+  "dependencies": {
+    "net10.0-android36.0": {
+      "Microsoft.NET.ILLink.Tasks": {
+        "type": "Direct",
+        "requested": "[10.0.10, )",
+        "resolved": "10.0.10",
+        "contentHash": "f5VCIE7AJpd5YvzNTeMGVzQIgyE9tX+AreTYwQF+REbu+DZo/2Ae+jNSwhPEYrVz6RRkd7y8ubXjk6Nn6Ka+Cg=="
+      },
+      "MonoGame.Framework.Android": {
+        "type": "Direct",
+        "requested": "[3.8.5, )",
+        "resolved": "3.8.5",
+        "contentHash": "0+KlA99j/xe+YuHVMuPDSClgN8XgC8XXPLWe1xpzUQ5/31VJ+D+4jSshUBaszGoWjSQgxYefZPQ/d5isOSsoMg==",
+        "dependencies": {
+          "MonoGame.Library.OpenAL": "1.24.3.2"
+        }
+      },
+      "Newtonsoft.Json": {
+        "type": "Direct",
+        "requested": "[13.0.2, )",
+        "resolved": "13.0.2",
+        "contentHash": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg=="
+      },
+      "MonoGame.Library.OpenAL": {
+        "type": "Transitive",
+        "resolved": "1.24.3.2",
+        "contentHash": "nGRsXQXs+NSUC3C5w90hFQfyKdZPpBnHnyg2w+Dw/2pUH7s+CoRWTJNYbzzdJf3+aeUvfvG4rTbFvMKDDj5olA=="
+      },
+      "System.Formats.Nrbf": {
+        "type": "Transitive",
+        "resolved": "9.0.0",
+        "contentHash": "F/6tNE+ckmdFeSQAyQo26bQOqfPFKEfZcuqnp4kBE6/7jP26diP+QTHCJJ6vpEfaY6bLy+hBLiIQUSxSmNwLkA=="
+      },
+      "KeraLua": {
+        "type": "Project"
+      },
+      "NLua": {
+        "type": "Project",
+        "dependencies": {
+          "KeraLua": "[1.0.0, )"
+        }
+      },
+      "pmdo.portable": {
+        "type": "Project"
+      },
+      "RogueElements": {
+        "type": "Project"
+      },
+      "RogueEssence": {
+        "type": "Project",
+        "dependencies": {
+          "JsonDiffPatch.Net": "[2.3.0, )",
+          "LiteNetLib": "[0.9.5.2, )",
+          "MonoGame.Framework.Android": "[3.8.5, )",
+          "NLua": "[1.0.0, )",
+          "NVorbis": "[0.10.5, )",
+          "Newtonsoft.Json": "[13.0.2, )",
+          "ResXResourceReader.NetStandard": "[1.0.1, )",
+          "RogueElements": "[1.0.0, )",
+          "System.Resources.Extensions": "[9.0.0, )"
+        }
+      },
+      "JsonDiffPatch.Net": {
+        "type": "CentralTransitive",
+        "requested": "[2.3.0, )",
+        "resolved": "2.3.0",
+        "contentHash": "a+I1WNXSwkelsgUfMk3LVRY3FzQDV8nCpRMcml2whQDimbnOG+mxRCt6kCzMRFwshg9ir4shm0yvYDL7E89ayg==",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.1"
+        }
+      },
+      "LiteNetLib": {
+        "type": "CentralTransitive",
+        "requested": "[0.9.5.2, )",
+        "resolved": "0.9.5.2",
+        "contentHash": "pTtvQuD62Amp5tn/8Y2OAXEoBFALreNunViNnX3xiRugr6Yw+iu342m15hAxItLwbiuCuDBRrn75rdH9SsfOUw=="
+      },
+      "NVorbis": {
+        "type": "CentralTransitive",
+        "requested": "[0.10.5, )",
+        "resolved": "0.10.5",
+        "contentHash": "o+IptCG4Avze39HrGeztC+xIp6fOOwGVAwkoa1J++4Ji1WmZ+KIKlFl5wsgxsXqBkmdpfs/vFSUproiLKYa2bw=="
+      },
+      "ResXResourceReader.NetStandard": {
+        "type": "CentralTransitive",
+        "requested": "[1.0.1, )",
+        "resolved": "1.0.1",
+        "contentHash": "XIni6GQVaJHbI3mpOXMbqPRsvUweA1AfPW/Y1vYnfQOJTBG37hEbwcle4OfSdwoMLRr5EowxOQNukCCEf7ssCw=="
+      },
+      "System.Resources.Extensions": {
+        "type": "CentralTransitive",
+        "requested": "[9.0.0, )",
+        "resolved": "9.0.0",
+        "contentHash": "tvhuT1D2OwPROdL1kRWtaTJliQo0WdyhvwDpd8RM997G7m3Hya5nhbYhNTS75x6Vu+ypSOgL5qxDCn8IROtCxw==",
+        "dependencies": {
+          "System.Formats.Nrbf": "9.0.0"
+        }
+      }
+    },
+    "net10.0-android36.0/android-arm64": {
+      "MonoGame.Library.OpenAL": {
+        "type": "Transitive",
+        "resolved": "1.24.3.2",
+        "contentHash": "nGRsXQXs+NSUC3C5w90hFQfyKdZPpBnHnyg2w+Dw/2pUH7s+CoRWTJNYbzzdJf3+aeUvfvG4rTbFvMKDDj5olA=="
+      }
+    },
+    "net10.0-android36.0/android-x64": {
+      "MonoGame.Library.OpenAL": {
+        "type": "Transitive",
+        "resolved": "1.24.3.2",
+        "contentHash": "nGRsXQXs+NSUC3C5w90hFQfyKdZPpBnHnyg2w+Dw/2pUH7s+CoRWTJNYbzzdJf3+aeUvfvG4rTbFvMKDDj5olA=="
+      }
+    }
+  }
+}

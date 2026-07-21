@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/KeraLua.Android/KeraLua.Android.csproj" />
+    <Project Path="src/NLua.Android/NLua.Android.csproj" />
+    <Project Path="src/PMDO.Android/PMDO.Android.csproj" />
+    <Project Path="src/PMDO.Portable/PMDO.Portable.csproj" />
+    <Project Path="src/RogueElements.Android/RogueElements.Android.csproj" />
+    <Project Path="src/RogueEssence.Android/RogueEssence.Android.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PMDO.Portable.Tests/PMDO.Portable.Tests.csproj" />
+  </Folder>
+</Solution>

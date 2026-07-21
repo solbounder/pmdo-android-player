@@ -1,0 +1,31 @@
+From fb9503846be7f468439042d322e439e0722ea055 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Sun, 19 Jul 2026 18:36:40 +0200
+Subject: [PATCH 5/5] feat: expose EOTA runtime contract
+
+---
+ RogueEssence/Lua/ScriptGame.cs | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/RogueEssence/Lua/ScriptGame.cs b/RogueEssence/Lua/ScriptGame.cs
+index 7ecbfdda..c9bcee02 100644
+--- a/RogueEssence/Lua/ScriptGame.cs
++++ b/RogueEssence/Lua/ScriptGame.cs
+@@ -17,6 +17,17 @@ namespace RogueEssence.Script
+         /// </summary>
+         public IRandom Rand { get { return MathUtils.Rand; } }
+ 
++        /// <summary>
++        /// Returns the compatibility contract implemented by the EOTA runtime.
++        /// Quest scripts use this to fail early with an actionable message when
++        /// they are launched by an unpatched PMDO executable.
++        /// </summary>
++        /// <returns>The EOTA runtime contract version.</returns>
++        public int GetEotaRuntimeContract()
++        {
++            return 1;
++        }
++
+         /// <summary>
+         /// Saves the game while in ground mode.
+         /// </summary>

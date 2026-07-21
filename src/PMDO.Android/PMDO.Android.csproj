@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>33</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <ApplicationId>io.github.solbounder.pmdoandroid</ApplicationId>
+    <ApplicationVersion>5</ApplicationVersion>
+    <ApplicationDisplayVersion>0.1.4</ApplicationDisplayVersion>
+    <AssemblyName>PMDC</AssemblyName>
+    <RootNamespace>PMDO.Android</RootNamespace>
+    <AssemblyVersion>0.8.12.0</AssemblyVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <PublishTrimmed>false</PublishTrimmed>
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <DefineConstants>TRACE;__MOBILE__;__ANDROID__</DefineConstants>
+    <NoWarn>$(NoWarn);CA1416;CS0618;CS0649;CS0169;CS0414</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(PMDODumpRoot)\PMDC\PMDC\**\*.cs"
+             Exclude="$(PMDODumpRoot)\PMDC\PMDC\bin\**;$(PMDODumpRoot)\PMDC\PMDC\obj\**;$(PMDODumpRoot)\PMDC\PMDC\Program.cs;$(PMDODumpRoot)\PMDC\PMDC\Dev\**;$(PMDODumpRoot)\PMDC\PMDC\Dungeon\GameEffects\SingleCharEvent.cs;$(PMDODumpRoot)\PMDC\PMDC\Dungeon\GameEffects\StatusGivenEvent.cs;$(PMDODumpRoot)\PMDC\PMDC\LevelGen\Floors\GenSteps\FloorPlan\GridPathPyramid.cs"
+             Link="upstream\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="$(PMDODumpRoot)\PMDC\PMDC\Dev\JsonConverters.cs" Link="upstream\Dev\JsonConverters.cs" />
+    <Compile Include="$(PMDODumpRoot)\PMDC\PMDC\Dev\SerializerContractResolver.cs" Link="upstream\Dev\SerializerContractResolver.cs" />
+    <Compile Include="$(PMDODumpRoot)\PMDC\PMDC\Dev\UpgradeBinder.cs" Link="upstream\Dev\UpgradeBinder.cs" />
+    <Compile Include="Android\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(PMDODumpRoot)\PMDC\PMDC\Properties\Resources.resx"
+                      LogicalName="PMDC.Properties.Resources.resources" />
+    <AndroidAsset Include="Assets\runtime-manifest.json" />
+    <AndroidAsset Include="..\..\LICENSE" Link="Licenses\PROJECT-LICENSE.txt" />
+    <AndroidAsset Include="..\..\THIRD_PARTY_NOTICES.md" Link="Licenses\THIRD-PARTY-NOTICES.md" />
+    <AndroidAsset Include="..\..\licenses\DOTNET-THIRD-PARTY-NOTICES.txt" Link="Licenses\DOTNET-THIRD-PARTY-NOTICES.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.Android" />
+    <PackageReference Include="Newtonsoft.Json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RogueEssence.Android\RogueEssence.Android.csproj" />
+    <ProjectReference Include="..\PMDO.Portable\PMDO.Portable.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'android-arm64'">
+    <AndroidNativeLibrary Include="..\..\.artifacts\lua\libs\arm64-v8a\liblua54.so">
+      <Link>lib\arm64-v8a\liblua54.so</Link>
+    </AndroidNativeLibrary>
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'android-x64'">
+    <AndroidNativeLibrary Include="..\..\.artifacts\lua\libs\x86_64\liblua54.so">
+      <Link>lib\x86_64\liblua54.so</Link>
+    </AndroidNativeLibrary>
+  </ItemGroup>
+  <Target Name="VerifyPMDCSources" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(PMDODumpRoot)\PMDC\PMDC\PMDC.csproj')"
+           Text="Locked PMDC sources are missing. Run tools/Get-Upstream.ps1." />
+    <Error Condition="!Exists('..\..\.artifacts\lua\libs\arm64-v8a\liblua54.so')"
+           Text="liblua54.so is missing. Run tools/Build-Lua.ps1." />
+  </Target>
+</Project>

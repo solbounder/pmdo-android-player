@@ -1,0 +1,405 @@
+From 273c3adff4d6cc56039aad99839d09b0bb62458e Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Wed, 15 Jul 2026 22:53:23 +0200
+Subject: [PATCH 1/3] fix: make main-save handoff crash safe
+
+---
+ RogueEssence/Data/DataManager.cs     | 175 +++++++++++++++++++++------
+ RogueEssence/Data/GameProgress.cs    |  28 ++++-
+ RogueEssence/Data/SaveTransaction.cs | 107 ++++++++++++++++
+ 3 files changed, 269 insertions(+), 41 deletions(-)
+ create mode 100644 RogueEssence/Data/SaveTransaction.cs
+
+diff --git a/RogueEssence/Data/DataManager.cs b/RogueEssence/Data/DataManager.cs
+index c4b9924d..5a9311ba 100644
+--- a/RogueEssence/Data/DataManager.cs
++++ b/RogueEssence/Data/DataManager.cs
+@@ -141,6 +141,9 @@ namespace RogueEssence.Data
+ 
+ 
+         public const string SAVE_FILE_PATH = "SAVE.rssv";
++        public const string SAVE_BACKUP_FILE_PATH = SAVE_FILE_PATH + ".bak";
++        public const string SAVE_PENDING_FILE_PATH = SAVE_FILE_PATH + ".pending";
++        public const string SAVE_WRITE_FILE_PATH = SAVE_FILE_PATH + ".write";
+         public const string QUICKSAVE_EXTENSION = ".rsqs";
+         public const string QUICKSAVE_FILE_PATH = "QUICKSAVE" + QUICKSAVE_EXTENSION;
+ 
+@@ -2407,26 +2410,43 @@ namespace RogueEssence.Data
+ 
+         public MainProgress GetProgress()
+         {
++            RecoverPreparedMainGameState();
++
+             //try to load from file
+-            if (File.Exists(PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH)))
++            string savePath = PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH);
++            string backupPath = PathMod.ModSavePath(SAVE_PATH, SAVE_BACKUP_FILE_PATH);
++            MainProgress progress = TryGetProgress(savePath);
++            if (progress != null)
++                return progress;
++
++            progress = TryGetProgress(backupPath);
++            if (progress != null)
+             {
+-                try
+-                {
+-                    using (FileStream stream = File.OpenRead(PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH)))
+-                    {
+-                        using (BinaryReader reader = new BinaryReader(stream))
+-                        {
+-                            Version version = new Version(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
+-                            return (MainProgress)GameProgress.LoadMainData(reader);
+-                        }
+-                    }
+-                }
+-                catch (Exception ex)
++                DiagManager.Instance.LogInfo("Recovered progress header from the main-save backup.");
++                return progress;
++            }
++
++            return null;
++        }
++
++        private MainProgress TryGetProgress(string path)
++        {
++            if (!File.Exists(path))
++                return null;
++
++            try
++            {
++                using (FileStream stream = File.OpenRead(path))
++                using (BinaryReader reader = new BinaryReader(stream))
+                 {
+-                    DiagManager.Instance.LogError(ex);
++                    Version version = new Version(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
++                    return (MainProgress)GameProgress.LoadMainData(reader);
+                 }
+             }
+-
++            catch (Exception ex)
++            {
++                DiagManager.Instance.LogError(ex, false);
++            }
+             return null;
+         }
+ 
+@@ -2479,17 +2499,82 @@ namespace RogueEssence.Data
+         }
+ 
+         public void SaveGameState(GameState state)
++        {
++            byte[] serialized = SerializeGameState(state);
++            SaveTransaction.AtomicWrite(
++                PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH),
++                PathMod.ModSavePath(SAVE_PATH, SAVE_BACKUP_FILE_PATH),
++                PathMod.ModSavePath(SAVE_PATH, SAVE_WRITE_FILE_PATH),
++                stream => stream.Write(serialized, 0, serialized.Length));
++        }
++
++        public void PrepareMainGameState()
++        {
++            GameState state = new GameState();
++            state.Save = Save;
++            state.Zone = ZoneManager.Instance;
++
++            LuaEngine.Instance.SaveData(state.Save);
++
++            byte[] serialized = SerializeGameState(state);
++            SaveTransaction.Prepare(
++                PathMod.ModSavePath(SAVE_PATH, SAVE_PENDING_FILE_PATH),
++                stream => stream.Write(serialized, 0, serialized.Length));
++        }
++
++        public void CommitPreparedMainGameState()
++        {
++            string quicksavePath = PathMod.ModSavePath(SAVE_PATH, QUICKSAVE_FILE_PATH);
++            if (File.Exists(quicksavePath))
++                throw new IOException("Cannot commit a prepared main save while its quicksave still exists.");
++
++            SaveTransaction.Commit(
++                PathMod.ModSavePath(SAVE_PATH, SAVE_PENDING_FILE_PATH),
++                PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH),
++                PathMod.ModSavePath(SAVE_PATH, SAVE_BACKUP_FILE_PATH));
++        }
++
++        public void DiscardPreparedMainGameState()
++        {
++            SaveTransaction.Discard(PathMod.ModSavePath(SAVE_PATH, SAVE_PENDING_FILE_PATH));
++        }
++
++        private byte[] SerializeGameState(GameState state)
+         {
+             using (MemoryStream tempStream = new MemoryStream())
++            using (BinaryWriter writer = new BinaryWriter(tempStream))
+             {
+-                //saves scene, zone, and ground, if there will be one...
+-                using (BinaryWriter writer = new BinaryWriter(tempStream))
+-                {
+-                    SaveGameState(writer, state);
++                SaveGameState(writer, state);
++                writer.Flush();
++                return tempStream.ToArray();
++            }
++        }
+ 
+-                    using (Stream stream = new FileStream(PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH), FileMode.Create, FileAccess.Write, FileShare.None))
+-                        tempStream.WriteTo(stream);
+-                }
++        private void RecoverPreparedMainGameState()
++        {
++            PreparedSaveRecovery recovery = SaveTransaction.Recover(
++                PathMod.ModSavePath(SAVE_PATH, SAVE_PENDING_FILE_PATH),
++                PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH),
++                PathMod.ModSavePath(SAVE_PATH, SAVE_BACKUP_FILE_PATH),
++                PathMod.ModSavePath(SAVE_PATH, QUICKSAVE_FILE_PATH),
++                ValidateGameStateFile);
++
++            if (recovery != PreparedSaveRecovery.None)
++                DiagManager.Instance.LogInfo("Main-save transaction recovery: " + recovery.ToString());
++        }
++
++        private bool ValidateGameStateFile(string path)
++        {
++            try
++            {
++                using (Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
++                using (BinaryReader reader = new BinaryReader(stream))
++                    return ReadGameState(reader, false) != null;
++            }
++            catch (Exception ex)
++            {
++                DiagManager.Instance.LogError(ex, false);
++                return false;
+             }
+         }
+ 
+@@ -2562,22 +2647,38 @@ namespace RogueEssence.Data
+         /// <returns></returns>
+         public GameState LoadMainGameState(bool allowUpgrade)
+         {
+-            if (File.Exists(PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH)))
++            RecoverPreparedMainGameState();
++
++            string savePath = PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH);
++            string backupPath = PathMod.ModSavePath(SAVE_PATH, SAVE_BACKUP_FILE_PATH);
++            GameState state = TryLoadMainGameState(savePath, allowUpgrade);
++            if (state != null)
++                return state;
++
++            state = TryLoadMainGameState(backupPath, allowUpgrade);
++            if (state != null)
++            {
++                DiagManager.Instance.LogInfo("Recovered game state from the main-save backup.");
++                return state;
++            }
++            return null;
++        }
++
++        private GameState TryLoadMainGameState(string path, bool allowUpgrade)
++        {
++            if (!File.Exists(path))
++                return null;
++
++            try
+             {
+-                try
+-                {
+-                    using (Stream stream = new FileStream(PathMod.ModSavePath(SAVE_PATH, SAVE_FILE_PATH), FileMode.Open, FileAccess.Read, FileShare.Read))
+-                    {
+-                        //loads dungeon, zone, and ground, if there will be one...
+-                        using (BinaryReader reader = new BinaryReader(stream))
+-                            return ReadGameState(reader, allowUpgrade);
+-                    }
+-                }
+-                catch (Exception ex)
+-                {
+-                    //In this case, the error will be presented clearly to the player.  Do not signal.
+-                    DiagManager.Instance.LogError(ex, false);
+-                }
++                using (Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
++                using (BinaryReader reader = new BinaryReader(stream))
++                    return ReadGameState(reader, allowUpgrade);
++            }
++            catch (Exception ex)
++            {
++                // The caller attempts the backup before presenting a fatal load error.
++                DiagManager.Instance.LogError(ex, false);
+             }
+             return null;
+         }
+diff --git a/RogueEssence/Data/GameProgress.cs b/RogueEssence/Data/GameProgress.cs
+index 91219760..1c18008d 100644
+--- a/RogueEssence/Data/GameProgress.cs
++++ b/RogueEssence/Data/GameProgress.cs
+@@ -1180,7 +1180,7 @@ namespace RogueEssence.Data
+                     Location = ZoneManager.Instance.CurrentZone.GetDisplayName();
+ 
+                     DataManager.Instance.MsgLog.Clear();
+-                    //end the game with a recorded ending
++                    //end the rescue with a recorded ending
+                     recordFile = DataManager.Instance.EndPlay(this, StartDate);
+ 
+                     SOSMail sos = Rescue.SOS;
+@@ -1237,8 +1237,6 @@ namespace RogueEssence.Data
+                     Location = ZoneManager.Instance.CurrentZone.GetDisplayName();
+ 
+                     DataManager.Instance.MsgLog.Clear();
+-                    //end the game with a recorded ending
+-                    recordFile = DataManager.Instance.EndPlay(this, StartDate);
+ 
+                     if (nextArea.IsValid()) //  if an exit is specified, go to the exit.
+                         NextDest = nextArea;
+@@ -1275,7 +1273,26 @@ namespace RogueEssence.Data
+             {
+                 if (mainSave != null)
+                     mainSave.MergeDataTo(this);
+-                DataManager.Instance.SaveMainGameState();
++
++                if (result == ResultType.Cleared && recorded)
++                {
++                    // First persist the complete merged result as a durable,
++                    // non-authoritative pending file.  EndPlay then archives
++                    // the quicksave.  Only after that boundary is crossed is
++                    // the pending result atomically promoted to SAVE.rssv.
++                    // Startup recovery uses quicksave presence to choose the
++                    // resumable adventure or the completed result.
++                    DataManager.Instance.PrepareMainGameState();
++                    recordFile = DataManager.Instance.EndPlay(this, StartDate);
++                    if (String.IsNullOrEmpty(recordFile))
++                    {
++                        DataManager.Instance.DiscardPreparedMainGameState();
++                        throw new IOException("Could not archive the completed adventure replay.");
++                    }
++                    DataManager.Instance.CommitPreparedMainGameState();
++                }
++                else
++                    DataManager.Instance.SaveMainGameState();
+             }
+             else
+             {
+@@ -1283,6 +1300,9 @@ namespace RogueEssence.Data
+                     DataManager.Instance.SetProgress(mainSave);
+                 DataManager.Instance.Save.CompleteDungeon(completedZoneId);
+                 DataManager.Instance.Save.NextDest = NextDest;
++
++                if (result == ResultType.Cleared && recorded)
++                    recordFile = DataManager.Instance.EndPlay(this, StartDate);
+             }
+ 
+             MenuBase.Transparent = false;
+diff --git a/RogueEssence/Data/SaveTransaction.cs b/RogueEssence/Data/SaveTransaction.cs
+new file mode 100644
+index 00000000..0e1289b3
+--- /dev/null
++++ b/RogueEssence/Data/SaveTransaction.cs
+@@ -0,0 +1,107 @@
++using System;
++using System.IO;
++
++namespace RogueEssence.Data
++{
++    internal enum PreparedSaveRecovery
++    {
++        None,
++        DiscardedForQuicksave,
++        Committed,
++        Rejected
++    }
++
++    /// <summary>
++    /// Small, filesystem-only save transaction helper.  Prepared adventure
++    /// saves use the quicksave as their commit journal: while the quicksave
++    /// exists the adventure can still be resumed, and after it has been
++    /// archived the prepared main save is the authoritative result.
++    /// </summary>
++    internal static class SaveTransaction
++    {
++        internal static void Prepare(string preparedPath, Action<Stream> write)
++        {
++            string tempPath = preparedPath + ".tmp";
++            DeleteIfExists(tempPath);
++
++            string directory = Path.GetDirectoryName(preparedPath);
++            if (!String.IsNullOrEmpty(directory))
++                Directory.CreateDirectory(directory);
++
++            using (FileStream stream = new FileStream(tempPath, FileMode.CreateNew,
++                FileAccess.Write, FileShare.None, 4096, FileOptions.WriteThrough))
++            {
++                write(stream);
++                stream.Flush(true);
++            }
++
++            // A prepared save is not authoritative yet.  Replacing an older
++            // prepared file does not need a backup because the quicksave is
++            // still present during this phase.
++            DeleteIfExists(preparedPath);
++            File.Move(tempPath, preparedPath);
++        }
++
++        internal static void AtomicWrite(string destinationPath, string backupPath,
++            string stagingPath, Action<Stream> write)
++        {
++            Prepare(stagingPath, write);
++            Commit(stagingPath, destinationPath, backupPath);
++        }
++
++        internal static void Commit(string preparedPath, string destinationPath,
++            string backupPath)
++        {
++            if (!File.Exists(preparedPath))
++                throw new FileNotFoundException("Prepared save is missing.", preparedPath);
++
++            if (File.Exists(destinationPath))
++            {
++                DeleteIfExists(backupPath);
++                File.Replace(preparedPath, destinationPath, backupPath, true);
++            }
++            else
++                File.Move(preparedPath, destinationPath);
++        }
++
++        internal static PreparedSaveRecovery Recover(string preparedPath,
++            string destinationPath, string backupPath, string quicksavePath,
++            Func<string, bool> validate)
++        {
++            DeleteIfExists(preparedPath + ".tmp");
++            if (!File.Exists(preparedPath))
++                return PreparedSaveRecovery.None;
++
++            if (File.Exists(quicksavePath))
++            {
++                // EndPlay did not archive the quicksave, so the old main save
++                // and resumable adventure are still the authoritative pair.
++                File.Delete(preparedPath);
++                return PreparedSaveRecovery.DiscardedForQuicksave;
++            }
++
++            if (!validate(preparedPath))
++            {
++                string rejectedPath = preparedPath + ".corrupt";
++                DeleteIfExists(rejectedPath);
++                File.Move(preparedPath, rejectedPath);
++                return PreparedSaveRecovery.Rejected;
++            }
++
++            Commit(preparedPath, destinationPath, backupPath);
++            return PreparedSaveRecovery.Committed;
++        }
++
++        internal static void Discard(string preparedPath)
++        {
++            DeleteIfExists(preparedPath);
++            DeleteIfExists(preparedPath + ".tmp");
++        }
++
++        private static void DeleteIfExists(string path)
++        {
++            if (!String.IsNullOrEmpty(path) && File.Exists(path))
++                File.Delete(path);
++        }
++    }
++}
+-- 
+2.51.1.windows.1
+

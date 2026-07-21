@@ -1,0 +1,27 @@
+From 3333333333333333333333333333333333333333 Mon Sep 17 00:00:00 2001
+From: PMDO Android <pmdo-android@localhost>
+Date: Sun, 19 Jul 2026 16:52:00 +0200
+Subject: [PATCH] fix: tolerate ground scene transition race
+
+---
+ RogueEssence/Ground/GroundScene.cs | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/RogueEssence/Ground/GroundScene.cs b/RogueEssence/Ground/GroundScene.cs
+index d7fd2cdf..60b3bf46 100644
+--- a/RogueEssence/Ground/GroundScene.cs
++++ b/RogueEssence/Ground/GroundScene.cs
+@@ -159,7 +159,10 @@ namespace RogueEssence.Ground
+             // Unlike dungeon scene, processinput must be processed every frame including when pending leader action or dev events occur
+             yield return CoroutineManager.Instance.StartCoroutine(ProcessInput(GameManager.Instance.InputManager));
+ 
+-            if (GameManager.Instance.SceneOutcome == null)
++            // Scene transitions can expose GroundScene for a frame before the
++            // destination ground has finished loading.  Update already treats
++            // that state as valid, so input processing must do the same.
++            if (GameManager.Instance.SceneOutcome == null && ZoneManager.Instance.CurrentGround != null)
+             {
+                 //psy's notes: put everything related to the check events in the ground map, so its more encapsulated.
+                 yield return CoroutineManager.Instance.StartCoroutine(ZoneManager.Instance.CurrentGround.OnCheck());
+-- 
+2.50.1.windows.1

@@ -1,0 +1,228 @@
+From ca3b47264d5177f924e28295727691ba0bfd79f1 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Thu, 16 Jul 2026 00:26:18 +0200
+Subject: [PATCH 2/3] feat: add optional storage capacity limits
+
+---
+ RogueEssence/Lua/ScriptGame.cs               | 17 ++++++++-
+ RogueEssence/Lua/ScriptUI.cs                 |  7 +++-
+ RogueEssence/Menu/Items/DepositChosenMenu.cs | 39 ++++++++++++++++++--
+ RogueEssence/Menu/Items/DepositMenu.cs       | 28 +++++++++++---
+ 4 files changed, 78 insertions(+), 13 deletions(-)
+
+diff --git a/RogueEssence/Lua/ScriptGame.cs b/RogueEssence/Lua/ScriptGame.cs
+index 87251bb6..7ecbfdda 100644
+--- a/RogueEssence/Lua/ScriptGame.cs
++++ b/RogueEssence/Lua/ScriptGame.cs
+@@ -1228,8 +1228,12 @@ namespace RogueEssence.Script
+         /// <summary>
+         /// Takes all items in the player team's bag and equipped items, and deposits them in storage.
+         /// </summary>
+-        public void DepositAll()
++        /// <param name="maxUnits">Maximum stored item units, or -1 for unlimited.</param>
++        /// <returns>True if every item was deposited; false if the deposit would exceed the limit.</returns>
++        public bool DepositAll(int maxUnits = -1)
+         {
++            if (maxUnits < -1)
++                throw new ArgumentOutOfRangeException(nameof(maxUnits));
+             List<InvItem> items = new List<InvItem>();
+             int item_count = DataManager.Instance.Save.ActiveTeam.GetInvCount();
+ 
+@@ -1247,6 +1251,16 @@ namespace RogueEssence.Script
+                 items.Add(item);
+             };
+ 
++            int depositUnits = 0;
++            foreach (InvItem item in items)
++            {
++                ItemData entry = DataManager.Instance.GetItem(item.ID);
++                depositUnits += entry.UsageType == ItemData.UseType.Box ? 1 :
++                    (entry.MaxStack > 1 ? item.Amount : 1);
++            }
++            if (maxUnits >= 0 && GetPlayerStorageCount() + depositUnits > maxUnits)
++                return false;
++
+             // Store all items in the inventory.
+             DataManager.Instance.Save.ActiveTeam.StoreItems(items);
+ 
+@@ -1262,6 +1276,7 @@ namespace RogueEssence.Script
+             {
+                 DataManager.Instance.Save.ActiveTeam.RemoveFromInv(ii);
+             }
++            return true;
+         }
+ 
+         //===================================
+diff --git a/RogueEssence/Lua/ScriptUI.cs b/RogueEssence/Lua/ScriptUI.cs
+index fb769d1d..daf35eb8 100644
+--- a/RogueEssence/Lua/ScriptUI.cs
++++ b/RogueEssence/Lua/ScriptUI.cs
+@@ -804,13 +804,16 @@ namespace RogueEssence.Script
+         /// UI:WaitForChoice() must be called afterwards for the menu to be actually displayed,
+         /// and for execution to suspend until the menu is exited.
+         /// </summary>
+-        public void StorageMenu()
++        /// <param name="maxUnits">Maximum stored item units, or -1 for unlimited.</param>
++        public void StorageMenu(int maxUnits = -1)
+         {
+             try
+             {
++                if (maxUnits < -1)
++                    throw new ArgumentOutOfRangeException(nameof(maxUnits));
+                 m_choiceresult = null;
+                 //TODO: allow this to work in dungeon mode by skipping replays
+-                m_curchoice = new DepositMenu(0);
++                m_curchoice = new DepositMenu(0, maxUnits);
+             }
+             catch (Exception e)
+             {
+diff --git a/RogueEssence/Menu/Items/DepositChosenMenu.cs b/RogueEssence/Menu/Items/DepositChosenMenu.cs
+index ef414b0f..cd5aa41b 100644
+--- a/RogueEssence/Menu/Items/DepositChosenMenu.cs
++++ b/RogueEssence/Menu/Items/DepositChosenMenu.cs
+@@ -4,6 +4,7 @@ using RogueEssence.Dungeon;
+ using RogueEssence.Data;
+ using System;
+ using RogueEssence.Content;
++using Microsoft.Xna.Framework;
+ 
+ namespace RogueEssence.Menu
+ {
+@@ -12,16 +13,23 @@ namespace RogueEssence.Menu
+ 
+         private int origIndex;
+         private List<InvSlot> selections;
++        private readonly int maxUnits;
+ 
+-        public DepositChosenMenu(List<InvSlot> selections, int origIndex) : this(MenuLabel.DEPOSIT_CHOSEN_MENU, selections, origIndex) { }
+-        public DepositChosenMenu(string label, List<InvSlot> selections, int origIndex)
++        public DepositChosenMenu(List<InvSlot> selections, int origIndex, int maxUnits = -1) :
++            this(MenuLabel.DEPOSIT_CHOSEN_MENU, selections, origIndex, maxUnits) { }
++        public DepositChosenMenu(string label, List<InvSlot> selections, int origIndex, int maxUnits = -1)
+         {
+             Label = label;
++            if (maxUnits < -1)
++                throw new ArgumentOutOfRangeException(nameof(maxUnits));
+             this.origIndex = origIndex;
+             this.selections = selections;
++            this.maxUnits = maxUnits;
+ 
+             List<MenuTextChoice> choices = new List<MenuTextChoice>();
+-            choices.Add(new MenuTextChoice(Text.FormatKey("MENU_ITEM_STORE"), StoreAction));
++            bool canStore = maxUnits < 0 || GetStorageUnits() + GetSelectionUnits() <= maxUnits;
++            choices.Add(new MenuTextChoice(Text.FormatKey("MENU_ITEM_STORE"), StoreAction,
++                canStore, canStore ? Color.White : Color.Red));
+ 
+             if (selections.Count == 1)
+             {
+@@ -42,6 +50,29 @@ namespace RogueEssence.Menu
+             Initialize(new Loc(Math.Min(ItemMenu.ITEM_MENU_WIDTH + 16, GraphicsManager.ScreenWidth - choice_width), 16), choice_width, choices.ToArray(), 0);
+         }
+ 
++        private static int GetStorageUnits()
++        {
++            int count = DataManager.Instance.Save.ActiveTeam.BoxStorage.Count;
++            foreach (string id in DataManager.Instance.Save.ActiveTeam.Storage.Keys)
++                count += DataManager.Instance.Save.ActiveTeam.Storage[id];
++            return count;
++        }
++
++        private int GetSelectionUnits()
++        {
++            int count = 0;
++            foreach (InvSlot slot in selections)
++            {
++                InvItem item = slot.IsEquipped ?
++                    DataManager.Instance.Save.ActiveTeam.Players[slot.Slot].EquippedItem :
++                    DataManager.Instance.Save.ActiveTeam.GetInv(slot.Slot);
++                ItemData entry = DataManager.Instance.GetItem(item.ID);
++                count += entry.UsageType == ItemData.UseType.Box ? 1 :
++                    (entry.MaxStack > 1 ? item.Amount : 1);
++            }
++            return count;
++        }
++
+         private void StoreAction()
+         {
+             //called only when held is false
+@@ -77,7 +108,7 @@ namespace RogueEssence.Menu
+                 hasItems |= !String.IsNullOrEmpty(player.EquippedItem.ID);
+ 
+             if (hasItems)
+-                MenuManager.Instance.ReplaceMenu(new DepositMenu(origIndex));
++                MenuManager.Instance.ReplaceMenu(new DepositMenu(origIndex, maxUnits));
+             else
+                 MenuManager.Instance.RemoveMenu();
+         }
+diff --git a/RogueEssence/Menu/Items/DepositMenu.cs b/RogueEssence/Menu/Items/DepositMenu.cs
+index c462b73c..a6d63f02 100644
+--- a/RogueEssence/Menu/Items/DepositMenu.cs
++++ b/RogueEssence/Menu/Items/DepositMenu.cs
+@@ -15,11 +15,16 @@ namespace RogueEssence.Menu
+         private const int SLOTS_PER_PAGE = 8;
+ 
+         ItemSummary summaryMenu;
++        private readonly int maxUnits;
+ 
+-        public DepositMenu(int defaultChoice) : this(MenuLabel.DEPOSIT_MENU, defaultChoice) { }
+-        public DepositMenu(string label, int defaultChoice)
++        public DepositMenu(int defaultChoice, int maxUnits = -1) :
++            this(MenuLabel.DEPOSIT_MENU, defaultChoice, maxUnits) { }
++        public DepositMenu(string label, int defaultChoice, int maxUnits = -1)
+         {
+             Label = label;
++            if (maxUnits < -1)
++                throw new ArgumentOutOfRangeException(nameof(maxUnits));
++            this.maxUnits = maxUnits;
+             List<MenuChoice> flatChoices = new List<MenuChoice>();
+             for (int ii = 0; ii < DataManager.Instance.Save.ActiveTeam.Players.Count; ii++)
+             {
+@@ -42,14 +47,17 @@ namespace RogueEssence.Menu
+             summaryMenu = new ItemSummary(Rect.FromPoints(new Loc(16, GraphicsManager.ScreenHeight - 8 - 4 * VERT_SPACE - GraphicsManager.MenuBG.TileHeight * 2),
+                 new Loc(GraphicsManager.ScreenWidth - 16, GraphicsManager.ScreenHeight - 8)));
+ 
+-            Initialize(new Loc(16, 16), ItemMenu.ITEM_MENU_WIDTH, Text.FormatKey("MENU_ITEM_TITLE"), inv, startChoice, startPage, SLOTS_PER_PAGE, false, flatChoices.Count);
++            string title = Text.FormatKey("MENU_ITEM_TITLE");
++            if (maxUnits >= 0)
++                title += $" ({GetStorageUnits()}/{maxUnits})";
++            Initialize(new Loc(16, 16), ItemMenu.ITEM_MENU_WIDTH, title, inv, startChoice, startPage, SLOTS_PER_PAGE, false, flatChoices.Count);
+ 
+         }
+ 
+         private void choose(InvSlot slot)
+         {
+             int startIndex = CurrentChoiceTotal;
+-            MenuManager.Instance.AddMenu(new DepositChosenMenu(new List<InvSlot>() { slot }, startIndex), true);
++            MenuManager.Instance.AddMenu(new DepositChosenMenu(new List<InvSlot>() { slot }, startIndex, maxUnits), true);
+         }
+ 
+         protected override void ChoseMultiIndex(List<int> slots)
+@@ -73,7 +81,15 @@ namespace RogueEssence.Menu
+                     invSlots.Add(new InvSlot(false, slots[ii] - heldIDs.Count));
+             }
+ 
+-            MenuManager.Instance.AddMenu(new DepositChosenMenu(invSlots, startIndex), true);
++            MenuManager.Instance.AddMenu(new DepositChosenMenu(invSlots, startIndex, maxUnits), true);
++        }
++
++        private static int GetStorageUnits()
++        {
++            int count = DataManager.Instance.Save.ActiveTeam.BoxStorage.Count;
++            foreach (string id in DataManager.Instance.Save.ActiveTeam.Storage.Keys)
++                count += DataManager.Instance.Save.ActiveTeam.Storage[id];
++            return count;
+         }
+ 
+         private int getMaxInvPages()
+@@ -159,7 +175,7 @@ namespace RogueEssence.Menu
+             // reorder the inventory
+             yield return CoroutineManager.Instance.StartCoroutine(GroundScene.Instance.ProcessInput(new GameAction(GameAction.ActionType.SortItems, Dir8.None)));
+             // create the new menu
+-            DepositMenu menu = new DepositMenu(CurrentChoiceTotal);
++            DepositMenu menu = new DepositMenu(CurrentChoiceTotal, maxUnits);
+ 
+             // reselect equip slots
+             for (int ii = 0; ii < equip_selected.Count; ii++)
+-- 
+2.51.1.windows.1
+
