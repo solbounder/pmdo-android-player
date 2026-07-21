@@ -31,7 +31,10 @@ Windows-specific path assumptions may require additional porting.
 
 - ARM64 devices running Android 13 or newer
 - Native Android APK without Winlator or Windows emulation
-- Physical controllers and a multitouch gamepad overlay
+- Physical controllers and a persistent, freely configurable multitouch
+  gamepad overlay, including L/R/ZL/ZR
+- Shoulder-button item selection and left/right shoulder chords for selecting
+  every sellable inventory item
 - Android keyboard and clipboard integration
 - Maximum 4:3 as the default, with full screen and fixed 4:3 modes available
 - Optional Quest mod import

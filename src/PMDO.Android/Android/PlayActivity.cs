@@ -92,6 +92,7 @@ namespace PMDO.Android
 
         private void OnTouchModeChanged(bool touchMode) => RunOnUiThread(() =>
         {
+            if (!touchMode) TouchOverlay.ReleaseAll();
             if (touchOverlay != null) touchOverlay.Visibility = touchMode ? ViewStates.Visible : ViewStates.Gone;
         });
 
@@ -256,6 +257,7 @@ namespace PMDO.Android
 
         protected override void OnPause()
         {
+            TouchOverlay.ReleaseAll();
             TouchController.Clear();
             if (game != null) SoundManager.OnApplicationPause();
             base.OnPause();

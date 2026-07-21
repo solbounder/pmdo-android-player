@@ -1,43 +1,50 @@
 PMDO ANDROID – UPDATE FÜR EINE BESTEHENDE THOR-INSTALLATION
 ===========================================================
 
-Dieses kleine ZIP enthält nur:
+Dieses Update-ZIP enthält:
 
-  PMDO-Android-Player-v0.1.4.apk
+  PMDO-Android-Player-v0.1.5.apk
+  Echoes_of_the_Abyss\
   THOR-UPDATE.txt
 
 Die App NICHT deinstallieren. Dadurch bleiben die bereits importierte
 PMDO-Runtime, Echoes of the Abyss und alle Spielstände erhalten.
 
-1. ZIP auf den Thor in "Interner Speicher\Download" kopieren.
-2. ZIP vollständig entpacken.
-3. Die APK antippen und "Aktualisieren" beziehungsweise "Installieren"
+1. ZIP auf den Thor in "Interner Speicher\Download" kopieren und vollständig
+   entpacken.
+2. Die APK antippen und "Aktualisieren" beziehungsweise "Installieren"
    bestätigen.
-4. PMDO Android Player öffnen und direkt "Spiel starten" drücken. Runtime und Mod
-   müssen nicht erneut importiert werden.
+3. PMDO Android Player öffnen, aber noch nicht das Spiel starten.
+4. "Mod-Ordner importieren" antippen, den entpackten Ordner
+   "Download\Echoes_of_the_Abyss" öffnen und "Diesen Ordner verwenden"
+   bestätigen. Die vorhandene Quest wird atomar ersetzt; Spielstände bleiben
+   erhalten.
+5. Nach "Echoes of the Abyss importiert und aktiviert" auf "Spiel starten"
+   tippen. Die große PMDO-Runtime muss nicht erneut importiert werden.
 
-Neu in dieser Version:
+Neu in diesem Update:
 
-  - Appname und APK-Dateiname heißen jetzt "PMDO Android Player"
-  - Android-Appsymbol ist das goldene Schlüsselsymbol der Windows-Version
-  - kurzlebige Dungeon-Soundeffekte geben ihre Android-Audioquellen nach dem
-    Abspielen zuverlässig frei; überlappende Effekte verdrängen im Grenzfall
-    nur den ältesten kurzen Effekt, nicht Musik oder Dauerschleifen
-  - "Max 4:3" ist der Standard; unter "Bildschirmgröße" stehen zusätzlich
-    gestrecktes Vollbild, 320x240, 640x480, 960x720 und 1280x960 bereit
-    und Änderungen greifen sofort
-  - stabilere Musik in der Stadt und automatische Erholung bei Audio-Underruns
-  - Touch-Steuerung kehrt nach dem nächsten Fingertipp zurück, nachdem eine
-    Thor-Taste sie ausgeblendet hat
-  - Tastatursymbol kompakt mittig am oberen Bildschirmrand
+  - Das Zahnrad im Touch-Overlay öffnet einen Editor mit Speichern,
+    Abbrechen und Zurücksetzen. D-Pad und bis zu 16 Tasten lassen sich
+    verschieben, skalieren, ausblenden und auch doppelt auf A/B/X/Y/L/R/ZL/ZR/
+    Start/Select/L3/R3 legen; das Standardlayout enthält ZL und ZR.
+
+  - L, R, ZL und ZR markieren Gegenstände einzeln
+  - L+R, L+ZR, ZL+R und ZL+ZR wählen im Verkaufsmenü seitenübergreifend alle
+    verkaufbaren Gegenstände aus; unverkäufliche Einträge bleiben deaktiviert
+  - der Fossil-Geheimraum in Faultline Ridge und Copper Quarry besitzt einen
+    erreichbaren Rückweg für normale Pokémon
+  - Aufgeben oder Scheitern im Geheimraum beendet den Lauf wieder korrekt
+  - Fanfaren- und Android-Audiolautstärken werden sicher begrenzt; der gemeldete
+    schwarze Bildschirm nach dem Audiofehler wird damit verhindert
 
 Falls Android statt eines Updates einen Signaturkonflikt meldet: NICHT
 deinstallieren, sondern den Dialog fotografieren. Die vorhandenen App-Daten
 bleiben dann unangetastet.
 
-Version: 0.1.4 (versionCode 5)
+Version: 0.1.5 (versionCode 6)
 Signaturzertifikat SHA-256:
 81EF0C48E32C988BA8259CA135ACBC8C812BD9798B8D6B5F1D3750E119459DFB
 
 APK SHA-256:
-AF22996270009FFA2791750DD7E19AF7ED7CA7C03AABAB3391993D44E7410332
+39004A68FE4DB3123E41E44956FCC92B9700A58CF24F289AF6918F8588529EF7

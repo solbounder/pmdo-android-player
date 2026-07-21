@@ -18,7 +18,7 @@ namespace RogueEssence.Content
         private bool disposed;
 
         public string Name { get; }
-        public float Volume { get => soundStream.Volume; set => soundStream.Volume = value; }
+        public float Volume { get => soundStream.Volume; set => soundStream.Volume = AudioVolume.Sanitize(value); }
         public SoundState State => soundStream.State;
         public int Channels { get; }
         public int SampleRate { get; }

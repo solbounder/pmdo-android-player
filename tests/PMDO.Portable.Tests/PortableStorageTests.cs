@@ -8,6 +8,42 @@ namespace PMDO.Portable.Tests;
 
 public sealed class PortableStorageTests : IDisposable
 {
+    [Fact]
+    public void Duplicate_touch_bindings_release_only_after_last_source()
+    {
+        var state = new TouchHoldState<string, string>();
+        Assert.True(state.Press("left-L", "L"));
+        Assert.False(state.Press("right-L", "L"));
+        Assert.False(state.Release("left-L", out string first));
+        Assert.Equal("L", first);
+        Assert.True(state.Release("right-L", out string last));
+        Assert.Equal("L", last);
+
+        Assert.True(state.Press("one", "ZR"));
+        Assert.True(state.Press("two", "A"));
+        Assert.Equal(new[] { "ZR", "A" }, state.Reset());
+        Assert.False(state.Release("one", out _));
+    }
+
+    [Fact]
+    public void Touch_layout_round_trips_and_allows_duplicate_bindings()
+    {
+        var layout = TouchLayoutV1.Default with { Buttons = TouchLayoutV1.Default.Buttons.Select(x => x with { Binding = "A" }).ToArray() };
+        TouchLayoutV1 loaded = TouchLayoutStorage.DeserializeOrDefault(TouchLayoutStorage.Serialize(layout));
+        Assert.All(loaded.Buttons, button => Assert.Equal("A", button.Binding));
+    }
+
+    [Fact]
+    public void Touch_layout_invalid_or_out_of_range_values_are_safe()
+    {
+        TouchLayoutV1 invalidVersion = TouchLayoutStorage.DeserializeOrDefault("{\"Version\":99}");
+        Assert.Equal(TouchLayoutV1.Default, invalidVersion);
+        var bad = TouchLayoutV1.Default with { DPad = TouchLayoutV1.Default.DPad with { X = float.NaN, Scale = 99f }, Buttons = [] };
+        TouchLayoutV1 normalized = TouchLayoutStorage.DeserializeOrDefault(TouchLayoutStorage.Serialize(bad));
+        Assert.Equal(0f, normalized.DPad.X);
+        Assert.Equal(2f, normalized.DPad.Scale);
+        Assert.Equal(TouchLayoutV1.MaximumButtons, normalized.Buttons.Count);
+    }
     private readonly string root = Path.Combine(Path.GetTempPath(), "pmdo-portable-" + Guid.NewGuid().ToString("N"));
     public PortableStorageTests() => Directory.CreateDirectory(root);
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, true); }

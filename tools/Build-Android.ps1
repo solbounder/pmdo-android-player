@@ -24,6 +24,7 @@ $sdkVersion = (& $dotnet --version).Trim()
 if ($sdkVersion -ne '10.0.302') { throw "Expected .NET SDK 10.0.302, got $sdkVersion." }
 
 & (Join-Path $PSScriptRoot 'Verify-Upstream.ps1')
+& (Join-Path $PSScriptRoot 'Test-AudioVolumeBounds.ps1')
 & (Join-Path $PSScriptRoot 'Build-Lua.ps1')
 & $dotnet restore (Join-Path $repoRoot 'PMDO.Android.slnx') --locked-mode
 if ($LASTEXITCODE -ne 0) { throw 'Restore failed.' }

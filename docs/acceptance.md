@@ -49,6 +49,14 @@ nachgewiesen; offene Punkte brauchen einen echten AYN Thor.
   Streaming-Puffer werden laufend nachgefüllt und ein erkannter Underrun wird
   automatisch fortgesetzt. `Title.ogg` und `Base Town.ogg` starten im geprüften
   EOTA-Lauf ohne Audio- oder Quellenlimitfehler.
+- [x] Die 18 RogueEssence-Patches werden reproduzierbar bis Head
+  `7b4ed6ab26a5c27bfd659439c8c24720563f60a6` angewendet. Der ARM64-Release-Build
+  kompiliert darin L/R/ZL/ZR-Mehrfachauswahl und alle vier Links/Rechts-
+  Verkaufskombinationen; unverkäufliche Einträge bleiben deaktiviert.
+- [x] Der Fanfaren-Fade begrenzt Frame-Overshoot vor der Bruchrechnung. Sämtliche
+  Android-Audio-Volume-Schreibzugriffe werden zusätzlich auf einen endlichen
+  Wert zwischen 0 und 1 normalisiert; der ausführbare NaN-/Infinity-/Grenzwerttest
+  und der ARM64-Release-Build bestehen.
 - [x] Ein `versionCode`-5-APK mit fest geprüftem Update-Zertifikat installiert
   sich im Emulator per In-place-Update; Erstinstallationszeit,
   importierte Runtime, EOTA und Spielstand bleiben erhalten.
@@ -72,9 +80,19 @@ Diese Punkte können ein Desktop-Build oder x86_64-Emulator nicht zertifizieren:
 5. [ ] Alle Thor-Tasten, Trigger, Hot-Plug, Multi-Touch und Android-IME prüfen;
    eine Controller-Eingabe muss das Overlay ausblenden und der nächste
    Touchscreen-Tipp muss es wieder einblenden.
-6. [ ] 50 Home/Resume- und Screen-off/on-Zyklen, Surface-Neuanlage und
+6. [ ] Im Verkaufsmenü mit L, R, ZL und ZR einzeln markieren. L+R, L+ZR,
+   ZL+R und ZL+ZR müssen seitenübergreifend alle verkaufbaren Gegenstände
+   auswählen; unverkäufliche Schlüsselgegenstände bleiben deaktiviert.
+7. [ ] In Faultline Ridge oder Copper Quarry mit einem normalen, nicht
+   fliegenden Wasser-/Geist-Pokémon den Fossil-Geheimraum betreten, die
+   Rücktreppe erreichen und erneut betreten. Danach im Geheimraum **Aufgeben**:
+   der Lauf muss sichtbar im Hub enden und das Menü darf nicht auf einem
+   schwarzen, weiter steuerbaren Bildschirm übrig bleiben.
+8. [ ] Mehrfach Fanfaren bei gleichzeitigem Szenen-/BGM-Wechsel auslösen; kein
+   `ArgumentOutOfRangeException`, schwarzer Bildschirm oder Audioabbruch.
+9. [ ] 50 Home/Resume- und Screen-off/on-Zyklen, Surface-Neuanlage und
    Force-Stop in Ground und Dungeon ohne Save-Korruption durchführen.
-7. [ ] Auf Thor Lite (Snapdragon 865) 30 Minuten repräsentatives Ground- und
+10. [ ] Auf Thor Lite (Snapdragon 865) 30 Minuten repräsentatives Ground- und
    Dungeon-Spiel bei Ziel 60 FPS: kein anhaltender Abfall unter 55 FPS, keine
    Audio-Underruns und kein monoton wachsender Speicherverbrauch.
 

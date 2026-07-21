@@ -1,0 +1,174 @@
+From eb2d5cd01859cd964ec592fc32ace7bdb7073ef3 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Mon, 20 Jul 2026 14:10:00 +0200
+Subject: [PATCH 16/17] feat: add shoulder multi-select shortcuts
+
+---
+ RogueEssence/Menu/Items/SellMenu.cs   | 12 ++++++-
+ RogueEssence/Menu/MultiPageMenu.cs    |  9 +++++
+ RogueEssence/Menu/MultiSelectInput.cs | 26 ++++++++++++++
+ RogueEssence/Menu/SingleStripMenu.cs  | 52 ++++++++++++++++++++++++++-
+ 4 files changed, 97 insertions(+), 2 deletions(-)
+ create mode 100644 RogueEssence/Menu/MultiSelectInput.cs
+
+diff --git a/RogueEssence/Menu/Items/SellMenu.cs b/RogueEssence/Menu/Items/SellMenu.cs
+index 99bb999f..2d95bac3 100644
+--- a/RogueEssence/Menu/Items/SellMenu.cs
++++ b/RogueEssence/Menu/Items/SellMenu.cs
+@@ -2,6 +2,7 @@
+ using System.Collections.Generic;
+ using Microsoft.Xna.Framework;
+ using Microsoft.Xna.Framework.Graphics;
++using Microsoft.Xna.Framework.Input;
+ using RogueEssence.Content;
+ using RogueElements;
+ using RogueEssence.Dungeon;
+@@ -149,7 +150,16 @@ namespace RogueEssence.Menu
+ 
+         protected override void UpdateKeys(InputManager input)
+         {
+-            if (input.JustPressed(FrameInput.InputType.SortItems))
++            if (MultiSelectInput.SelectAllChord(input.BaseButtonDown(Buttons.LeftShoulder),
++                input.BaseButtonDown(Buttons.LeftTrigger),
++                input.BaseButtonDown(Buttons.RightShoulder),
++                input.BaseButtonDown(Buttons.RightTrigger),
++                input.BaseButtonPressed(Buttons.LeftShoulder),
++                input.BaseButtonPressed(Buttons.LeftTrigger),
++                input.BaseButtonPressed(Buttons.RightShoulder),
++                input.BaseButtonPressed(Buttons.RightTrigger)))
++                SelectAllEnabledChoices();
++            else if (input.JustPressed(FrameInput.InputType.SortItems))
+             {
+                 GameManager.Instance.SE("Menu/Sort");
+                 MenuManager.Instance.NextAction = SortCommand();
+diff --git a/RogueEssence/Menu/MultiPageMenu.cs b/RogueEssence/Menu/MultiPageMenu.cs
+index 3eb34636..912375f6 100644
+--- a/RogueEssence/Menu/MultiPageMenu.cs
++++ b/RogueEssence/Menu/MultiPageMenu.cs
+@@ -129,6 +129,15 @@ namespace RogueEssence.Menu
+                 base.UpdateKeys(input);
+         }
+ 
++        protected override IEnumerable<IChoosable> GetMultiSelectChoices()
++        {
++            foreach (IChoosable[] page in TotalChoices)
++            {
++                foreach (IChoosable choice in page)
++                    yield return choice;
++            }
++        }
++
+         public IChoosable GetTotalChoiceAtIndex(int totalIndex)
+         {
+             int page = totalIndex / SpacesPerPage;
+diff --git a/RogueEssence/Menu/MultiSelectInput.cs b/RogueEssence/Menu/MultiSelectInput.cs
+new file mode 100644
+index 00000000..63e73093
+--- /dev/null
++++ b/RogueEssence/Menu/MultiSelectInput.cs
+@@ -0,0 +1,26 @@
++namespace RogueEssence.Menu
++{
++    public static class MultiSelectInput
++    {
++        public static bool ShoulderPressed(bool configured, bool leftShoulderPressed, bool rightShoulderPressed,
++            bool leftTriggerPressed, bool rightTriggerPressed)
++        {
++            return configured || leftShoulderPressed || rightShoulderPressed || leftTriggerPressed || rightTriggerPressed;
++        }
++
++        public static bool SelectAllChord(bool leftShoulderDown, bool leftTriggerDown,
++            bool rightShoulderDown, bool rightTriggerDown, bool leftShoulderPressed,
++            bool leftTriggerPressed, bool rightShoulderPressed, bool rightTriggerPressed)
++        {
++            bool leftDown = leftShoulderDown || leftTriggerDown;
++            bool rightDown = rightShoulderDown || rightTriggerDown;
++            bool shoulderPressed = leftShoulderPressed || leftTriggerPressed || rightShoulderPressed || rightTriggerPressed;
++            return leftDown && rightDown && shoulderPressed;
++        }
++
++        public static bool CanSelectChoice(bool enabled, bool selected, int selectedTotal, int maxExclusive)
++        {
++            return enabled && !selected && selectedTotal < maxExclusive - 1;
++        }
++    }
++}
+diff --git a/RogueEssence/Menu/SingleStripMenu.cs b/RogueEssence/Menu/SingleStripMenu.cs
+index 1c879040..eaafef53 100644
+--- a/RogueEssence/Menu/SingleStripMenu.cs
++++ b/RogueEssence/Menu/SingleStripMenu.cs
+@@ -1,5 +1,6 @@
+ ﻿using System;
+ using System.Collections.Generic;
++using Microsoft.Xna.Framework.Input;
+ using RogueElements;
+ using RogueEssence.Content;
+ 
+@@ -81,6 +82,54 @@ namespace RogueEssence.Menu
+ 
+         protected virtual void MultiSelectChanged() { }
+ 
++        protected virtual IEnumerable<IChoosable> GetMultiSelectChoices()
++        {
++            return Choices;
++        }
++
++        protected bool SelectAllEnabledChoices()
++        {
++            RefreshSelectedTotal();
++            bool changed = false;
++            foreach (IChoosable choice in GetMultiSelectChoices())
++            {
++                MenuChoice menuChoice = choice as MenuChoice;
++                if (selectedTotal >= MultiSelect.Max - 1)
++                    break;
++                if (MultiSelectInput.CanSelectChoice(menuChoice != null && menuChoice.Enabled,
++                    menuChoice != null && menuChoice.Selected, selectedTotal, MultiSelect.Max))
++                {
++                    menuChoice.SilentSelect(true);
++                    selectedTotal++;
++                    changed = true;
++                }
++            }
++
++            GameManager.Instance.SE(changed ? "Menu/Toggle" : "Menu/Cancel");
++            if (changed)
++                MultiSelectChanged();
++            return changed;
++        }
++
++        private void RefreshSelectedTotal()
++        {
++            selectedTotal = 0;
++            foreach (IChoosable choice in GetMultiSelectChoices())
++            {
++                if (choice.Selected)
++                    selectedTotal++;
++            }
++        }
++
++        private static bool MultiSelectPressed(InputManager input)
++        {
++            return MultiSelectInput.ShoulderPressed(input.JustPressed(FrameInput.InputType.SelectItems),
++                input.BaseButtonPressed(Buttons.LeftShoulder),
++                input.BaseButtonPressed(Buttons.RightShoulder),
++                input.BaseButtonPressed(Buttons.LeftTrigger),
++                input.BaseButtonPressed(Buttons.RightTrigger));
++        }
++
+         public override void Update(InputManager input)
+         {
+             UpdateMouse(input);
+@@ -166,8 +215,9 @@ namespace RogueEssence.Menu
+                     Canceled();
+                 }
+             }
+-            else if (MultiSelect.Max > 0 && input.JustPressed(FrameInput.InputType.SelectItems))
++            else if (MultiSelect.Max > 0 && MultiSelectPressed(input))
+             {
++                RefreshSelectedTotal();
+                 int spaceLeft = MultiSelect.Max - 1 - selectedTotal;
+                 if (spaceLeft > 0 || Choices[CurrentChoice].Selected)
+                 {
+-- 
+2.51.1.windows.1

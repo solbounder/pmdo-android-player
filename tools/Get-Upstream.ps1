@@ -7,6 +7,10 @@ param(
 $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $lock = Get-Content (Join-Path $repoRoot 'upstream.lock.json') -Raw | ConvertFrom-Json
+if ([string]::IsNullOrWhiteSpace([string]$lock.patchCommitter.name) -or
+    [string]::IsNullOrWhiteSpace([string]$lock.patchCommitter.email)) {
+    throw 'upstream.lock.json must pin patchCommitter.name and patchCommitter.email.'
+}
 $destinationPath = [IO.Path]::GetFullPath($Destination)
 $cacheRoot = [IO.Path]::GetFullPath((Join-Path $repoRoot '.cache\upstream'))
 if (-not $destinationPath.StartsWith($cacheRoot, [StringComparison]::OrdinalIgnoreCase)) {
@@ -32,24 +36,28 @@ $amState = (git -C $roguePath rev-parse --git-path rebase-apply).Trim()
 if (Test-Path -LiteralPath $amState) {
     git -C $roguePath am --abort
 }
-if ($null -eq $lock.patchCommitter -or
-    [string]::IsNullOrWhiteSpace([string]$lock.patchCommitter.name) -or
-    [string]::IsNullOrWhiteSpace([string]$lock.patchCommitter.email)) {
-    throw 'upstream.lock.json must define a pseudonymous patchCommitter.'
-}
-$previousCommitterName = $env:GIT_COMMITTER_NAME
-$previousCommitterEmail = $env:GIT_COMMITTER_EMAIL
+$_oldCommitterName = $env:GIT_COMMITTER_NAME
+$_oldCommitterEmail = $env:GIT_COMMITTER_EMAIL
+$_oldCommitterDate = $env:GIT_COMMITTER_DATE
 try {
     $env:GIT_COMMITTER_NAME = [string]$lock.patchCommitter.name
     $env:GIT_COMMITTER_EMAIL = [string]$lock.patchCommitter.email
+    Remove-Item Env:GIT_COMMITTER_DATE -ErrorAction SilentlyContinue
+
     Get-ChildItem (Join-Path $repoRoot 'patches\rogueessence\*.patch') | Sort-Object Name | ForEach-Object {
-        git -C $roguePath am --3way --committer-date-is-author-date $_.FullName
-        if ($LASTEXITCODE -ne 0) { throw "Failed to apply $($_.Name)." }
+        git -c commit.gpgsign=false -C $roguePath am --3way --committer-date-is-author-date $_.FullName
+        if ($LASTEXITCODE -ne 0) {
+            git -C $roguePath am --abort 2>$null
+            throw "Unable to apply locked RogueEssence patch '$($_.Name)'."
+        }
     }
-}
-finally {
-    $env:GIT_COMMITTER_NAME = $previousCommitterName
-    $env:GIT_COMMITTER_EMAIL = $previousCommitterEmail
+} finally {
+    if ($null -eq $_oldCommitterName) { Remove-Item Env:GIT_COMMITTER_NAME -ErrorAction SilentlyContinue }
+    else { $env:GIT_COMMITTER_NAME = $_oldCommitterName }
+    if ($null -eq $_oldCommitterEmail) { Remove-Item Env:GIT_COMMITTER_EMAIL -ErrorAction SilentlyContinue }
+    else { $env:GIT_COMMITTER_EMAIL = $_oldCommitterEmail }
+    if ($null -eq $_oldCommitterDate) { Remove-Item Env:GIT_COMMITTER_DATE -ErrorAction SilentlyContinue }
+    else { $env:GIT_COMMITTER_DATE = $_oldCommitterDate }
 }
 
 & (Join-Path $PSScriptRoot 'Verify-Upstream.ps1') -Root $destinationPath

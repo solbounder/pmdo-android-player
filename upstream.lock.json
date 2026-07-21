@@ -13,7 +13,7 @@
   },
   "submodules": [
     { "path": "PMDC", "commit": "e975bd33e32bc774a43fdab24dc2e781c5a38bab" },
-    { "path": "PMDC/RogueEssence", "commit": "4961b2271bb0cace74f40f6a85e799e8e4848ace", "patchedCommit": "2f896ad914b1f5f5c9d775c3de7f2ec1dd4c1d74" },
+    { "path": "PMDC/RogueEssence", "commit": "4961b2271bb0cace74f40f6a85e799e8e4848ace", "patchedCommit": "7b4ed6ab26a5c27bfd659439c8c24720563f60a6" },
     { "path": "PMDC/RogueEssence/NLua", "commit": "9884d7742201c677e990672af5fbc88f3f4cd4a6" },
     { "path": "PMDC/RogueEssence/NLua/KeraLua", "commit": "7636d17f2d020a11c2499931a8e2b902474c56a9" },
     { "path": "PMDC/RogueEssence/NLua/KeraLua/external/lua", "commit": "0780af0ca8ba0b595bc694a9d3e7bdedf4e348b6" },
