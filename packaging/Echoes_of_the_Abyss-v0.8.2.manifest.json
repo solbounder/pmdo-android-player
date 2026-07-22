@@ -1,7 +1,7 @@
 {
     "schemaVersion":  1,
     "questNamespace":  "echoes_of_the_abyss",
-    "questVersion":  "0.8.1",
+    "questVersion":  "0.8.2",
     "files":  [
                   {
                       "path":  "ATTRIBUTION.md",
@@ -739,6 +739,11 @@
                       "sha256":  "DF0759E08947E8EA8D807F23D1C16207A2A1878A0CBC1C8A5F685736792737C5"
                   },
                   {
+                      "path":  "Content/Tile/EOTA_Abyss_Concept.tile",
+                      "length":  4166133,
+                      "sha256":  "FA86E50D7702848B6039436281B1F2800CE5873EE5A1A91A1CDEA3A10712E0E5"
+                  },
+                  {
                       "path":  "Content/Tile/FA_Map (1).tile",
                       "length":  233457,
                       "sha256":  "112E28327E0898DDD33442F248B386B83D1AE00B49C0188479CD7CB18AC94D73"
@@ -785,8 +790,8 @@
                   },
                   {
                       "path":  "Content/Tile/index.idx",
-                      "length":  576791,
-                      "sha256":  "2E4BEC276C33FCEF5A22FCE5C4C3C94E820D807DAA9097AB67DFE58352F2E6A9"
+                      "length":  625202,
+                      "sha256":  "647A7C96854628A0F5E475B0F5DD5010828D6E00AA58F4F4CAED8FAF8DAA6779"
                   },
                   {
                       "path":  "Content/Tile/Jungle_RTRB.tile",
@@ -1075,8 +1080,8 @@
                   },
                   {
                       "path":  "Data/Ground/eota_abyss_route.rsground",
-                      "length":  5838637,
-                      "sha256":  "DFF3DE3CD33B762E0AF7E010B485AB4EAA1591249BCDA2B96E05C94199EEA510"
+                      "length":  5866447,
+                      "sha256":  "536C9F8A8B01E06A72F367A4BFD3FFC9FA0D9222FB968DDB8DCA51CE61715814"
                   },
                   {
                       "path":  "Data/Ground/eota_echohaven.rsground",
@@ -1340,33 +1345,33 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/abyss_map.lua",
-                      "length":  9894,
-                      "sha256":  "4842D790A78F7C36A2741307D4F665BBAD964AE5353E95EB568E267A0283CA3A"
+                      "length":  10183,
+                      "sha256":  "DDC3F0B9DDFE18A968D0C4E632C1E0EB37EEF6BB7F71E6C24FDFEE6F4B3EB7BE"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/attempt.lua",
-                      "length":  13067,
-                      "sha256":  "CAA3660D4FBF372B066FBB2C6E190C9C0D2D5D3FF12BCC22B8CEA5B66B21135F"
+                      "length":  13248,
+                      "sha256":  "5D09A0AC19922D9B9CBCE8B1F74BD62C6ED1271DE2A91882B7B3A7FDFA451E2D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/boss.lua",
-                      "length":  7203,
-                      "sha256":  "7BAC69DA8596F5E8F3AB858C8232E359484D7AF597584F3424B120DAD2BCE6CD"
+                      "length":  7207,
+                      "sha256":  "3A92D50DA08E94E47B5F99AA8795BC7E0EAFCA9FCEB02BC6AE44B67765C37AA8"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/campaign.lua",
-                      "length":  10398,
-                      "sha256":  "F5115F1D33BAAA7BEBF50AD50901ED563CD46EAB6D1E98EF6ACFDCDC47E87129"
+                      "length":  10532,
+                      "sha256":  "487E38E3612AA0A73CCCCF27CA174722B9860BB8083611AFC2842B7DFDFE8A9D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/construction.lua",
-                      "length":  5477,
-                      "sha256":  "403E38BF5A6F34522561098AD23B06797739E5791C6C4EB64751906D2DE0EF9E"
+                      "length":  5478,
+                      "sha256":  "4BF404F6510064B9ECB366D544AFBF02C2D6C358EE038A6E5380778BA1F67D83"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/debug.lua",
-                      "length":  6143,
-                      "sha256":  "F46A0A1A56B7A5985EA2858BA99D024915072DC26FF0AA8E44B019BE504EF442"
+                      "length":  6154,
+                      "sha256":  "1B4E9AA24AB29E720638C240AC9821B4A122815173353061573BFF3E6A736ADB"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/defeats.lua",
@@ -1395,18 +1400,18 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/export.lua",
-                      "length":  7440,
-                      "sha256":  "5688C574BB1CF3E3A0A47AAA1B6ED5A1576A5F3AE9A8F2951B5763F09CBCEC21"
+                      "length":  7449,
+                      "sha256":  "E4983C76BB2E25517E0FC5E34159DF543485B241578D683A18C9D1404A244BC7"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/facilities.lua",
-                      "length":  35036,
-                      "sha256":  "11FA631172BE663FE7B70CF38F5B31FA96D5F40B225C8603202D3F5B82C5E820"
+                      "length":  35155,
+                      "sha256":  "71C1BB68895F6D19175EDF6B7087B863BE1A5B30A3AF4E9CA10A4C06318D883B"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/facility_contracts.lua",
-                      "length":  5317,
-                      "sha256":  "18AD366ABEBC3CE7C0A357CE47298291374EAAA54DC237ACD5FE93C71ED8339C"
+                      "length":  5323,
+                      "sha256":  "9D52A0787D5AFFC1453FBEB1DE3382D2043D26D6EA66F26D27727D90870D1168"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/facility_upgrade_menu.lua",
@@ -1415,118 +1420,118 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/friend_areas.lua",
-                      "length":  29370,
-                      "sha256":  "823D7D41C139636CB07F7DA5797DD729F0443FFC8DC8A2A83168F4605F24AFDE"
+                      "length":  30125,
+                      "sha256":  "1FF5668E6896841809BB33768DD1306CD566751B9C5E88C4D0336934A424B7BC"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/generated/abyss_catalog.lua",
-                      "length":  33799,
-                      "sha256":  "18BB0C9501C1A2CBEACF095CD133E832C7A4B33ADFCC428EF03887C513925139"
+                      "length":  38331,
+                      "sha256":  "8D5FCC4418018B33F389F60DA499A19B85525F348BACC85CFE94D74C34F665A5"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/aged_chamber_an/init.lua",
-                      "length":  3814,
-                      "sha256":  "C13D4F4F4539F7178D9EE893EF4AED91B9E8D61C6A577AC24BA02B7C92A1CABE"
+                      "length":  3948,
+                      "sha256":  "2B337A6E8FB9EE5D6C11E4271F231B2DD553F69FFE5A53A3669874C1CD0C1895"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/aged_chamber_o/init.lua",
-                      "length":  3562,
-                      "sha256":  "7FB5E697D1EBE2B65372F3B6CAFBA138E8A661EA73ACEAB761D675DB1E8EC861"
+                      "length":  3690,
+                      "sha256":  "DA800EBF6536178B51E55AEE437E27352658334A106C9B8286C6FACD6148467D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/ancient_relic/init.lua",
-                      "length":  4097,
-                      "sha256":  "2F2105956D97C5AA0C1175E0C150EF32234C8CD7F61524FB6C4E672B489CF70F"
+                      "length":  4243,
+                      "sha256":  "0CDBEF9D3FA8F2AE8BB935702A90C7036CCAF184579A0ACE6612F28F29169FDD"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/beau_plains/init.lua",
-                      "length":  3224,
-                      "sha256":  "B6E915333BBC4B0973D20899C780EB451A6451FBA3F68F8840A48B1274EDD14F"
+                      "length":  3323,
+                      "sha256":  "A72D783584FEB7C41E2CC738950D324F5305353D19ABB8BCDB662DCAF5D6D14C"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/boulder_cave/init.lua",
-                      "length":  3454,
-                      "sha256":  "7823EFF24D23D02DEC2D26470130EF7B15D48F9AC03D3B33C842D3A959799E15"
+                      "length":  3577,
+                      "sha256":  "6F0137FDFEEDF84D7E2474BB5511102E3EF001D86BB7BF562D88F78C96CEC8FF"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/bountiful_sea/init.lua",
-                      "length":  3163,
-                      "sha256":  "37531866CC50D902D9C4B814DBBD024755177BC5CC3C5CEF7EF95F0CEF3CBF71"
+                      "length":  3284,
+                      "sha256":  "7743EC6DD59DBE3219BFCCCF8B5D312C77F82F62835D21CB8E4018387E7E06C0"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/crater/init.lua",
-                      "length":  2953,
-                      "sha256":  "73BDAD3375AEAC4FEADBF142964DF9302F8D84136E1A9B74D98EC220FBCC6624"
+                      "length":  3073,
+                      "sha256":  "6DC9CAD80F6479D21D6DD0F3926208C84A251F47072E84FF2F642C595C29D2A3"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/cryptic_cave/init.lua",
-                      "length":  2607,
-                      "sha256":  "1744A243390F39232159C59B0B1D5C0568A748D9441766F92F421D0F5C215F0F"
+                      "length":  2715,
+                      "sha256":  "4065BE22B5D546FCEF5AF2E153F6D8B16F87F88B17E20EB3323D10CFDAC285DB"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/darkness_ridge/init.lua",
-                      "length":  4524,
-                      "sha256":  "E3410B08E921EB567CEF395CE1FA5BC5DE7F9786095202BF6A3BA5E4C746C3C7"
+                      "length":  4671,
+                      "sha256":  "1AF9BF127170DA2E58D6D4750F7FD9DD520D0E75AF0346FA70D030DCB909951B"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/decrepit_lab/init.lua",
-                      "length":  3055,
-                      "sha256":  "FBBEE3653061C0FADAD3104ED9608E3034D57CB3EF1BFF46EAA4E0DE06AF63AE"
+                      "length":  3170,
+                      "sha256":  "E7DB68C0F49C282D3173118B583D1C6EE2BA3DA3A6F9BDD14165FFCEE85F6695"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/deep_sea_current/init.lua",
-                      "length":  2668,
-                      "sha256":  "CA3EFBA971DBA80A02F1CC166CCCE1CD619A2DB5E5A9F95335D158AE1E157A49"
+                      "length":  2779,
+                      "sha256":  "849B91BCC1AF82221F84A1A2FD4A2C0BA463ADA7A529BF4CCF11174398F46566"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/deep_sea_floor/init.lua",
-                      "length":  3296,
-                      "sha256":  "C21E45EB297C8A88F9E963FEAB31CA11313147D6BE5E7B2BA4136F17B9852EA2"
+                      "length":  3418,
+                      "sha256":  "10D3247616DCEC4CAE39FE1D0096C31619B9C6ABF70412D19F3A960A0BAB3BFF"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/dragon_cave/init.lua",
-                      "length":  2942,
-                      "sha256":  "C59DD5BB42CB82A55D501F30EF706C09CCCB2B06D75536E697B916C72597F25B"
+                      "length":  3054,
+                      "sha256":  "19A4D4EB3F8FA9D029F9B71CF7DEA1D81DCC74435F2484A54253BE48AD0A4EC5"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/echo_cave/init.lua",
-                      "length":  3073,
-                      "sha256":  "AD4BD96F6E54EB3611A86D3AD24066AAAB8537814E15F53DFEEAAE6E76087194"
+                      "length":  3192,
+                      "sha256":  "2185EA18F8CFE7DDE550F5EB36B8C79D79982A689BB1133DBACAFD93896BE13D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/enclosed_island/init.lua",
-                      "length":  2524,
-                      "sha256":  "3346D60A2563A510F19285EB8B1EFA2825333EDB1E2396706A7E751DC1E72ED7"
+                      "length":  2626,
+                      "sha256":  "95FE033B3D485B24C1A4062547A7B7132842B84C3DE351FB8CB2E20F7B765C10"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/eota_abyss_route/init.lua",
-                      "length":  2174,
-                      "sha256":  "6AD7CA62D51F5AEB5175D79F921C9406CCAE11ADBEF24CBB3CD8CF21FFFA6076"
+                      "length":  2243,
+                      "sha256":  "43C6C87A64ADBD4DD5A5F344ED4BD941493D5214853C2C8A43B4DC2ADB01C65A"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/eota_abyss_route/strings.de.resx",
-                      "length":  4159,
-                      "sha256":  "BF5D707970C1EC6FB2FA95A0B50C7CC8AEB94F46F9D7E9BBE1A8E0A9C5915CB5"
+                      "length":  4197,
+                      "sha256":  "BBFDFB35A58C17A20605F93CB1B7ED5375E2325907EBF9F54524B56DB76AF939"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/eota_abyss_route/strings.resx",
-                      "length":  3973,
-                      "sha256":  "E3A8942615668FC033FAEDC0DDF220E631BA6293D9C5CAFF4244B067AC474485"
+                      "length":  4011,
+                      "sha256":  "B78EEB74BC96066863555AC9CDE0538E603E4172BF7B16661D899FB7913346DA"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/eota_echohaven/init.lua",
-                      "length":  53570,
-                      "sha256":  "9B1DAA288FE0B85CDD807399EB70D2D76D70875610E95D0A7D75D8BF63322869"
+                      "length":  53666,
+                      "sha256":  "041D1FFDD238312BD5A88D95FD6A8ECD0AADB9AF4AA91D6C89F2CE9A879D1237"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/eota_echohaven/strings.de.resx",
-                      "length":  61592,
-                      "sha256":  "F0AD65E8BB5E6CA45B084166D643AAA68DF7113C3B7C342882C9AA79B7FC68B7"
+                      "length":  61624,
+                      "sha256":  "CF300ADC304D56A3F28E50E3C49326F7FA4D770A439FA7C6D280332DAD4FD733"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/eota_echohaven/strings.resx",
-                      "length":  58841,
-                      "sha256":  "6A5655E3B9B8A2937CF99392D39F5950D25741A5D1B068D1E2FDC38141A0A352"
+                      "length":  58873,
+                      "sha256":  "063350363A0D36D5B9C2D35996409B4BF1705E0F32AAEE56C8F12B0B7F82D394"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/eota_intro_clearing/init.lua",
@@ -1575,218 +1580,218 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/final_island/init.lua",
-                      "length":  2456,
-                      "sha256":  "F89DC4FBD0FFCD9A48963D6AF8957B87A48B613739A3E3F792A371040FD2CFC1"
+                      "length":  2557,
+                      "sha256":  "0766BDC3AB13533DA29656BCFE37D5965C56BC3A2401B9A83F7F08968EC872DF"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/flyaway_forest/init.lua",
-                      "length":  4124,
-                      "sha256":  "84FCE6CCC04395F8ABB338DE2B653371FE4FAB688A0ABA9BBA73BA7E80CACBE8"
+                      "length":  4260,
+                      "sha256":  "BA5AA4813E4D212900498D705241D563C26868FA0ABF304C98ACB95A38BB93E9"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/friend_area_map/init.lua",
-                      "length":  10289,
-                      "sha256":  "C4280ED6287B0D8ABC673E66F54B1BBCBDF97CAB0522705691B6932636326F29"
+                      "length":  10603,
+                      "sha256":  "9443412C31FD36FD59305415DD78492F9D01BD71DDC383AE2C3DE70755F1FCBB"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/frigid_cavern/init.lua",
-                      "length":  3935,
-                      "sha256":  "05D6CE26F19D2545026C99DB6F0025590B27376E4A7A3BBC4D5CF026CB07BF5D"
+                      "length":  4067,
+                      "sha256":  "25DCC405BD11F9D9CAC2A1E187BA21F6EC0DE0407A75C3ED4F2206E1CF07A609"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/furnace_desert/init.lua",
-                      "length":  3613,
-                      "sha256":  "9D18469873CD4081567F2D6FC844E492F381BFA8871FA50992925DCEE55FD9A2"
+                      "length":  3737,
+                      "sha256":  "2A5764B0C7C1C3F8B7E75E05C76521D085FA3083DF1E61EB2140C9F01130E946"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/gourd_swamp/init.lua",
-                      "length":  2941,
-                      "sha256":  "2E335F8B84824FDE39030138C71D87545CEB8D85C272B3F7B003732CE2A46B54"
+                      "length":  3057,
+                      "sha256":  "23AAB6D91B2BBA055B083779EF0FD175A33D5721BB779D84F0004DE2BABCFA16"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/healing_forest/init.lua",
-                      "length":  2679,
-                      "sha256":  "AAA079CB524FA46ECCA508BDB0C8AD3B37BB30A58FA1DD5706EAE7BCA5BBE81E"
+                      "length":  2788,
+                      "sha256":  "6F8373118744CCD6091FB5B296F6D3B9FFBCEEA644D06CCDE94F18A5821847C4"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/ice_floe_beach/init.lua",
-                      "length":  3069,
-                      "sha256":  "A27B59480B4CB9AD4A780E64C780FF94E3C88996E0AEA42E48DAC1785C101D7F"
+                      "length":  3189,
+                      "sha256":  "25A87E7363E3975BECE0DD43BDE05D75222EC5086EA8DA57FCEDF8FB82363B18"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/jungle/init.lua",
-                      "length":  3548,
-                      "sha256":  "A4DD93D326CF11186EBB91994FE68C62D3760F272C2832BA79247BB706134CA4"
+                      "length":  3676,
+                      "sha256":  "E92D89D88C8B1796445C960AACA4AF858193680EA89CAE23FA6B671AD39EE58B"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/legendary_island/init.lua",
-                      "length":  3270,
-                      "sha256":  "D8D9BCC3B6A5BAD5AFF65327A1BB550EBFBEE60B72C1E63F13CAE0E49482365D"
+                      "length":  3403,
+                      "sha256":  "BBC02CDB10DCF7268B25A36D68B02C617F732758D5BD429DC7A724D62F14B5F0"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/magnetic_quarry/init.lua",
-                      "length":  2977,
-                      "sha256":  "1B834754C6C87304E598BE5E1CB5F89B4AF4D29D29EFF9210DE0A0B7DBB86B62"
+                      "length":  3091,
+                      "sha256":  "ECD5413DA517A9745D9BEE39FC50A63C44104AECE9E418A9D8AEAD374200DE2C"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/mist_rise_forest/init.lua",
-                      "length":  3284,
-                      "sha256":  "355011153359AFBB615E435A12CB2AFDF70DE8C62EAF597EE2CBE6F7C58FB692"
+                      "length":  3405,
+                      "sha256":  "0DEEBFB8050A36A4DFEE8389513F903B829907E12E0043C5ABBBB2A7D27BB0A4"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/mt_cleft/init.lua",
-                      "length":  3280,
-                      "sha256":  "8C9DC0FE7E15662D2C4CC56F05F45B1FD445CEFACCED73BFC3AE5941ADF8BBB9"
+                      "length":  3402,
+                      "sha256":  "A73E762939A0A4763F7513CE933ADB265B3843DF2A06B5968F27E0FB415995FE"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/mt_deepgreen/init.lua",
-                      "length":  3920,
-                      "sha256":  "29B4E4A0C31F5D730A4FAEB6D3C49035C93569D3C0ED5F8410F3157BBECA620F"
+                      "length":  4054,
+                      "sha256":  "83B0CA73824D04C7FFC3B89DAC1C48DC1817B8663EF52850E70FE461E2E17D4D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/mt_discipline/init.lua",
-                      "length":  4197,
-                      "sha256":  "C8270095C9E6784BA9C3F190B12CF396BCD9EEED0D30B59243232573E4754C08"
+                      "length":  4338,
+                      "sha256":  "A65586B272007747AA36FEB7F66EC515A5D5F1ED5794D5947CB2CF3078B23590"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/mt_moonview/init.lua",
-                      "length":  3694,
-                      "sha256":  "1A62751E96B5BE38CD90742781340CD5A81C248C5CA63DE6566E24DC16FB884E"
+                      "length":  3826,
+                      "sha256":  "97699CDFFE175F202861B520802502FF841FB434620795AC8DD72AC3DB3F5F6D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/mushroom_forest/init.lua",
-                      "length":  3147,
-                      "sha256":  "316E0A9CF2246EADAA44CE18F8C535BF26B5B9104A81374BB503397DE265EF39"
+                      "length":  3267,
+                      "sha256":  "9D59CA335A70A09295DC911341DFDDD9B7BF2E7DC0EAFB3F068E8AAC5DADFFA0"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/mystic_lake/init.lua",
-                      "length":  3035,
-                      "sha256":  "DDE12DA85B4742114CAF7CAE5A42962F0A3A7841050220C7F40E1231BB213B8E"
+                      "length":  3154,
+                      "sha256":  "9BA9902451789102100F71E939E32465735F2DC2DE5BEAB2FD5AE646154C4431"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/overgrown_forest/init.lua",
-                      "length":  3573,
-                      "sha256":  "42ECA088AB2B21A8350250243E9D96FD11C62F18945FA2F5C203B30DC84F8014"
+                      "length":  3699,
+                      "sha256":  "200E7847705ACCF300AE3430DFB75E0419B36932E736EBC25FCE89B1ACD0ED0F"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/poison_swamp/init.lua",
-                      "length":  3129,
-                      "sha256":  "E5FECAF332F6DF5ABAC82E950B0C50E15BD296A33AD4D25552DFB858960F5E45"
+                      "length":  3245,
+                      "sha256":  "D9D766FBC906EBE95D86F8097E102C297F216DDC7E3D2D53058D74FD52C577AB"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/power_plant/init.lua",
-                      "length":  3401,
-                      "sha256":  "6B8D06BEE58EDD8AFD8D66FC95AC65118219BB77EB33196A5E2AB590BEFF0F09"
+                      "length":  3520,
+                      "sha256":  "27AFCDD1309ABCD2CE5F288FEB65B37EAA78CE0FD89C2B7848562513F0EECDB3"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/rainbow_peak/init.lua",
-                      "length":  2752,
-                      "sha256":  "D9EE75202CCB1ED737346A54C636C299B1AE339D34DE7F48FCB2717E312FFACB"
+                      "length":  2865,
+                      "sha256":  "FB565E126067889C3498F3A80AB2FA3B02798B2539DF10BD302D7A334F070811"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/ravaged_field/init.lua",
-                      "length":  3822,
-                      "sha256":  "29EBD2AB21F378B36E12CA47E318C2D64196C22A1157B301FEC2B054D17E415A"
+                      "length":  3954,
+                      "sha256":  "23BBA5974AF9882F95C2D6D2A478C122319F7F0C45B81B5B9E599E409AB3E07D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/rub_a_dub_river/init.lua",
-                      "length":  3146,
-                      "sha256":  "DB47605A0946C6145872507CAACE41AE5531C6D854EA7BC46550B7C51D892502"
+                      "length":  3265,
+                      "sha256":  "EE10619B1C70B109BA2C9BF2C81D56E5C5CABB19EE4D4469BCD80EBEB9319515"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/sacred_field/init.lua",
-                      "length":  2685,
-                      "sha256":  "A1DE7780AA2B9C23B131DC169984644DA25EBA306914ABF288FB24EC0F474222"
+                      "length":  2795,
+                      "sha256":  "60C97D0EE6B68D6E3D180E7A0EDCF8485403D0C81394F540588764F60C66262D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/safari/init.lua",
-                      "length":  3176,
-                      "sha256":  "4A74AA3F4773C77CF0A139B8DCA08C5DE05F2546F6D7A43500A0CCD0EF69E7C5"
+                      "length":  3300,
+                      "sha256":  "6258D4A1F82D7F5A5D367D3B5F3353E58AF2A544B38D568E33BF7E6C8049694E"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/scorched_plains/init.lua",
-                      "length":  4098,
-                      "sha256":  "7A3ACCACF70FBF2E19D1AEDD83239126D4079706FA05B2A5D538527B8DEEBD05"
+                      "length":  4237,
+                      "sha256":  "7DF1A7FB41B930062BA9C8ACD0062513DC443B1166C38EEF2995AF8E8283043B"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/seafloor_cave/init.lua",
-                      "length":  2604,
-                      "sha256":  "71881C11BC9AADC469ECB8F600AADBC0E242A3C782C2850BA12E6DBEC118928A"
+                      "length":  2717,
+                      "sha256":  "DDF2C7FDA664F41CDA179CFD36B3036B1E745691120E27DB86E238EC23287EB4"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/secretive_forest/init.lua",
-                      "length":  3401,
-                      "sha256":  "9221CD0439C2EDE6CE3821E5E27A1F14152A9C15703921081EE35378CC90FD0D"
+                      "length":  3526,
+                      "sha256":  "8EC0DD6168D4D9DFABD062826B5C617B1E9C23DE2BD9E4273E1C2C46F99455CB"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/serene_sea/init.lua",
-                      "length":  2925,
-                      "sha256":  "CF303353C34B48C7F2F8829DAE454B8D201E92A9C2C82AD9AB4D8CEA9F4D1626"
+                      "length":  3043,
+                      "sha256":  "31A8D392A7B6C1DAAC8298883419C901307166C983264DFF55401178C12D4C49"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/shallow_beach/init.lua",
-                      "length":  3766,
-                      "sha256":  "4E35F77C2BCF2C59C41621E0CDD4DBAC0651617FBCD5A606C323A20357364575"
+                      "length":  3898,
+                      "sha256":  "D5F716D7B4CD260A1AF47281B3EC4C94629FD7414A3983245DA1346C33636974"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/sky_blue_plains/init.lua",
-                      "length":  3646,
-                      "sha256":  "4DA6244F2EAAD9D7255562CD118B67469CB4E2F8DCAC4117DA0D5562B6EED1B7"
+                      "length":  3754,
+                      "sha256":  "8CE6C7EE45DCC1E7F410F99B6DABF9CB60B0AFCC1D435F0C3B3D87AE1355D679"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/southern_island/init.lua",
-                      "length":  2522,
-                      "sha256":  "627E8F92F6B4D79309BE89DC0622079D85EAE6D1A436AB622F426A7E8F6166FD"
+                      "length":  2625,
+                      "sha256":  "8EAEFC1C05F892D9EF2E5ACBAC450E8D2B91B4EB7BD5D37100C9875BDDAD3D5E"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/stratos_lookout/init.lua",
-                      "length":  2522,
-                      "sha256":  "44956E77C3E6C265C313D3360AC6DDF0B38B0E1C170AA2153A344329C62EB46B"
+                      "length":  2623,
+                      "sha256":  "4DD28DBADC491A4DE19E9CF173D380BC4805B5588CB6547B53A3C2CE9D1CF5C3"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/tadpole_pond/init.lua",
-                      "length":  2907,
-                      "sha256":  "5A3B606D6D71692DE71CCA7514179C14B6170C2C1A9C59829930FB324868C94E"
+                      "length":  3022,
+                      "sha256":  "20F42DE1734A28E6EAC81902D3A4F7798A1E6D5349AC714579302DA4AC570E3D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/thunder_meadow/init.lua",
-                      "length":  4019,
-                      "sha256":  "E1A23CC5FE99770D7A4B1C6ADF49E7B5A5D3B864C2FC28024F07FECB9BE680F3"
+                      "length":  4155,
+                      "sha256":  "CC4DE809E10335B4CCB254E580C1FAC248B0AFED8E8B06B0C5AE5FBA85D737BA"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/transform_forest/init.lua",
-                      "length":  3593,
-                      "sha256":  "C5ECD691577D9893886D4CB47202A717B2489CC14556D5E26A51502B17BCD6F9"
+                      "length":  3730,
+                      "sha256":  "717EC61A97FE43E972A50490E07D90361EDA31EC401B2913B9F2E0A8E7601E6E"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/treasure_sea/init.lua",
-                      "length":  3087,
-                      "sha256":  "DA32FC906070D9056F18F7B81FE880BFFA8E605F66553F76E9719606FB1FFC36"
+                      "length":  3207,
+                      "sha256":  "C16C31D9911FB819F6D552CE289ED54A0D1CF4F1BA73DE54784DDA72D87FA6AE"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/turtleshell_pond/init.lua",
-                      "length":  2994,
-                      "sha256":  "1060316C460FA2D245DD481043A046E0BB071DF8D88455733B41BAAF61DC8AD6"
+                      "length":  3111,
+                      "sha256":  "5A093723637D227F2F14E9802294605770FCB224BD82F0855B45ED21340364CD"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/vibrant_forest/init.lua",
-                      "length":  3928,
-                      "sha256":  "893E8214C21504C19BEB3AE8439DE3771C7AD523F0D2A42636E020F492499F4D"
+                      "length":  4061,
+                      "sha256":  "4313974CAE864A7B11B12A2916A30EA92760E13F9964DF0ED5C6F5371A62033B"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/volcanic_pit/init.lua",
-                      "length":  2581,
-                      "sha256":  "3AC5E8B1302A9A281F65BD68DD3631AA239D7B5856D05AF82C1BF09EE719BBB7"
+                      "length":  2693,
+                      "sha256":  "88E75B648058B4FDF0B67C6C36C915D97275890860FECE484F5B5BCBBD4F18F2"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/waterfall_lake/init.lua",
-                      "length":  2897,
-                      "sha256":  "BD909A77DCC91AABE36387D4B38762CDC5230A69835545F2380662A3F083658C"
+                      "length":  3013,
+                      "sha256":  "172A2BA3E424E0DE676725067E6EE7F8E8D990F3945BE81C637CDC0DFAD59FEA"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground/wild_plains/init.lua",
-                      "length":  3286,
-                      "sha256":  "FD8350C64A1065FD43C9A899F591803C804D545F2C33ED667536AEED3C07313E"
+                      "length":  3408,
+                      "sha256":  "063E59017DC5FF40E0D259A8A46F4EAE8A630518DBB53993127276737478735F"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/ground_generator.lua",
@@ -1795,8 +1800,8 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/hub.lua",
-                      "length":  3593,
-                      "sha256":  "CAA7409FCEE7D96A1B7C0E8C89E169CF08FCC8E540EFAFA55E118AF685685253"
+                      "length":  3604,
+                      "sha256":  "C0825113706C93BA53163172D053D43FEE5F89B7BEF782406FA6C8823F17FF47"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/hub_physical_probe.lua",
@@ -1805,8 +1810,8 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/intro.lua",
-                      "length":  35744,
-                      "sha256":  "403DAB56DEFB878719FF1490BD7760E925CB5F979F86D2EAFE7F174323C53CAF"
+                      "length":  35747,
+                      "sha256":  "924E1BD960D83148EB107A00C30703106A4FE0D31AC61DC8AA4A7969D2A32655"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/intro_state.lua",
@@ -1815,8 +1820,8 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/main.lua",
-                      "length":  2569,
-                      "sha256":  "F8809D24C1DF60D87D5D0B2ED6D195F7FABBD7377ED28D11B536F6546CCF6039"
+                      "length":  2574,
+                      "sha256":  "C0F64A910D96E3932AB05179C5835794622FC4CC6EBE0C70ADFA28B44712D970"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/meta.lua",
@@ -1825,8 +1830,8 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/population.lua",
-                      "length":  3406,
-                      "sha256":  "049601466EEECA99F3AF137DF0260EC9EDD4C0FFB355D9A21E387F1438BD3191"
+                      "length":  3407,
+                      "sha256":  "B17EA0EDCA30B0E560DFF8B5C840543ADA66B34D282CD1FBE6790D59AFDA1AEF"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/population_dialogue.lua",
@@ -1840,8 +1845,8 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/recruitment.lua",
-                      "length":  25563,
-                      "sha256":  "46D627ABE2D2D4F2F8CA9C8727EFB54C812E90D3BA118232D507B62BF7DE171D"
+                      "length":  25587,
+                      "sha256":  "9A6A5E66D53FE19D56B5D8868A9296817F7A2784867E8F2FC166F0785686B8E4"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/recruitment_catalog.lua",
@@ -1850,28 +1855,28 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/recruitment_menu.lua",
-                      "length":  4957,
-                      "sha256":  "17B44A34C6E854534C79E3F1026F19C76465B5064FBF78530FFFD06715247736"
+                      "length":  4964,
+                      "sha256":  "1DA1EFBCCB1D4768A320196B109322B1BB8382EF39DA1A7A5CEC3200F85FBB3E"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/run.lua",
-                      "length":  6723,
-                      "sha256":  "511FA61B213D2508F63B5CFA1D1E369AF8C44375974DB4894A1F683642DB6D64"
+                      "length":  6779,
+                      "sha256":  "83AB603B16340A33F1BB613F6D3979BFF1C4E7F7D6F2886FD3D6484D38704122"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/salvage.lua",
-                      "length":  6746,
-                      "sha256":  "CB15B2375F9DDFE1C7CEE267165000BD2A421A0D7D00578FB88B121418B5A994"
+                      "length":  6803,
+                      "sha256":  "5C2F032E4ED02A5DEBB3720BD8E376C27DD72A55FC2D27EA8CCE7375A8FAF60D"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/secret_routes.lua",
-                      "length":  1846,
-                      "sha256":  "B6C8627111AA9181A7934A871AE27CBDF17EBD5F0F0AE73715E23671213692B6"
+                      "length":  1899,
+                      "sha256":  "FE8885D58447AAEF50358911D932FC0F61C5067FFD0C72095526A22892FE3D9F"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/services/dev_automation/init.lua",
-                      "length":  15039,
-                      "sha256":  "174597F81DD611973AEAACF0BDC30229CE1CAB5F5D09BB8BBA51685EB6BE4196"
+                      "length":  15056,
+                      "sha256":  "91E1744DAD84868CF7056976B4F99F4D50D94DA42046C72916DB00B6C9FF86A7"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/services/run_service/init.lua",
@@ -1895,8 +1900,8 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/state.lua",
-                      "length":  43297,
-                      "sha256":  "ECF74294CFE072FBB3F2B2BF57E149FCEF7570C8FC3CDD21D5FD610CF41682B2"
+                      "length":  43383,
+                      "sha256":  "E79DCEB80F2D098C9D7741E672E4DD844DC0F686962850D926577E65191467C1"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/story.lua",
@@ -1940,8 +1945,8 @@
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/team.lua",
-                      "length":  8735,
-                      "sha256":  "9568CB93D84725CFE736A9C03CC4ADEDF17FCB39D8E74B1B68C1CCCA4185430D"
+                      "length":  8783,
+                      "sha256":  "4CF682DBFD66BBBCAF95D0C7DDAB9A03528846031B90D778D6EF0B63BA9EC92E"
                   },
                   {
                       "path":  "Data/Script/echoes_of_the_abyss/team_house.lua",
@@ -2110,8 +2115,8 @@
                   },
                   {
                       "path":  "Data/Zone/eota_friend_area.json",
-                      "length":  4682,
-                      "sha256":  "1644ED96B4392DD733CB8CCE7F0DC0C9C6A27CFEB7E866C574E3C661C0935EC6"
+                      "length":  4590,
+                      "sha256":  "158571AC1490FDAB5660588B1A2EB6CBB5244B43C3A14DC9AB01D241AF2F933C"
                   },
                   {
                       "path":  "Data/Zone/eota_geode_crevice.json",
@@ -2190,18 +2195,18 @@
                   },
                   {
                       "path":  "Mod.xml",
-                      "length":  430,
-                      "sha256":  "1EBE784BCDBD0F3CC92C51A3EF78B356DFA7FA989F363CA2F11C0D486BE62F2E"
+                      "length":  431,
+                      "sha256":  "5571D7C4A4B44EED37BF6AD2A531A09C7E1FAA79E281BAD7C2ECFFD33FE6D7F2"
                   },
                   {
                       "path":  "Strings/strings.de.resx",
-                      "length":  35681,
-                      "sha256":  "F3712F665AAB77326DEABCEC7025313D812C2477D888D537C902636F81CE227E"
+                      "length":  35688,
+                      "sha256":  "C4B5C94312B8E6DC6E5EDB42391D7202939AE8E88573FFE27CADE3349DB8E888"
                   },
                   {
                       "path":  "Strings/strings.resx",
-                      "length":  33956,
-                      "sha256":  "8C6D8AF810B574E61142A600B4BF95148A89B72804C6D84980601411ED53B27B"
+                      "length":  33963,
+                      "sha256":  "2165CF53AF4FDF3257A34D32DD17FBF2C99A319945C631E27A4ABE371635B863"
                   }
               ]
 }

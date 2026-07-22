@@ -2,8 +2,9 @@
 
 ## 0.1.5 - 2026-07-21
 
-- Refreshed the Thor update bundle with Echoes of the Abyss 0.8.1, fixing the
-  Abyss selection map black screen caused by an invalid generated GroundMap.
+- Refreshed the Thor update bundle with Echoes of the Abyss 0.8.2. The accepted
+  Abyss artwork is now stored as engine-native tiles and actually rendered by
+  the dungeon-selection map instead of merely being tracked as source art.
 
 - Added a persistent, editable touch overlay: drag the D-pad and up to 16
   buttons, configure scale, visibility and A/B/X/Y/L/R/ZL/ZR/Start/Select/L3/R3
@@ -16,7 +17,7 @@
 - Pinned the patch committer identity so the 18-patch engine head is
   reproducible independently of the caller's Git configuration.
 - Added a deterministic Thor update bundle containing the 0.1.5 APK and the
-  reviewed Echoes of the Abyss 0.8.1 Quest tree.
+  reviewed Echoes of the Abyss Quest tree.
 
 ## 0.1.4
 
