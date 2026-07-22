@@ -55,10 +55,19 @@ nachgewiesen; offene Punkte brauchen einen echten AYN Thor.
   Streaming-Puffer werden laufend nachgefüllt und ein erkannter Underrun wird
   automatisch fortgesetzt. `Title.ogg` und `Base Town.ogg` starten im geprüften
   EOTA-Lauf ohne Audio- oder Quellenlimitfehler.
-- [x] Die 18 RogueEssence-Patches werden reproduzierbar bis Head
-  `7b4ed6ab26a5c27bfd659439c8c24720563f60a6` angewendet. Der ARM64-Release-Build
+- [x] Die 19 RogueEssence-Patches werden reproduzierbar bis Head
+  `b0d84192d099bd3d38eef7deec94e51c89e42c42` angewendet. Der ARM64-Release-Build
   kompiliert darin L/R/ZL/ZR-Mehrfachauswahl und alle vier Links/Rechts-
   Verkaufskombinationen; unverkäufliche Einträge bleiben deaktiviert.
+- [x] Der unveränderte Zusatzmod `Enable Mission Board` lädt im x86_64-Emulator
+  sowohl mit EOTA als auch mit dem PMDO-Basisspiel. Im Basisspiel wurden ein
+  frischer Spielstand und der gemeinsame Stack aus `All Starters`,
+  `Any Starting Team`, `Enable Mission Board`, `Gender Unlock`, `Mega Stones`,
+  `Music Notice` und `Visible Monster Houses` geprüft. Starter- und
+  Geschlechtsauswahl funktionieren; die Y-Taste öffnet das Ground-Menü mit
+  `Job List` ohne `Color`-/`mission_menu_tools`-Fehler oder Runtime-Absturz.
+  `Friend Areas` war in der Testinstallation und öffentlich nicht verfügbar
+  und ist deshalb nicht Teil dieses Nachweises.
 - [x] Der Fanfaren-Fade begrenzt Frame-Overshoot vor der Bruchrechnung. Sämtliche
   Android-Audio-Volume-Schreibzugriffe werden zusätzlich auf einen endlichen
   Wert zwischen 0 und 1 normalisiert; der ausführbare NaN-/Infinity-/Grenzwerttest

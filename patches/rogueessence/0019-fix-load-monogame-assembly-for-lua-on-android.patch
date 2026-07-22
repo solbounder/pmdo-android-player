@@ -1,0 +1,28 @@
+From b0d84192d099bd3d38eef7deec94e51c89e42c42 Mon Sep 17 00:00:00 2001
+From: solbounder <305808360+solbounder@users.noreply.github.com>
+Date: Wed, 22 Jul 2026 22:30:00 +0200
+Subject: [PATCH] fix: load MonoGame assembly for Lua on Android
+
+---
+ RogueEssence/Lua/LuaEngine.cs | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/RogueEssence/Lua/LuaEngine.cs b/RogueEssence/Lua/LuaEngine.cs
+index 1a8186d9..2cce60f1 100644
+--- a/RogueEssence/Lua/LuaEngine.cs
++++ b/RogueEssence/Lua/LuaEngine.cs
+@@ -452,6 +452,11 @@ namespace RogueEssence.Script
+             DiagManager.Instance.LogInfo("[SE]:Importing .NET packages..");
+             LuaState.LoadCLRPackage();
+ 
++            // The stock script include imports FNA before resolving shared XNA types.
++            // Android uses MonoGame's compatible Microsoft.Xna.Framework namespace.
++            if (OperatingSystem.IsAndroid())
++                LuaState.DoString("luanet.load_assembly('MonoGame.Framework')");
++
+             ModDoFile(SCRIPT_INCLUDE);
+         }
+ 
+-- 
+2.51.1.windows.1
+
