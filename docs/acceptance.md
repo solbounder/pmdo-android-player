@@ -66,8 +66,9 @@ nachgewiesen; offene Punkte brauchen einen echten AYN Thor.
   `Music Notice` und `Visible Monster Houses` geprüft. Starter- und
   Geschlechtsauswahl funktionieren; die Y-Taste öffnet das Ground-Menü mit
   `Job List` ohne `Color`-/`mission_menu_tools`-Fehler oder Runtime-Absturz.
-  `Friend Areas` war in der Testinstallation und öffentlich nicht verfügbar
-  und ist deshalb nicht Teil dieses Nachweises.
+  EOTAs native Anpassung von `Friend Areas` war im EOTA-Lauf enthalten. Nur
+  die ursprüngliche Standalone-Version 1.1 war in der Basisspiel-Testinstallation
+  nicht vorhanden und ist deshalb nicht Teil dieses Basisspiel-Nachweises.
 - [x] Der Fanfaren-Fade begrenzt Frame-Overshoot vor der Bruchrechnung. Sämtliche
   Android-Audio-Volume-Schreibzugriffe werden zusätzlich auf einen endlichen
   Wert zwischen 0 und 1 normalisiert; der ausführbare NaN-/Infinity-/Grenzwerttest
