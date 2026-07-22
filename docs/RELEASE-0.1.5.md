@@ -9,7 +9,7 @@ L, R, ZL and ZR can each mark items. Any left/right shoulder combination
 selects all sellable entries across inventory pages. Audio volumes and fanfare
 fades are bounded to prevent the reported Android error/black-screen path.
 
-The Thor update ZIP also includes the reviewed Echoes of the Abyss 0.8.0 Quest
+The Thor update ZIP also includes the reviewed Echoes of the Abyss 0.8.1 Quest
 tree, including accessible secret-room exits and the accepted Abyss map data.
 
 This is an in-place update (`versionCode` 6); do not uninstall the app.

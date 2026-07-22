@@ -7,7 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression
 if ([string]::IsNullOrWhiteSpace($QuestManifest)) {
-    $QuestManifest = Join-Path (Resolve-Path (Join-Path $PSScriptRoot '..')).Path 'packaging\Echoes_of_the_Abyss-v0.8.0.manifest.json'
+    $QuestManifest = Join-Path (Resolve-Path (Join-Path $PSScriptRoot '..')).Path 'packaging\Echoes_of_the_Abyss-v0.8.1.manifest.json'
 }
 $packagePath = (Resolve-Path -LiteralPath $Package).Path
 $manifest = Get-Content -LiteralPath $QuestManifest -Raw -Encoding UTF8 | ConvertFrom-Json
