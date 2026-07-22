@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.7 - 2026-07-22
+
+- Separated complete Android save backups (`.zip`) from direct PMDO
+  `SAVE.rssv` imports. A raw save can now be assigned to the base game or an
+  installed Quest; the prior save is retained as `SAVE.rssv.bak`.
+- Added launcher controls to select one Quest and enable or disable additional
+  mods individually.
+- Treat mod requirements through PMDO 0.8.12 as compatible without modifying
+  the original `Mod.xml`. Mods requiring a newer version or carrying native
+  desktop files are retained but not auto-enabled.
+- Documented that the native Android keyboard replaces unsupported external
+  desktop on-screen-keyboard mods.
+
 ## 0.1.6 - 2026-07-22
 
 - Fixed runtime imports from regular PMDO 0.8.12 installations. The locked

@@ -75,8 +75,12 @@ namespace PMDO.Android
             List<(ModRelationship, List<ModHeader>)> errors = new List<(ModRelationship, List<ModHeader>)>();
             PathMod.ValidateModLoad(quest, mods, order, errors);
             PathMod.SetMods(quest, mods, order);
-            if (errors.Count > 0)
-                DiagManager.Instance.LogInfo("Mod load-order warnings: " + errors.Count);
+            foreach ((ModRelationship relationship, List<ModHeader> involved) in errors)
+            {
+                string warning = DescribeModLoadError(relationship, involved);
+                DiagManager.Instance.LogInfo("Mod load warning: " + warning);
+                Log.Warn("PMDO-ENGINE", "Mod load warning: " + warning);
+            }
             DiagManager.Instance.PrintModSettings();
 
             Text.Init();
@@ -103,6 +107,18 @@ namespace PMDO.Android
                 }
                 if (changed) document.Save(path);
             }
+        }
+
+        private static string DescribeModLoadError(ModRelationship relationship, List<ModHeader> involved)
+        {
+            if (relationship == ModRelationship.Incompatible && involved.Count >= 2)
+                return involved[0].Name + " is incompatible with " + involved[1].Name + ".";
+            if (relationship == ModRelationship.DependsOn && involved.Count >= 2)
+                return String.IsNullOrEmpty(involved[1].Namespace)
+                    ? involved[0].Name + " requires PMDO " + involved[1].Version + "."
+                    : involved[0].Name + " requires missing mod " + involved[1].Namespace + ".";
+            return "Load-order conflict: " + String.Join(" -> ", involved.Select(header =>
+                String.IsNullOrWhiteSpace(header.Name) ? header.Namespace : header.Name)) + ".";
         }
     }
 }

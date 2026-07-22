@@ -23,9 +23,12 @@ picker. Imported files are checked against a SHA-256 manifest before they are
 activated.
 
 Quest mods are optional. Standard Lua, data, JSON Patch, image, and Ogg based
-Quest mods can be imported as folders or ZIP files. Mods containing desktop
-DLLs, native desktop libraries, LuaSocket, network dependencies, or
-Windows-specific path assumptions may require additional porting.
+Quest mods can be imported as folders or ZIP files, then managed individually
+from the launcher. PMDO requirements through 0.8.12 are accepted without
+rewriting a mod manifest. Mods with newer requirements or desktop-native files
+are imported for safekeeping but are not enabled automatically. Desktop DLLs,
+native libraries, LuaSocket, network dependencies, or Windows-specific path
+assumptions may require porting.
 
 ## Current preview scope
 
@@ -35,10 +38,12 @@ Windows-specific path assumptions may require additional porting.
   gamepad overlay, including L/R/ZL/ZR
 - Shoulder-button item selection and left/right shoulder chords for selecting
   every sellable inventory item
-- Android keyboard and clipboard integration
+- Android keyboard and clipboard integration; no external desktop on-screen
+  keyboard mod is supported or needed
 - Maximum 4:3 as the default, with full screen and fixed 4:3 modes available
-- Optional Quest mod import
-- Atomic runtime import and save import or export
+- Optional Quest mod import and individual Quest/additional-mod management
+- Atomic runtime import and save import or export, including direct
+  `SAVE.rssv` import to the base game or an installed Quest
 - No `INTERNET` permission
 - No Android backup or device transfer of private runtime, mod, or save data
 
