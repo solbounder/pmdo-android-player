@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.6 - 2026-07-22
+
+- Fixed runtime imports from regular PMDO 0.8.12 installations. The locked
+  manifest now hashes the canonical Git archive bytes used by the official
+  installer instead of CRLF-converted files from a Windows worktree.
+- Kept strict size and SHA-256 verification and added a release-build check
+  that rejects stale runtime manifests.
+
 ## 0.1.5 - 2026-07-21
 
 - Refreshed the Thor update bundle with Echoes of the Abyss 0.8.2. The accepted

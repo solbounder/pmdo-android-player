@@ -3,7 +3,7 @@ PMDO ANDROID – UPDATE FÜR EINE BESTEHENDE THOR-INSTALLATION
 
 Dieses Update-ZIP enthält:
 
-  PMDO-Android-Player-v0.1.5.apk
+  PMDO-Android-Player-v0.1.6.apk
   Echoes_of_the_Abyss\
   THOR-UPDATE.txt
 
@@ -24,6 +24,10 @@ PMDO-Runtime, Echoes of the Abyss und alle Spielstände erhalten.
 
 Neu in diesem Update:
 
+  - Die Runtime-Integritätsprüfung akzeptiert jetzt die unveränderten Dateien
+    einer regulären PMDO-0.8.12-Installation. Version 0.1.4 und 0.1.5 konnten
+    gültige Dateien fälschlich bei "Base/GFXParams.xml" ablehnen.
+
   - Das Zahnrad im Touch-Overlay öffnet einen Editor mit Speichern,
     Abbrechen und Zurücksetzen. D-Pad und bis zu 16 Tasten lassen sich
     verschieben, skalieren, ausblenden und auch doppelt auf A/B/X/Y/L/R/ZL/ZR/
@@ -42,9 +46,9 @@ Falls Android statt eines Updates einen Signaturkonflikt meldet: NICHT
 deinstallieren, sondern den Dialog fotografieren. Die vorhandenen App-Daten
 bleiben dann unangetastet.
 
-Version: 0.1.5 (versionCode 6)
+Version: 0.1.6 (versionCode 7)
 Signaturzertifikat SHA-256:
 81EF0C48E32C988BA8259CA135ACBC8C812BD9798B8D6B5F1D3750E119459DFB
 
 APK SHA-256:
-39004A68FE4DB3123E41E44956FCC92B9700A58CF24F289AF6918F8588529EF7
+551DF4DF2702FCEB6ED4237858171C8AAD6A6C8F133AF0142EC5E47BA5BA8DE9

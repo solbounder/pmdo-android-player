@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$Package = (Join-Path $PSScriptRoot '..\release\PMDO-Android-Player-Thor-Update-v0.1.5.zip'),
+    [string]$Package = (Join-Path $PSScriptRoot '..\release\PMDO-Android-Player-Thor-Update-v0.1.6.zip'),
     [string]$QuestManifest
 )
 
@@ -11,7 +11,7 @@ if ([string]::IsNullOrWhiteSpace($QuestManifest)) {
 }
 $packagePath = (Resolve-Path -LiteralPath $Package).Path
 $manifest = Get-Content -LiteralPath $QuestManifest -Raw -Encoding UTF8 | ConvertFrom-Json
-$expected = @('PMDO-Android-Player-v0.1.5.apk', 'THOR-UPDATE.txt') +
+$expected = @('PMDO-Android-Player-v0.1.6.apk', 'THOR-UPDATE.txt') +
     @($manifest.files | ForEach-Object { 'Echoes_of_the_Abyss/' + [string]$_.path })
 $tempRoot = Join-Path ([IO.Path]::GetTempPath()) ('eota-thor-audit-' + [guid]::NewGuid().ToString('N'))
 [IO.Directory]::CreateDirectory($tempRoot) | Out-Null
@@ -43,8 +43,8 @@ try {
                 throw "Packaged Quest file differs from manifest: $($file.path)"
             }
         }
-        $apkPath = Join-Path $tempRoot 'PMDO-Android-Player-v0.1.5.apk'
-        $apkInput = $archive.GetEntry('PMDO-Android-Player-v0.1.5.apk').Open()
+        $apkPath = Join-Path $tempRoot 'PMDO-Android-Player-v0.1.6.apk'
+        $apkInput = $archive.GetEntry('PMDO-Android-Player-v0.1.6.apk').Open()
         $apkOutput = [IO.File]::Create($apkPath)
         try { $apkInput.CopyTo($apkOutput) }
         finally { $apkInput.Dispose(); $apkOutput.Dispose() }
@@ -53,7 +53,7 @@ try {
         $reader = [IO.StreamReader]::new($guideStream, [Text.Encoding]::UTF8, $true)
         try { $guide = $reader.ReadToEnd() }
         finally { $reader.Dispose(); $guideStream.Dispose() }
-        if (-not $guide.Contains('Version: 0.1.5 (versionCode 6)') -or -not $guide.Contains($apkHash)) {
+        if (-not $guide.Contains('Version: 0.1.6 (versionCode 7)') -or -not $guide.Contains($apkHash)) {
             throw 'Packaged guide does not identify the packaged APK version and SHA-256.'
         }
     } finally { $archive.Dispose(); $stream.Dispose() }
