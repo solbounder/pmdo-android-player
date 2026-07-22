@@ -230,9 +230,18 @@ public sealed class RuntimeImporter(string appRoot)
     private static string Hash(string file) { using var input = File.OpenRead(file); return Convert.ToHexString(SHA256.HashData(input)); }
 }
 
-public sealed record ModMetadata(string Name, string? GameVersion, IReadOnlyList<string> Warnings, string? ModType = null, string? DirectoryName = null);
+public sealed record ModMetadata(
+    string Name,
+    string? GameVersion,
+    IReadOnlyList<string> Warnings,
+    string? ModType = null,
+    string? DirectoryName = null,
+    bool IsGameVersionCompatible = true,
+    bool HasUnsupportedFiles = false);
 public static class ModXml
 {
+    private static readonly Version PlayerVersion = new(0, 8, 12, 0);
+
     public static ModMetadata Parse(Stream stream)
     {
         var doc = XDocument.Load(stream); var root = doc.Root ?? throw new PortableImportException("Invalid Mod.xml.");
@@ -242,9 +251,24 @@ public static class ModXml
         if (string.IsNullOrWhiteSpace(name)) throw new PortableImportException("Mod.xml has no Name.");
         var version = root.Elements().FirstOrDefault(e => e.Name.LocalName.Equals("GameVersion", StringComparison.OrdinalIgnoreCase))?.Value.Trim();
         var modType = root.Elements().FirstOrDefault(e => e.Name.LocalName.Equals("ModType", StringComparison.OrdinalIgnoreCase))?.Value.Trim();
-        var supportedVersion = version is null || version is "0.8.12" or "0.8.12.0";
-        return new(name, version, supportedVersion ? [] : ["Mod targets PMDO " + version + ", not 0.8.12."] , modType);
+        bool compatible = String.IsNullOrWhiteSpace(version) || Version.TryParse(version, out Version? required) && required <= PlayerVersion;
+        IReadOnlyList<string> warnings = compatible
+            ? []
+            : Version.TryParse(version, out _)
+                ? ["Mod requires PMDO " + version + "; this player provides 0.8.12."]
+                : ["Mod has an invalid GameVersion: " + version + "."];
+        return new(name, version, warnings, modType, IsGameVersionCompatible: compatible);
     }
+}
+
+public static class ModCompatibility
+{
+    private static readonly HashSet<string> UnsupportedExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ".dll", ".exe", ".so", ".dylib", ".bat", ".cmd", ".ps1", ".sh"
+    };
+
+    public static bool IsUnsupportedFile(string path) => UnsupportedExtensions.Contains(Path.GetExtension(path));
 }
 
 public sealed class ModImporter(string appRoot)
@@ -256,43 +280,180 @@ public sealed class ModImporter(string appRoot)
         var wrapper = tree.WrapperRoot("Mod.xml"); using var xml = tree.OpenRelative(wrapper, "Mod.xml"); var meta = ModXml.Parse(xml);
         var id = string.Concat(meta.Name.Select(c => char.IsLetterOrDigit(c) || c is '-' or '_' ? c : '_')).Trim('_'); if (id.Length == 0) throw new PortableImportException("Invalid mod name.");
         var warnings = meta.Warnings.ToList(); var staging = Path.Combine(mods, ".staging-" + Guid.NewGuid().ToString("N"));
+        bool hasUnsupportedFiles = false;
         long expanded = 0;
         try
         {
             foreach (var original in tree.Files)
             {
                 token.ThrowIfCancellationRequested(); var path = wrapper.Length == 0 ? original : original.StartsWith(wrapper + "/", StringComparison.Ordinal) ? original[(wrapper.Length + 1)..] : null;
-                if (path is null) continue; if (IsNative(path)) warnings.Add("Native/executable file is unsupported on Android: " + path); var target = SafePaths.Under(staging, path); Directory.CreateDirectory(Path.GetDirectoryName(target)!); await using (var i = tree.OpenRead(original)) await using (var o = new FileStream(target, FileMode.CreateNew, FileAccess.Write, FileShare.None)) expanded += await BoundedStreams.CopyAsync(i, o, Math.Min(ImportLimits.MaxEntryBytes, ImportLimits.MaxExpandedBytes - expanded), token).ConfigureAwait(false);
+                if (path is null) continue;
+                if (ModCompatibility.IsUnsupportedFile(path))
+                {
+                    hasUnsupportedFiles = true;
+                    warnings.Add("Native/executable file is unsupported on Android: " + path);
+                }
+                var target = SafePaths.Under(staging, path); Directory.CreateDirectory(Path.GetDirectoryName(target)!); await using (var i = tree.OpenRead(original)) await using (var o = new FileStream(target, FileMode.CreateNew, FileAccess.Write, FileShare.None)) expanded += await BoundedStreams.CopyAsync(i, o, Math.Min(ImportLimits.MaxEntryBytes, ImportLimits.MaxExpandedBytes - expanded), token).ConfigureAwait(false);
             }
             var targetDir = Path.Combine(mods, id); Directory.CreateDirectory(mods);
             AtomicDirectory.Replace(staging, targetDir);
-            return meta with { Warnings = warnings, DirectoryName = id };
+            return meta with { Warnings = warnings, DirectoryName = id, HasUnsupportedFiles = hasUnsupportedFiles };
         }
         catch { if (Directory.Exists(staging)) Directory.Delete(staging, true); throw; }
     }
-    private static bool IsNative(string path) => new[] { ".dll", ".exe", ".so", ".dylib", ".bat", ".cmd", ".ps1", ".sh" }.Contains(Path.GetExtension(path), StringComparer.OrdinalIgnoreCase);
+}
+
+public sealed record ModConfigurationState(string? QuestDirectoryName, IReadOnlyList<string> EnabledModDirectoryNames);
+public sealed record InstalledMod(string DirectoryName, ModMetadata Metadata, bool Enabled);
+
+public sealed class ModCatalog(string appRoot)
+{
+    private readonly string root = Path.GetFullPath(appRoot);
+
+    public IReadOnlyList<InstalledMod> Installed()
+    {
+        string modsRoot = Path.Combine(root, "MODS");
+        if (!Directory.Exists(modsRoot)) return [];
+        ModConfigurationState state = ModConfiguration.Load(root);
+        var enabledMods = state.EnabledModDirectoryNames.ToHashSet(StringComparer.Ordinal);
+        var result = new List<InstalledMod>();
+        foreach (string directory in Directory.EnumerateDirectories(modsRoot).OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase))
+        {
+            string directoryName = Path.GetFileName(directory);
+            if (directoryName.StartsWith(".staging-", StringComparison.Ordinal)) continue;
+            string manifest = Path.Combine(directory, "Mod.xml");
+            if (!File.Exists(manifest)) continue;
+            try
+            {
+                using Stream input = File.OpenRead(manifest);
+                ModMetadata metadata = ModXml.Parse(input);
+                bool hasUnsupportedFiles = Directory.EnumerateFiles(directory, "*", SearchOption.AllDirectories)
+                    .Any(ModCompatibility.IsUnsupportedFile);
+                if (hasUnsupportedFiles && !metadata.Warnings.Any(warning => warning.Contains("unsupported on Android", StringComparison.OrdinalIgnoreCase)))
+                    metadata = metadata with { Warnings = metadata.Warnings.Concat(["Mod contains native/executable files that are unsupported on Android."]).ToArray() };
+                metadata = metadata with { DirectoryName = directoryName, HasUnsupportedFiles = hasUnsupportedFiles };
+                bool quest = String.Equals(metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase);
+                bool enabled = quest
+                    ? String.Equals(state.QuestDirectoryName, directoryName, StringComparison.Ordinal)
+                    : enabledMods.Contains(directoryName);
+                result.Add(new InstalledMod(directoryName, metadata, enabled));
+            }
+            catch (Exception)
+            {
+                // A malformed folder is not safe to expose as a selectable mod or save target.
+            }
+        }
+        return result;
+    }
 }
 
 public static class ModConfiguration
 {
+    public static ModConfigurationState Load(string appRoot)
+    {
+        string configPath = Path.Combine(Path.GetFullPath(appRoot), "CONFIG", "ModConfig.xml");
+        if (!File.Exists(configPath)) return new(null, []);
+        XDocument config = XDocument.Load(configPath);
+        XElement root = config.Root ?? throw new PortableImportException("Invalid ModConfig.xml.");
+        string? quest = DirectoryNameFromConfigPath(root.Element("Quest")?.Value);
+        string[] mods = (root.Element("Mods")?.Elements("Mod") ?? [])
+            .Select(element => DirectoryNameFromConfigPath(element.Value))
+            .Where(name => name is not null)
+            .Cast<string>()
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
+        return new(quest, mods);
+    }
+
+    public static void Save(string appRoot, string? questDirectoryName, IEnumerable<string> enabledModDirectoryNames)
+    {
+        string root = Path.GetFullPath(appRoot);
+        if (questDirectoryName is not null) ValidateInstalled(root, questDirectoryName, expectQuest: true);
+        string[] mods = enabledModDirectoryNames.Distinct(StringComparer.Ordinal).ToArray();
+        foreach (string mod in mods) ValidateInstalled(root, mod, expectQuest: false);
+
+        string configDir = Path.Combine(root, "CONFIG");
+        Directory.CreateDirectory(configDir);
+        string configPath = Path.Combine(configDir, "ModConfig.xml");
+        var config = new XDocument(new XElement("Config",
+            new XElement("Quest", questDirectoryName is null ? String.Empty : "MODS/" + questDirectoryName),
+            new XElement("Mods", mods.Select(mod => new XElement("Mod", "MODS/" + mod)))));
+        WriteAtomic(configPath, config);
+    }
+
     public static void Enable(string appRoot, ModMetadata metadata)
     {
         if (string.IsNullOrWhiteSpace(metadata.DirectoryName)) throw new PortableImportException("Imported mod has no directory name.");
-        string configDir = Path.Combine(Path.GetFullPath(appRoot), "CONFIG");
-        Directory.CreateDirectory(configDir);
-        string configPath = Path.Combine(configDir, "ModConfig.xml");
-        XDocument config = File.Exists(configPath) ? XDocument.Load(configPath) : new XDocument(new XElement("Config", new XElement("Quest", ""), new XElement("Mods")));
-        XElement root = config.Root ?? throw new PortableImportException("Invalid ModConfig.xml.");
-        XElement quest = root.Element("Quest") ?? new XElement("Quest", "");
-        XElement mods = root.Element("Mods") ?? new XElement("Mods");
-        if (quest.Parent == null) root.Add(quest);
-        if (mods.Parent == null) root.Add(mods);
-        string relative = "MODS/" + metadata.DirectoryName;
-        if (string.Equals(metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase))
-            quest.Value = relative;
-        else if (!mods.Elements("Mod").Any(element => element.Value == relative))
-            mods.Add(new XElement("Mod", relative));
+        ModConfigurationState state = Load(appRoot);
+        if (String.Equals(metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase))
+            Save(appRoot, metadata.DirectoryName, state.EnabledModDirectoryNames);
+        else
+            Save(appRoot, state.QuestDirectoryName, state.EnabledModDirectoryNames.Append(metadata.DirectoryName));
+    }
 
+    public static void Disable(string appRoot, ModMetadata metadata)
+    {
+        if (string.IsNullOrWhiteSpace(metadata.DirectoryName)) throw new PortableImportException("Imported mod has no directory name.");
+        ModConfigurationState state = Load(appRoot);
+        string? selectedQuest = String.Equals(state.QuestDirectoryName, metadata.DirectoryName, StringComparison.Ordinal)
+            ? null
+            : state.QuestDirectoryName;
+        IEnumerable<string> enabledMods = state.EnabledModDirectoryNames
+            .Where(name => !String.Equals(name, metadata.DirectoryName, StringComparison.Ordinal));
+        Save(appRoot, selectedQuest, enabledMods);
+    }
+
+    public static IReadOnlyList<string> PreserveEnabledOrder(
+        IEnumerable<string> previousOrder,
+        IEnumerable<string> selectedDirectoryNames)
+    {
+        string[] selected = selectedDirectoryNames.Distinct(StringComparer.Ordinal).ToArray();
+        var remaining = selected.ToHashSet(StringComparer.Ordinal);
+        var ordered = new List<string>();
+        foreach (string name in previousOrder)
+            if (remaining.Remove(name)) ordered.Add(name);
+        foreach (string name in selected)
+            if (remaining.Remove(name)) ordered.Add(name);
+        return ordered;
+    }
+
+    private static void ValidateInstalled(string appRoot, string directoryName, bool expectQuest)
+    {
+        string safeName = SafeDirectoryName(directoryName);
+        string directory = SafePaths.Under(Path.Combine(appRoot, "MODS"), safeName);
+        string manifest = Path.Combine(directory, "Mod.xml");
+        if (!File.Exists(manifest)) throw new PortableImportException("Installed mod not found: " + directoryName);
+        using Stream input = File.OpenRead(manifest);
+        ModMetadata metadata = ModXml.Parse(input);
+        bool isQuest = String.Equals(metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase);
+        if (isQuest != expectQuest) throw new PortableImportException(expectQuest
+            ? directoryName + " is not a Quest."
+            : directoryName + " is a Quest and cannot be enabled as an additional mod.");
+    }
+
+    internal static string SafeDirectoryName(string directoryName)
+    {
+        string safe = SafePaths.Relative(directoryName);
+        if (safe.Contains('/')) throw new PortableImportException("Mod directory must be a single path segment.");
+        return safe;
+    }
+
+    private static string? DirectoryNameFromConfigPath(string? path)
+    {
+        if (String.IsNullOrWhiteSpace(path)) return null;
+        try
+        {
+            string safe = SafePaths.Relative(path);
+            string[] parts = safe.Split('/');
+            return parts.Length == 2 && String.Equals(parts[0], "MODS", StringComparison.OrdinalIgnoreCase)
+                ? SafeDirectoryName(parts[1])
+                : null;
+        }
+        catch (PortableImportException) { return null; }
+    }
+
+    private static void WriteAtomic(string configPath, XDocument config)
+    {
         string temporary = configPath + ".tmp-" + Guid.NewGuid().ToString("N");
         try
         {
@@ -304,6 +465,258 @@ public static class ModConfiguration
             File.Move(temporary, configPath, true);
         }
         finally { if (File.Exists(temporary)) File.Delete(temporary); }
+    }
+}
+
+public sealed record SaveTarget(string DisplayName, string? QuestDirectoryName)
+{
+    public static SaveTarget BaseGame { get; } = new("PMDO-Basisspiel", null);
+    public static SaveTarget ForQuest(string directoryName, string displayName) => new(displayName, directoryName);
+}
+
+public sealed record RawSaveImportResult(SaveTarget Target, long Bytes, string Sha256, bool PreviousSaveBackedUp);
+
+public sealed class RawSaveImporter(string appRoot)
+{
+    private const string TransactionDirectoryName = ".rssv-import-transaction";
+    private const string PreviousDirectoryName = ".rssv-import-previous";
+    private const string MainFile = "SAVE.rssv";
+    private const string BackupFile = "SAVE.rssv.bak";
+    private static readonly string[] AuxiliaryFiles = [BackupFile, "QUICKSAVE.rsqs", "SAVE.rssv.pending", "SAVE.rssv.write"];
+    private readonly string root = Path.GetFullPath(appRoot);
+
+    private sealed record Journal(string Phase, string Sha256, long Length, bool MainExisted);
+
+    public async Task<RawSaveImportResult> ImportAsync(Stream source, SaveTarget requestedTarget, CancellationToken token = default)
+    {
+        (string targetDirectory, SaveTarget target) = ResolveTarget(requestedTarget);
+        EnsureNotReparsePoint(targetDirectory, root);
+        Directory.CreateDirectory(targetDirectory);
+        EnsureNotReparsePoint(targetDirectory, root);
+        await using FileStream importLock = AcquireLock(root, targetDirectory);
+        RecoverTarget(targetDirectory);
+
+        string transaction = Path.Combine(targetDirectory, TransactionDirectoryName);
+        string originals = Path.Combine(transaction, "original");
+        Directory.CreateDirectory(originals);
+        string staged = Path.Combine(transaction, "new.rssv");
+        Journal? journal = null;
+        try
+        {
+            await using (var output = new FileStream(staged, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            {
+                await BoundedStreams.CopyAsync(source, output, ImportLimits.MaxEntryBytes, token).ConfigureAwait(false);
+                output.Flush(true);
+            }
+            ValidateVersion(staged);
+            long length = new FileInfo(staged).Length;
+            string sha256 = HashFile(staged);
+            string main = Path.Combine(targetDirectory, MainFile);
+            bool mainExisted = File.Exists(main);
+            if (mainExisted) CopyFileDurable(main, Path.Combine(originals, MainFile));
+            journal = new Journal("Prepared", sha256, length, mainExisted);
+            WriteJournal(transaction, journal);
+
+            foreach (string fileName in AuxiliaryFiles)
+            {
+                string active = Path.Combine(targetDirectory, fileName);
+                if (File.Exists(active)) File.Move(active, Path.Combine(originals, fileName), true);
+            }
+            journal = journal with { Phase = "Quarantined" };
+            WriteJournal(transaction, journal);
+            journal = journal with { Phase = "Switching" };
+            WriteJournal(transaction, journal);
+
+            if (mainExisted)
+                File.Replace(staged, main, Path.Combine(targetDirectory, BackupFile), true);
+            else
+                File.Move(staged, main);
+
+            FinalizeCommitted(targetDirectory, transaction, journal);
+            return new RawSaveImportResult(target, length, sha256, mainExisted);
+        }
+        catch
+        {
+            if (journal is not null) RecoverTarget(targetDirectory);
+            else if (Directory.Exists(transaction)) Directory.Delete(transaction, true);
+            throw;
+        }
+    }
+
+    public static void RecoverPending(string appRoot)
+    {
+        string root = Path.GetFullPath(appRoot);
+        string saveRoot = Path.Combine(root, "SAVE");
+        if (!Directory.Exists(saveRoot)) return;
+        string[] pending = Directory.EnumerateDirectories(saveRoot, TransactionDirectoryName, SearchOption.AllDirectories).ToArray();
+        foreach (string transaction in pending)
+        {
+            string targetDirectory = Directory.GetParent(transaction)?.FullName ?? throw new PortableImportException("Invalid save import transaction path.");
+            string verified = Path.GetFullPath(targetDirectory);
+            string savePrefix = Path.GetFullPath(saveRoot).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+            if (!verified.StartsWith(savePrefix, StringComparison.Ordinal) && !String.Equals(verified, Path.GetFullPath(saveRoot), StringComparison.Ordinal))
+                throw new PortableImportException("Save import transaction escaped the save root.");
+            EnsureNotReparsePoint(targetDirectory, root);
+            using FileStream importLock = AcquireLock(root, targetDirectory);
+            RecoverTarget(targetDirectory);
+        }
+    }
+
+    private (string Directory, SaveTarget Target) ResolveTarget(SaveTarget requested)
+    {
+        string saveRoot = Path.Combine(root, "SAVE");
+        if (requested.QuestDirectoryName is null) return (saveRoot, SaveTarget.BaseGame);
+        string safeName = ModConfiguration.SafeDirectoryName(requested.QuestDirectoryName);
+        InstalledMod quest = new ModCatalog(root).Installed().SingleOrDefault(mod =>
+            String.Equals(mod.DirectoryName, safeName, StringComparison.Ordinal) &&
+            String.Equals(mod.Metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase))
+            ?? throw new PortableImportException("Installed Quest not found: " + requested.QuestDirectoryName);
+        string directory = SafePaths.Under(saveRoot, "MODS/" + quest.DirectoryName);
+        return (directory, SaveTarget.ForQuest(quest.DirectoryName, quest.Metadata.Name));
+    }
+
+    private static FileStream AcquireLock(string appRoot, string targetDirectory)
+    {
+        string locks = Path.Combine(appRoot, ".save-import-locks");
+        Directory.CreateDirectory(locks);
+        string id = Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(Path.GetFullPath(targetDirectory))));
+        return new FileStream(Path.Combine(locks, id + ".lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+    }
+
+    private static void ValidateVersion(string path)
+    {
+        using var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+        if (input.Length < 16) throw new PortableImportException("SAVE.rssv is truncated.");
+        using var reader = new BinaryReader(input);
+        int major = reader.ReadInt32(); int minor = reader.ReadInt32(); int build = reader.ReadInt32(); int revision = reader.ReadInt32();
+        if (major != 0 || minor != 8 || build != 12 || revision != 0)
+            throw new PortableImportException($"SAVE.rssv targets PMDO {major}.{minor}.{build}.{revision}, not 0.8.12.0.");
+    }
+
+    private static void RecoverTarget(string targetDirectory)
+    {
+        string transaction = Path.Combine(targetDirectory, TransactionDirectoryName);
+        if (!Directory.Exists(transaction)) return;
+        if (!File.Exists(Path.Combine(transaction, "journal.json")))
+        {
+            Directory.Delete(transaction, true);
+            return;
+        }
+        Journal journal = ReadJournal(transaction);
+        string main = Path.Combine(targetDirectory, MainFile);
+        bool installed = journal.Phase is "Switching" or "Committed" &&
+            File.Exists(main) && new FileInfo(main).Length == journal.Length &&
+            StringComparer.OrdinalIgnoreCase.Equals(HashFile(main), journal.Sha256);
+        if (installed) FinalizeCommitted(targetDirectory, transaction, journal);
+        else Rollback(targetDirectory, transaction, journal);
+    }
+
+    private static void FinalizeCommitted(string targetDirectory, string transaction, Journal journal)
+    {
+        string main = Path.Combine(targetDirectory, MainFile);
+        if (!File.Exists(main) || new FileInfo(main).Length != journal.Length ||
+            !StringComparer.OrdinalIgnoreCase.Equals(HashFile(main), journal.Sha256))
+            throw new PortableImportException("Imported SAVE.rssv failed its post-commit integrity check.");
+        string originals = Path.Combine(transaction, "original");
+        string backup = Path.Combine(targetDirectory, BackupFile);
+        if (journal.MainExisted && !File.Exists(backup))
+            CopyFileDurable(Path.Combine(originals, MainFile), backup);
+        if (!journal.MainExisted && File.Exists(backup)) File.Delete(backup);
+        foreach (string fileName in AuxiliaryFiles.Skip(1))
+        {
+            string active = Path.Combine(targetDirectory, fileName);
+            if (File.Exists(active)) File.Delete(active);
+        }
+        WriteJournal(transaction, journal with { Phase = "Committed" });
+        string previous = Path.Combine(targetDirectory, PreviousDirectoryName);
+        if (Directory.Exists(previous)) Directory.Delete(previous, true);
+        Directory.Move(transaction, previous);
+    }
+
+    private static void Rollback(string targetDirectory, string transaction, Journal journal)
+    {
+        string originals = Path.Combine(transaction, "original");
+        string main = Path.Combine(targetDirectory, MainFile);
+        string originalMain = Path.Combine(originals, MainFile);
+        if (journal.MainExisted)
+        {
+            if (!File.Exists(originalMain)) throw new PortableImportException("Save import rollback is missing the original SAVE.rssv.");
+            CopyFileDurable(originalMain, main);
+        }
+        else if (File.Exists(main)) File.Delete(main);
+
+        foreach (string fileName in AuxiliaryFiles)
+        {
+            string active = Path.Combine(targetDirectory, fileName);
+            string original = Path.Combine(originals, fileName);
+            if (File.Exists(original)) CopyFileDurable(original, active);
+            else if (!String.Equals(journal.Phase, "Prepared", StringComparison.Ordinal) && File.Exists(active))
+                File.Delete(active);
+        }
+        Directory.Delete(transaction, true);
+    }
+
+    private static void WriteJournal(string transaction, Journal journal)
+    {
+        string path = Path.Combine(transaction, "journal.json");
+        string temporary = path + ".tmp";
+        using (var output = new FileStream(temporary, FileMode.Create, FileAccess.Write, FileShare.None))
+        {
+            JsonSerializer.Serialize(output, journal);
+            output.Flush(true);
+        }
+        File.Move(temporary, path, true);
+    }
+
+    private static Journal ReadJournal(string transaction)
+    {
+        string path = Path.Combine(transaction, "journal.json");
+        if (!File.Exists(path)) throw new PortableImportException("Incomplete save import transaction has no journal.");
+        using Stream input = File.OpenRead(path);
+        return JsonSerializer.Deserialize<Journal>(input) ?? throw new PortableImportException("Invalid save import transaction journal.");
+    }
+
+    private static void CopyFileDurable(string source, string target)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(target)!);
+        string temporary = target + ".tmp-" + Guid.NewGuid().ToString("N");
+        try
+        {
+            using (var input = File.OpenRead(source))
+            using (var output = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+            {
+                input.CopyTo(output);
+                output.Flush(true);
+            }
+            File.Move(temporary, target, true);
+        }
+        finally { if (File.Exists(temporary)) File.Delete(temporary); }
+    }
+
+    private static string HashFile(string path)
+    {
+        using Stream input = File.OpenRead(path);
+        return Convert.ToHexString(SHA256.HashData(input));
+    }
+
+    private static void EnsureNotReparsePoint(string path, string allowedRoot)
+    {
+        string rootPath = Path.GetFullPath(allowedRoot).TrimEnd(Path.DirectorySeparatorChar);
+        string targetPath = Path.GetFullPath(path).TrimEnd(Path.DirectorySeparatorChar);
+        string rootPrefix = rootPath + Path.DirectorySeparatorChar;
+        if (!String.Equals(targetPath, rootPath, StringComparison.Ordinal) &&
+            !targetPath.StartsWith(rootPrefix, StringComparison.Ordinal))
+            throw new PortableImportException("Save target escaped the app root.");
+
+        for (DirectoryInfo? directory = new(targetPath); directory is not null; directory = directory.Parent)
+        {
+            if (directory.Exists && (directory.Attributes & FileAttributes.ReparsePoint) != 0)
+                throw new PortableImportException("Save target contains a reparse point.");
+            if (String.Equals(directory.FullName.TrimEnd(Path.DirectorySeparatorChar), rootPath, StringComparison.Ordinal))
+                return;
+        }
+
+        throw new PortableImportException("Save target escaped the app root.");
     }
 }
 

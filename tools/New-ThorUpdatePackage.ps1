@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$Destination = (Join-Path $PSScriptRoot '..\release\PMDO-Android-Player-Thor-Update-v0.1.6.zip'),
+    [string]$Destination = (Join-Path $PSScriptRoot '..\release\PMDO-Android-Player-Thor-Update-v0.1.7.zip'),
     [switch]$Force
 )
 
@@ -11,8 +11,8 @@ $projectPath = Join-Path $repoRoot 'src\PMDO.Android\PMDO.Android.csproj'
 [xml]$project = Get-Content -LiteralPath $projectPath -Raw
 $displayVersion = [string]$project.Project.PropertyGroup.ApplicationDisplayVersion
 $versionCode = [string]$project.Project.PropertyGroup.ApplicationVersion
-if ($displayVersion -cne '0.1.6' -or $versionCode -cne '7') {
-    throw "Thor update requires Android 0.1.6/versionCode 7; got $displayVersion/$versionCode."
+if ($displayVersion -cne '0.1.7' -or $versionCode -cne '8') {
+    throw "Thor update requires Android 0.1.7/versionCode 8; got $displayVersion/$versionCode."
 }
 
 $apkEntryName = "PMDO-Android-Player-v$displayVersion.apk"

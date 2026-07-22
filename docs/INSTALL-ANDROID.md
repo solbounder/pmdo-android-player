@@ -49,11 +49,32 @@ You can import either a folder or a ZIP:
 3. For a folder import, select the folder that directly contains `Mod.xml`.
 4. For a ZIP import, `Mod.xml` may be at the ZIP root or inside one outer
    wrapper folder.
-5. Wait for the confirmation that the mod was imported and activated.
+5. Wait for the import confirmation. Compatible mods are activated
+   automatically; newer-version or desktop-native mods remain installed but
+   disabled.
 
 Lua, JSON/JSONPatch, images, and Ogg audio are imported without rewriting.
+Requirements through PMDO 0.8.12 are compatible without editing `Mod.xml`.
 Mods that depend on Windows DLLs, native desktop libraries, LuaSocket, or
-Windows-specific paths may require porting.
+Windows-specific paths may require porting and are not enabled automatically.
+
+Use **Manage mods** to choose either the base game or one installed Quest and
+to enable or disable each additional mod. The manager never removes imported
+mod files.
+
+## Import or export save data
+
+Choose **Import save data** and then select the file type:
+
+- **Android backup (`.zip`)** restores a complete backup previously exported
+  by this app.
+- **PMDO save (`SAVE.rssv`)** imports one regular PMDO 0.8.12 save. Select the
+  base game or an installed Quest before choosing the file.
+
+Direct `SAVE.rssv` import stops the running game first and preserves an
+existing save as `SAVE.rssv.bak`. The import is validated and applied safely;
+if it fails, the prior save remains usable. Use **Export Android backup**
+before an intentional uninstall or device change.
 
 ## Start and control the game
 
@@ -62,6 +83,8 @@ Windows-specific paths may require porting.
 3. Pressing a physical controller button hides the touch controls. Tap the
    touchscreen once to bring them back.
 4. Use the keyboard icon at the top center when the game requests text input.
+   External desktop on-screen-keyboard mods are unsupported because Android's
+   native keyboard and clipboard are built in.
 5. **Max 4:3** is the default and preserves the intended aspect ratio. Under
    the in-game window-size option, you can instead choose stretched full screen
    or a fixed 4:3 size. Changes apply immediately.
@@ -72,8 +95,8 @@ Install a newer APK directly over the existing app. Do **not** uninstall the
 old version first. Uninstalling removes the private PMDO runtime, mods, and save
 data.
 
-Before uninstalling or moving to another device, use **Export save data** in
-the launcher. Restore it later with **Import save data**.
+Before uninstalling or moving to another device, use **Export Android backup**
+in the launcher. Restore it later with **Import save data**.
 
 ## Troubleshooting
 

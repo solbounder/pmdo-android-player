@@ -1,13 +1,19 @@
 # Android-v1-Abnahme
 
-Stand: 20. Juli 2026. Ein Haken bedeutet automatisiert oder im Emulator
+Stand: 22. Juli 2026. Ein Haken bedeutet automatisiert oder im Emulator
 nachgewiesen; offene Punkte brauchen einen echten AYN Thor.
 
 ## Automatisiert und Emulator
 
 - [x] Gepinnter PMDO-0.8.12-Graph lässt sich wiederholt neu auschecken, patchen
   und verifizieren.
-- [x] Locked Restore und 24 Import-/Backup-/Sicherheits-/Viewporttests bestehen.
+- [x] Locked Restore sowie Import-/Backup-/Sicherheits-/Viewporttests bestehen.
+- [x] Android-Backup (`.zip`) und einzelne `SAVE.rssv`-Dateien sind getrennte
+  Importwege. RSSV-Import validiert PMDO 0.8.12, erlaubt Basisspiel oder
+  installierte Quest und sichert den vorherigen Save vor der Aktivierung.
+- [x] Mod-Anforderungen bis 0.8.12 werden ohne Änderung der `Mod.xml`
+  akzeptiert. Quest und Zusatzmods lassen sich einzeln verwalten; neuere oder
+  native Desktop-Mods werden nicht automatisch aktiviert.
 - [x] Runtime-Import prüft 11.485 Dateien (ca. 536 MB) nach Größe und SHA-256
   und aktiviert erst nach vollständigem Erfolg.
 - [x] Lua-5.4-Smoke-Test besteht auf Android mit Arithmetik, CLR-Bridge,
@@ -57,7 +63,7 @@ nachgewiesen; offene Punkte brauchen einen echten AYN Thor.
   Android-Audio-Volume-Schreibzugriffe werden zusätzlich auf einen endlichen
   Wert zwischen 0 und 1 normalisiert; der ausführbare NaN-/Infinity-/Grenzwerttest
   und der ARM64-Release-Build bestehen.
-- [x] Ein `versionCode`-5-APK mit fest geprüftem Update-Zertifikat installiert
+- [x] Ein `versionCode`-8-APK mit fest geprüftem Update-Zertifikat installiert
   sich im Emulator per In-place-Update; Erstinstallationszeit,
   importierte Runtime, EOTA und Spielstand bleiben erhalten.
 - [x] Das finale ARM64-APK wird auf genau eine ABI, fehlende
@@ -74,7 +80,7 @@ Diese Punkte können ein Desktop-Build oder x86_64-Emulator nicht zertifizieren:
    sowie Dungeon erreichen.
 2. [ ] Titel, Menü, Ground und Dungeon visuell mit Desktop-Referenzen vergleichen.
 3. [ ] EOTA sowie je einen Lua-, JSONPatch-, Bild- und Ogg-Override-Mod
-   unverändert laden.
+   unverändert laden; Quest und Zusatzmods einzeln verwalten.
 4. [ ] Eine Stunde Loops, Crossfades, Fanfaren und Soundeffekte ohne Knackser,
    Drift oder Abbruch ausführen.
 5. [ ] Alle Thor-Tasten, Trigger, Hot-Plug, Multi-Touch und Android-IME prüfen;
@@ -95,6 +101,8 @@ Diese Punkte können ein Desktop-Build oder x86_64-Emulator nicht zertifizieren:
 10. [ ] Auf Thor Lite (Snapdragon 865) 30 Minuten repräsentatives Ground- und
    Dungeon-Spiel bei Ziel 60 FPS: kein anhaltender Abfall unter 55 FPS, keine
    Audio-Underruns und kein monoton wachsender Speicherverbrauch.
+11. [ ] Einzelnen PMDO-0.8.12-`SAVE.rssv` in Basisspiel und installierte Quest
+    importieren, Laden prüfen und den erhaltenen `SAVE.rssv.bak` kontrollieren.
 
 Pro Lauf sind Gerätemodell, Firmware, APK-SHA-256, Runtime-Manifest-SHA-256,
 aktive Mods, Logs, Screenshots und gemessene Framewerte zu dokumentieren.

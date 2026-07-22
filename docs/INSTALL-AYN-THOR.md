@@ -32,7 +32,7 @@ The expected layout is similar to:
 
 ```text
 Download/
-  PMDO-Android-Player-v0.1.4.apk
+  PMDO-Android-Player-v0.1.7.apk
   DumpAsset/
     Base/
     CONFIG/
@@ -51,7 +51,7 @@ it are what matter.
 ## Install the app
 
 1. Open the Thor's file manager and go to `Download`.
-2. Tap `PMDO-Android-Player-v0.1.4.apk`.
+2. Tap `PMDO-Android-Player-v0.1.7.apk`.
 3. If installation is blocked, enable **Allow from this source** for that file
    manager.
 4. Confirm **Install** and open **PMDO Android Player**.
@@ -71,7 +71,22 @@ it are what matter.
 2. Open `Download/Echoes_of_the_Abyss`.
 3. Confirm that `Mod.xml` is visible directly in this folder.
 4. Tap **Use this folder**.
-5. Wait for **Echoes of the Abyss imported and activated**.
+5. Wait for the import confirmation. Use **Manage mods** to select the Quest
+   and manage any additional mods individually.
+
+PMDO requirements through 0.8.12 work without changing `Mod.xml`. A mod that
+requires a newer PMDO version or includes native desktop files is retained but
+not enabled automatically. The external desktop on-screen-keyboard mod is not
+supported; use the built-in Android keyboard button instead.
+
+## Import a regular PMDO save
+
+1. Tap **Import save data**.
+2. Select **PMDO save (`SAVE.rssv`)** rather than **Android backup (`.zip`)**.
+3. Select the base game or an installed Quest, then select the `SAVE.rssv`
+   file.
+4. The app safely keeps the prior save as `SAVE.rssv.bak` before activating
+   the imported save.
 
 ## Start and configure the game
 
@@ -95,5 +110,5 @@ you want an offline installer.
 3. Do not uninstall the current app and do not import PMDO or the mod again.
 
 Uninstalling the app removes the private runtime, mods, and saves. Use
-**Export save data** before an intentional uninstall or device change.
+**Export Android backup** before an intentional uninstall or device change.
 
