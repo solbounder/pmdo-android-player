@@ -10,7 +10,7 @@ $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 if ([string]::IsNullOrWhiteSpace($QuestManifest)) {
-    $QuestManifest = Join-Path $repoRoot 'packaging\Echoes_of_the_Abyss-v0.8.0.manifest.json'
+    $QuestManifest = Join-Path $repoRoot 'packaging\Echoes_of_the_Abyss-v0.8.1.manifest.json'
 }
 $projectPath = Join-Path $repoRoot 'src\PMDO.Android\PMDO.Android.csproj'
 [xml]$project = Get-Content -LiteralPath $projectPath -Raw
@@ -44,7 +44,7 @@ foreach ($item in $items) {
 
 [xml]$questManifest = Get-Content -LiteralPath (Join-Path $questRoot 'Mod.xml') -Raw
 if ([string]$questManifest.Header.Namespace -cne 'echoes_of_the_abyss' -or
-    [string]$questManifest.Header.Version -cne '0.8.0' -or
+    [string]$questManifest.Header.Version -cne '0.8.1' -or
     [string]$questManifest.Header.GameVersion -cne '0.8.12.0' -or
     [string]$questManifest.Header.ModType -cne 'Quest') {
     throw 'Quest manifest identity/version does not match the Thor update contract.'
@@ -72,7 +72,7 @@ if ($questFiles.Count -lt 400) { throw "Quest tree is unexpectedly incomplete ($
 $sourceManifest = Get-Content -LiteralPath $questManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
 if ([int]$sourceManifest.schemaVersion -ne 1 -or
     [string]$sourceManifest.questNamespace -cne 'echoes_of_the_abyss' -or
-    [string]$sourceManifest.questVersion -cne '0.8.0') {
+    [string]$sourceManifest.questVersion -cne '0.8.1') {
     throw 'Quest source manifest identity/version is invalid.'
 }
 $manifestFiles = @($sourceManifest.files)
