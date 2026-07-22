@@ -10,6 +10,7 @@ Version 0.1.6 builds the manifest from the canonical Git archive bytes while
 keeping strict size and SHA-256 verification. The release build now also fails
 if the committed manifest is stale.
 
-The Thor update ZIP includes the fixed APK and the reviewed Echoes of the Abyss
-0.8.2 Quest tree. This is an in-place update (`versionCode` 7); do not uninstall
-the app. Existing runtime data, Quest data and saves remain in place.
+The Thor update ZIP contains only the fixed player APK and its update guide.
+Quest mods are not bundled and remain optional. This is an in-place update
+(`versionCode` 7); do not uninstall the app. Existing runtime data, optional
+mods and saves remain in place.

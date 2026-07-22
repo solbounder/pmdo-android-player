@@ -4,23 +4,17 @@ PMDO ANDROID – UPDATE FÜR EINE BESTEHENDE THOR-INSTALLATION
 Dieses Update-ZIP enthält:
 
   PMDO-Android-Player-v0.1.6.apk
-  Echoes_of_the_Abyss\
   THOR-UPDATE.txt
 
 Die App NICHT deinstallieren. Dadurch bleiben die bereits importierte
-PMDO-Runtime, Echoes of the Abyss und alle Spielstände erhalten.
+PMDO-Runtime, optionale Mods und alle Spielstände erhalten.
 
 1. ZIP auf den Thor in "Interner Speicher\Download" kopieren und vollständig
    entpacken.
 2. Die APK antippen und "Aktualisieren" beziehungsweise "Installieren"
    bestätigen.
-3. PMDO Android Player öffnen, aber noch nicht das Spiel starten.
-4. "Mod-Ordner importieren" antippen, den entpackten Ordner
-   "Download\Echoes_of_the_Abyss" öffnen und "Diesen Ordner verwenden"
-   bestätigen. Die vorhandene Quest wird atomar ersetzt; Spielstände bleiben
-   erhalten.
-5. Nach "Echoes of the Abyss importiert und aktiviert" auf "Spiel starten"
-   tippen. Die große PMDO-Runtime muss nicht erneut importiert werden.
+3. PMDO Android Player öffnen und "Spiel starten" drücken. Die Runtime,
+   optionale Mods und Spielstände müssen nicht erneut importiert werden.
 
 Neu in diesem Update:
 
@@ -28,19 +22,8 @@ Neu in diesem Update:
     einer regulären PMDO-0.8.12-Installation. Version 0.1.4 und 0.1.5 konnten
     gültige Dateien fälschlich bei "Base/GFXParams.xml" ablehnen.
 
-  - Das Zahnrad im Touch-Overlay öffnet einen Editor mit Speichern,
-    Abbrechen und Zurücksetzen. D-Pad und bis zu 16 Tasten lassen sich
-    verschieben, skalieren, ausblenden und auch doppelt auf A/B/X/Y/L/R/ZL/ZR/
-    Start/Select/L3/R3 legen; das Standardlayout enthält ZL und ZR.
-
-  - L, R, ZL und ZR markieren Gegenstände einzeln
-  - L+R, L+ZR, ZL+R und ZL+ZR wählen im Verkaufsmenü seitenübergreifend alle
-    verkaufbaren Gegenstände aus; unverkäufliche Einträge bleiben deaktiviert
-  - der Fossil-Geheimraum in Faultline Ridge und Copper Quarry besitzt einen
-    erreichbaren Rückweg für normale Pokémon
-  - Aufgeben oder Scheitern im Geheimraum beendet den Lauf wieder korrekt
-  - Fanfaren- und Android-Audiolautstärken werden sicher begrenzt; der gemeldete
-    schwarze Bildschirm nach dem Audiofehler wird damit verhindert
+Quest-Mods sind nicht Bestandteil dieses Player-Pakets. Sie können bei Bedarf
+separat über "Mod-Ordner importieren" hinzugefügt werden.
 
 Falls Android statt eines Updates einen Signaturkonflikt meldet: NICHT
 deinstallieren, sondern den Dialog fotografieren. Die vorhandenen App-Daten
