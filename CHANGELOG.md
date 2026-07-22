@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.8 - 2026-07-22
+
+- Load MonoGame's XNA-compatible assembly into the Android Lua runtime before
+  PMDO's stock `include.lua` resolves shared types. This restores globals such
+  as `Color` and `GameTime` for unmodified mods including Enable Mission Board.
+
 ## 0.1.7 - 2026-07-22
 
 - Separated complete Android save backups (`.zip`) from direct PMDO

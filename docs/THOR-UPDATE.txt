@@ -3,7 +3,7 @@ PMDO ANDROID – UPDATE FÜR EINE BESTEHENDE THOR-INSTALLATION
 
 Dieses Update-ZIP enthält:
 
-  PMDO-Android-Player-v0.1.7.apk
+  PMDO-Android-Player-v0.1.8.apk
   THOR-UPDATE.txt
 
 Die App NICHT deinstallieren. Dadurch bleiben die bereits importierte
@@ -18,17 +18,9 @@ PMDO-Runtime, optionale Mods und alle Spielstände erhalten.
 
 Neu in diesem Update:
 
-  - "Spielstand importieren" unterscheidet jetzt Android-Backups (.zip) von
-    einzelnen PMDO-Speicherständen (SAVE.rssv). Bei SAVE.rssv wird zuerst
-    Basisspiel oder eine installierte Quest ausgewählt; der bisherige Save
-    bleibt als SAVE.rssv.bak erhalten.
-  - "Mods verwalten" erlaubt die Auswahl einer Quest sowie das einzelne
-    Aktivieren und Deaktivieren von Zusatzmods. Mod-Anforderungen bis PMDO
-    0.8.12 funktionieren ohne Änderung der Mod.xml.
-  - Mods mit neuerer PMDO-Anforderung oder nativen Desktop-Dateien werden
-    importiert, aber nicht automatisch aktiviert. Externe Desktop-
-    Bildschirmtastatur-Mods werden nicht unterstützt; die Android-Tastatur ist
-    bereits integriert.
+  - Lua-Mods können wieder gemeinsam genutzte XNA-Typen wie Color und GameTime
+    auflösen. Damit öffnet sich unter anderem das Menü von Enable Mission Board
+    ohne den zuvor gemeldeten Color-Fehler.
 
 Quest-Mods sind nicht Bestandteil dieses Player-Pakets. Sie können bei Bedarf
 separat über "Mod-Ordner importieren" hinzugefügt werden.
@@ -37,9 +29,9 @@ Falls Android statt eines Updates einen Signaturkonflikt meldet: NICHT
 deinstallieren, sondern den Dialog fotografieren. Die vorhandenen App-Daten
 bleiben dann unangetastet.
 
-Version: 0.1.7 (versionCode 8)
+Version: 0.1.8 (versionCode 9)
 Signaturzertifikat SHA-256:
 81EF0C48E32C988BA8259CA135ACBC8C812BD9798B8D6B5F1D3750E119459DFB
 
 APK SHA-256:
-6CB1668941FF5A9A6588B2141506C8AB3FD0816E5608DBB6249BB38185236E82
+AFC1DB91ADD130323FFE352CDADFFCB713FA0E80F47169AFE41EC28DE9184EB1
