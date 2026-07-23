@@ -32,7 +32,7 @@ $aapt = Join-Path $buildTools.FullName 'aapt.exe'
 $zipalign = Join-Path $buildTools.FullName 'zipalign.exe'
 $badging = (& $aapt dump badging $apkPath) -join "`n"
 if ($LASTEXITCODE -ne 0) { throw 'aapt badging check failed.' }
-foreach ($expected in @("package: name='io.github.solbounder.pmdoandroid' versionCode='9' versionName='0.1.8'", "sdkVersion:'33'", "targetSdkVersion:'36'", "native-code: 'arm64-v8a'")) {
+foreach ($expected in @("package: name='io.github.solbounder.pmdoandroid' versionCode='10' versionName='0.1.9'", "sdkVersion:'33'", "targetSdkVersion:'36'", "native-code: 'arm64-v8a'")) {
     if (-not $badging.Contains($expected)) { throw "APK badging is missing: $expected" }
 }
 if ($badging -notmatch "application-label:'PMDO Android Player'") { throw 'APK application label is incorrect.' }

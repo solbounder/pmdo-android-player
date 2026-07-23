@@ -4,8 +4,8 @@
     <SupportedOSPlatformVersion>33</SupportedOSPlatformVersion>
     <OutputType>Exe</OutputType>
     <ApplicationId>io.github.solbounder.pmdoandroid</ApplicationId>
-    <ApplicationVersion>9</ApplicationVersion>
-    <ApplicationDisplayVersion>0.1.8</ApplicationDisplayVersion>
+    <ApplicationVersion>10</ApplicationVersion>
+    <ApplicationDisplayVersion>0.1.9</ApplicationDisplayVersion>
     <AssemblyName>PMDC</AssemblyName>
     <RootNamespace>PMDO.Android</RootNamespace>
     <AssemblyVersion>0.8.12.0</AssemblyVersion>

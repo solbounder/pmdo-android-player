@@ -85,7 +85,7 @@ namespace PMDO.Android
             catch (Exception ex)
             {
                 Log.Error("PMDO-ANDROID", ex.ToString());
-                Toast.MakeText(this, "Startfehler: " + ex.Message, ToastLength.Long).Show();
+                Toast.MakeText(this, "Startup error: " + ex.Message, ToastLength.Long).Show();
                 Finish();
             }
         }
@@ -183,7 +183,7 @@ namespace PMDO.Android
 
         private void OnEngineError(string message)
         {
-            PersistErrorReport("PMDO-Engine-Fehler:\n" + message);
+            PersistErrorReport("PMDO engine error:\n" + message);
             mainHandler?.PostDelayed(() => ShowEngineError(message), 750);
         }
 
@@ -195,15 +195,15 @@ namespace PMDO.Android
             PersistErrorReport(report);
 
             AlertDialog dialog = new AlertDialog.Builder(this)
-                .SetTitle("PMDO-Fehler auf diesem Gerät")
+                .SetTitle(GetString(Resource.String.dialog_device_error))
                 .SetMessage(report)
-                .SetPositiveButton("Zum Launcher", (_, _) => Finish())
-                .SetNegativeButton("Im Spiel bleiben", (_, _) => { })
-                .SetNeutralButton("Text kopieren", (_, _) =>
+                .SetPositiveButton(GetString(Resource.String.button_return_launcher), (_, _) => Finish())
+                .SetNegativeButton(GetString(Resource.String.button_stay_game), (_, _) => { })
+                .SetNeutralButton(GetString(Resource.String.button_copy_text), (_, _) =>
                 {
                     ClipboardManager clipboard = (ClipboardManager)GetSystemService(ClipboardService);
-                    clipboard.PrimaryClip = ClipData.NewPlainText("PMDO-Fehler", report);
-                    Toast.MakeText(this, "Fehlertext kopiert", ToastLength.Short).Show();
+                    clipboard.PrimaryClip = ClipData.NewPlainText("PMDO error", report);
+                    Toast.MakeText(this, GetString(Resource.String.toast_error_copied), ToastLength.Short).Show();
                 })
                 .Create();
             dialog.DismissEvent += (_, _) => errorDialogVisible = false;
@@ -212,12 +212,12 @@ namespace PMDO.Android
 
         private string BuildErrorReport(string message)
         {
-            string layout = "Layout noch nicht gemessen";
+            string layout = "Layout not measured yet";
             if (rootView != null && gameHost != null)
             {
                 int[] location = new int[2];
                 gameHost.GetLocationOnScreen(location);
-                layout = $"Display {rootView.Width}x{rootView.Height}; Spiel {gameHost.Width}x{gameHost.Height} bei {location[0]},{location[1]}";
+                layout = $"Display {rootView.Width}x{rootView.Height}; game {gameHost.Width}x{gameHost.Height} at {location[0]},{location[1]}";
             }
 
             string logTail = string.Empty;
@@ -235,13 +235,31 @@ namespace PMDO.Android
             }
             catch (Exception ex)
             {
-                logTail = "Log konnte nicht gelesen werden: " + ex.Message;
+                logTail = "Could not read log: " + ex.Message;
             }
 
-            return "Bitte diesen Dialog fotografieren oder den Text kopieren.\n\n" +
-                layout + "\n\nFehler: " + message +
-                (string.IsNullOrWhiteSpace(logTail) ? string.Empty : "\n\nLetztes Engine-Protokoll:\n" + logTail);
+            string savePermissionGuidance = IsSavePermissionError(message)
+                ? "\n\nSave permission guidance: import SAVE.rssv through the launcher, or restore ownership of the SAVE folder to this app."
+                : string.Empty;
+            return "Please photograph this dialog or copy the text.\n\n" +
+                layout + "\n\nError: " + message + savePermissionGuidance +
+                (string.IsNullOrWhiteSpace(logTail) ? string.Empty : "\n\nLatest engine log:\n" + logTail);
         }
+
+        internal static string NormalizeErrorReport(string report) => report
+            .Replace("PMDO-Engine-Fehler", "PMDO engine error", StringComparison.Ordinal)
+            .Replace("Bitte diesen Dialog fotografieren oder den Text kopieren.", "Please photograph this dialog or copy the text.", StringComparison.Ordinal)
+            .Replace("Layout noch nicht gemessen", "Layout not measured yet", StringComparison.Ordinal)
+            .Replace("Spiel ", "Game ", StringComparison.Ordinal)
+            .Replace(" bei ", " at ", StringComparison.Ordinal)
+            .Replace("Fehler: ", "Error: ", StringComparison.Ordinal)
+            .Replace("Letztes Engine-Protokoll:", "Latest engine log:", StringComparison.Ordinal);
+
+        private static bool IsSavePermissionError(string message) =>
+            message?.IndexOf("SAVE", StringComparison.OrdinalIgnoreCase) >= 0 &&
+            (message.IndexOf("access", StringComparison.OrdinalIgnoreCase) >= 0 ||
+             message.IndexOf("permission", StringComparison.OrdinalIgnoreCase) >= 0 ||
+             message.IndexOf("denied", StringComparison.OrdinalIgnoreCase) >= 0);
 
         private void PersistErrorReport(string report)
         {

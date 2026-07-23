@@ -73,10 +73,10 @@ internal static class TouchOverlay
                 };
                 input.SetSingleLine(true);
                 var dialog = new AlertDialog.Builder(activity)
-                    .SetTitle("Text eingeben")
+                    .SetTitle(activity.GetString(Resource.String.dialog_enter_text))
                     .SetView(input)
-                    .SetNegativeButton("Abbrechen", (_, _) => { })
-                    .SetPositiveButton("Einfügen", (_, _) =>
+                    .SetNegativeButton(activity.GetString(Resource.String.button_cancel), (_, _) => { })
+                    .SetPositiveButton(activity.GetString(Resource.String.dialog_insert_text), (_, _) =>
                     {
                         var clipboard = (global::Android.Content.ClipboardManager)
                             activity.GetSystemService(Context.ClipboardService)!;
@@ -181,19 +181,19 @@ internal static class TouchOverlay
         private void Configure(string id)
         {
             TouchControlLayout item = id == "dpad" ? working.DPad : working.Buttons.First(x => x.Id == id);
-            var box = new LinearLayout(activity) { Orientation = Orientation.Vertical }; var visible = new CheckBox(activity) { Text = "Sichtbar", Checked = item.Visible }; box.AddView(visible);
+            var box = new LinearLayout(activity) { Orientation = Orientation.Vertical }; var visible = new CheckBox(activity) { Text = activity.GetString(Resource.String.dialog_visible), Checked = item.Visible }; box.AddView(visible);
             Spinner binding = new Spinner(activity); var names = id == "dpad" ? new[] { "DPad" } : TouchLayoutStorage.AllowedBindings; binding.Adapter = new ArrayAdapter<string>(activity, global::Android.Resource.Layout.SimpleSpinnerDropDownItem, names); binding.SetSelection(Array.IndexOf(names, item.Binding)); box.AddView(binding);
             var scale = new SeekBar(activity) { Max = 15, Progress = (int)Math.Round((item.Scale - .5f) * 10) }; box.AddView(scale);
-            new AlertDialog.Builder(activity).SetTitle(id == "dpad" ? "D-Pad bearbeiten" : "Taste bearbeiten (lang drücken)").SetView(box).SetNegativeButton("Abbrechen", (_, _) => { }).SetPositiveButton("Übernehmen", (_, _) => UpdateControl(id, item with { Binding = id == "dpad" ? "DPad" : names[binding.SelectedItemPosition], Visible = visible.Checked, Scale = .5f + scale.Progress / 10f })).Show();
+            new AlertDialog.Builder(activity).SetTitle(id == "dpad" ? activity.GetString(Resource.String.dialog_edit_dpad) : activity.GetString(Resource.String.dialog_edit_button)).SetView(box).SetNegativeButton(activity.GetString(Resource.String.button_cancel), (_, _) => { }).SetPositiveButton(activity.GetString(Resource.String.button_apply), (_, _) => UpdateControl(id, item with { Binding = id == "dpad" ? "DPad" : names[binding.SelectedItemPosition], Visible = visible.Checked, Scale = .5f + scale.Progress / 10f })).Show();
         }
 
         private void AddEditorBar()
         {
             var bar = new LinearLayout(activity) { Orientation = Orientation.Horizontal }; bar.SetBackgroundColor(Color.Argb(220, 25, 25, 35));
-            AddBarButton(bar, "Speichern", () => { saved = TouchLayoutStorage.Normalize(working); activity.GetSharedPreferences(Preferences, FileCreationMode.Private).Edit().PutString(LayoutKey, TouchLayoutStorage.Serialize(saved)).Apply(); editing = false; Render(); });
-            AddBarButton(bar, "Abbrechen", () => { working = saved; editing = false; Render(); });
-            AddBarButton(bar, "Zurücksetzen", () => { working = TouchLayoutV1.Default; Render(); });
-            AddBarButton(bar, "Tasten", ChooseControl);
+            AddBarButton(bar, activity.GetString(Resource.String.button_save), () => { saved = TouchLayoutStorage.Normalize(working); activity.GetSharedPreferences(Preferences, FileCreationMode.Private).Edit().PutString(LayoutKey, TouchLayoutStorage.Serialize(saved)).Apply(); editing = false; Render(); });
+            AddBarButton(bar, activity.GetString(Resource.String.button_cancel), () => { working = saved; editing = false; Render(); });
+            AddBarButton(bar, activity.GetString(Resource.String.button_reset), () => { working = TouchLayoutV1.Default; Render(); });
+            AddBarButton(bar, activity.GetString(Resource.String.button_buttons), ChooseControl);
             Root.AddView(bar, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, Px(42), GravityFlags.Top | GravityFlags.CenterHorizontal));
             editorBar = bar;
         }
@@ -201,7 +201,7 @@ internal static class TouchOverlay
         private void ChooseControl()
         {
             string[] ids = new[] { "dpad" }.Concat(working.Buttons.Select(x => x.Id)).ToArray();
-            new AlertDialog.Builder(activity).SetTitle("Auch ausgeblendete Taste bearbeiten").SetItems(ids, (_, e) => Configure(ids[e.Which])).Show();
+            new AlertDialog.Builder(activity).SetTitle(activity.GetString(Resource.String.dialog_edit_hidden_button)).SetItems(ids, (_, e) => Configure(ids[e.Which])).Show();
         }
 
         private void AddBarButton(LinearLayout bar, string text, Action action) { var b = Button(text); b.Click += (_, _) => action(); bar.AddView(b, new LinearLayout.LayoutParams(Px(92), Px(42))); }

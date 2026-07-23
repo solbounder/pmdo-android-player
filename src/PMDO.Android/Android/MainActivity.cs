@@ -40,6 +40,7 @@ namespace PMDO.Android
         private LinearLayout launcher;
         private bool isBusy;
         private SaveTarget pendingSaveTarget;
+        private readonly List<Button> runtimeDependentButtons = new();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -73,12 +74,13 @@ namespace PMDO.Android
             EnterImmersiveMode();
             if (status != null && !isBusy)
                 UpdateStatus(File.Exists(ErrorReportPath)
-                    ? "Fehlerprotokoll vorhanden – hier tippen"
-                    : "Bereit");
+                    ? GetString(Resource.String.status_error_report)
+                    : GetString(Resource.String.status_ready));
         }
 
         private void ShowLauncher()
         {
+            runtimeDependentButtons.Clear();
             launcher = new LinearLayout(this) { Orientation = Orientation.Vertical };
             launcher.SetGravity(GravityFlags.Center);
             int padding = (int)(24 * Resources.DisplayMetrics.Density);
@@ -86,23 +88,29 @@ namespace PMDO.Android
             status = new TextView(this) { TextSize = 20, Gravity = GravityFlags.Center };
             status.Click += (_, _) => ShowLastEngineError();
             launcher.AddView(status);
-            AddButton("PMDO-0.8.12-Ordner importieren", () => OpenTree(ImportRuntimeRequest));
-            AddButton("Mod-Ordner importieren", () => OpenTree(ImportModFolderRequest));
-            AddButton("Mod-ZIP importieren", () => OpenDocument(ImportModZipRequest, "application/zip"));
-            AddButton("Mods verwalten", ShowModManager, runtimeImporter.ActivePath() != null);
-            AddButton("Spielstand importieren", ChooseSaveImport, runtimeImporter.ActivePath() != null);
-            AddButton("Android-Backup exportieren (.zip)", ExportSave);
-            AddButton("Spiel starten", StartGame, runtimeImporter.ActivePath() != null);
+            AddButton(GetString(Resource.String.button_import_runtime), () => OpenTree(ImportRuntimeRequest));
+            AddButton(GetString(Resource.String.button_import_mod_folder), () => OpenTree(ImportModFolderRequest));
+            AddButton(GetString(Resource.String.button_import_mod_zip), () => OpenDocument(ImportModZipRequest, "application/zip"));
+            AddButton(GetString(Resource.String.button_manage_mods), ShowModManager, true, true);
+            AddButton(GetString(Resource.String.button_import_save), ChooseSaveImport, true, true);
+            AddButton(GetString(Resource.String.button_export_backup), ExportSave);
+            AddButton(GetString(Resource.String.button_start_game), StartGame, true, true);
             UpdateStatus(File.Exists(ErrorReportPath)
-                ? "Fehlerprotokoll vorhanden – hier tippen"
-                : "Bereit");
+                ? GetString(Resource.String.status_error_report)
+                : GetString(Resource.String.status_ready));
             SetContentView(launcher);
         }
 
-        private void AddButton(string label, Action action, bool enabled = true)
+        private void AddButton(string label, Action action, bool enabled = true, bool requiresRuntime = false)
         {
-            Button button = new Button(this) { Text = label, Enabled = enabled && !isBusy };
+            bool hasRuntime = runtimeImporter.ActivePath() != null;
+            Button button = new Button(this)
+            {
+                Text = label,
+                Enabled = enabled && !isBusy && (!requiresRuntime || hasRuntime)
+            };
             button.Click += (_, _) => action();
+            if (requiresRuntime) runtimeDependentButtons.Add(button);
             launcher.AddView(button, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent));
         }
 
@@ -124,15 +132,15 @@ namespace PMDO.Android
 
         private void ChooseSaveImport()
         {
-            if (runtimeImporter.ActivePath() == null) { UpdateStatus("Zuerst PMDO importieren."); return; }
+            if (runtimeImporter.ActivePath() == null) { UpdateStatus(GetString(Resource.String.status_import_pmdo_first)); return; }
             new AlertDialog.Builder(this)
-                .SetTitle("Spielstand importieren")
-                .SetItems(new[] { "Android-Backup (.zip)", "PMDO-Spielstand (SAVE.rssv)" }, (_, args) =>
+                .SetTitle(GetString(Resource.String.dialog_import_save))
+                .SetItems(new[] { GetString(Resource.String.dialog_android_backup), GetString(Resource.String.dialog_pmdo_save) }, (_, args) =>
                 {
                     if (args.Which == 0) OpenDocument(ImportSaveRequest, "application/zip");
                     else ChooseRawSaveTarget();
                 })
-                .SetNegativeButton("Abbrechen", (_, _) => { })
+                .SetNegativeButton(GetString(Resource.String.button_cancel), (_, _) => { })
                 .Show();
         }
 
@@ -143,9 +151,9 @@ namespace PMDO.Android
                 .Where(mod => String.Equals(mod.Metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase))
                 .OrderBy(mod => mod.Metadata.Name, StringComparer.CurrentCultureIgnoreCase)
                 .ToArray();
-            string[] labels = new[] { "PMDO-Basisspiel" }.Concat(quests.Select(QuestLabel)).ToArray();
+            string[] labels = new[] { SaveTarget.BaseGame.DisplayName }.Concat(quests.Select(QuestLabel)).ToArray();
             new AlertDialog.Builder(this)
-                .SetTitle("Ziel für SAVE.rssv wählen")
+                .SetTitle(GetString(Resource.String.dialog_choose_save_target))
                 .SetItems(labels, (_, args) =>
                 {
                     pendingSaveTarget = args.Which == 0
@@ -153,52 +161,52 @@ namespace PMDO.Android
                         : SaveTarget.ForQuest(quests[args.Which - 1].DirectoryName, quests[args.Which - 1].Metadata.Name);
                     OpenDocument(ImportRawSaveRequest, "*/*");
                 })
-                .SetNegativeButton("Abbrechen", (_, _) => pendingSaveTarget = null)
+                .SetNegativeButton(GetString(Resource.String.button_cancel), (_, _) => pendingSaveTarget = null)
                 .Show();
         }
 
         private static string QuestLabel(InstalledMod mod) => mod.Metadata.Name +
-            (mod.Metadata.Warnings.Count == 0 ? String.Empty : " [Warnung]");
+            (mod.Metadata.Warnings.Count == 0 ? String.Empty : " [Warning]");
 
         private void ShowModManager()
         {
-            if (runtimeImporter.ActivePath() == null) { UpdateStatus("Zuerst PMDO importieren."); return; }
+            if (runtimeImporter.ActivePath() == null) { UpdateStatus(GetString(Resource.String.status_import_pmdo_first)); return; }
             string active = RequireRuntime();
             InstalledMod[] installed = new ModCatalog(active).Installed().ToArray();
             ModConfigurationState configuration = ModConfiguration.Load(active);
             InstalledMod[] quests = installed.Where(mod => String.Equals(mod.Metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase)).ToArray();
             InstalledMod[] mods = installed.Where(mod => !String.Equals(mod.Metadata.ModType, "Quest", StringComparison.OrdinalIgnoreCase)).ToArray();
-            string[] questLabels = new[] { "PMDO-Basisspiel" }.Concat(quests.Select(QuestLabel)).ToArray();
+            string[] questLabels = new[] { SaveTarget.BaseGame.DisplayName }.Concat(quests.Select(QuestLabel)).ToArray();
             int selectedQuest = Array.FindIndex(quests, quest => quest.Enabled) + 1;
             string selectedQuestDirectory = selectedQuest == 0 ? null : quests[selectedQuest - 1].DirectoryName;
 
             new AlertDialog.Builder(this)
-                .SetTitle("Quest auswählen")
+                .SetTitle(GetString(Resource.String.dialog_choose_quest))
                 .SetSingleChoiceItems(questLabels, selectedQuest, (_, args) =>
                     selectedQuestDirectory = args.Which == 0 ? null : quests[args.Which - 1].DirectoryName)
-                .SetPositiveButton(mods.Length == 0 ? "Speichern" : "Weiter", (_, _) =>
+                .SetPositiveButton(mods.Length == 0 ? GetString(Resource.String.button_save) : GetString(Resource.String.button_next), (_, _) =>
                 {
                     if (mods.Length == 0) SaveModSelection(active, selectedQuestDirectory, []);
                     else ShowAdditionalModManager(active, selectedQuestDirectory, mods, configuration.EnabledModDirectoryNames);
                 })
-                .SetNegativeButton("Abbrechen", (_, _) => { })
+                .SetNegativeButton(GetString(Resource.String.button_cancel), (_, _) => { })
                 .Show();
         }
 
         private void ShowAdditionalModManager(string active, string questDirectory, InstalledMod[] mods, IReadOnlyList<string> previousOrder)
         {
             string[] labels = mods.Select(mod => mod.Metadata.Name +
-                (mod.Metadata.Warnings.Count == 0 ? String.Empty : " [Warnung]")).ToArray();
+                (mod.Metadata.Warnings.Count == 0 ? String.Empty : " [Warning]")).ToArray();
             bool[] enabled = mods.Select(mod => mod.Enabled).ToArray();
             new AlertDialog.Builder(this)
-                .SetTitle("Zusatzmods auswählen")
+                .SetTitle(GetString(Resource.String.dialog_choose_additional_mods))
                 .SetMultiChoiceItems(labels, enabled, (_, args) => enabled[args.Which] = args.IsChecked)
-                .SetPositiveButton("Speichern", (_, _) =>
+                .SetPositiveButton(GetString(Resource.String.button_save), (_, _) =>
                 {
                     string[] selected = mods.Where((_, index) => enabled[index]).Select(mod => mod.DirectoryName).ToArray();
                     SaveModSelection(active, questDirectory, ModConfiguration.PreserveEnabledOrder(previousOrder, selected));
                 })
-                .SetNegativeButton("Abbrechen", (_, _) => { })
+                .SetNegativeButton(GetString(Resource.String.button_cancel), (_, _) => { })
                 .Show();
         }
 
@@ -208,18 +216,18 @@ namespace PMDO.Android
             {
                 KillCachedGameProcess();
                 ModConfiguration.Save(active, questDirectory, mods);
-                UpdateStatus("Mod-Auswahl gespeichert.");
+                UpdateStatus("Mod selection saved.");
             }
             catch (Exception ex)
             {
                 Log.Error("PMDO-ANDROID", ex.ToString());
-                UpdateStatus("Fehler: " + ex.Message);
+                UpdateStatus("Error: " + ex.Message);
             }
         }
 
         private void ExportSave()
         {
-            if (runtimeImporter.ActivePath() == null) { UpdateStatus("Zuerst PMDO importieren."); return; }
+            if (runtimeImporter.ActivePath() == null) { UpdateStatus(GetString(Resource.String.status_import_pmdo_first)); return; }
             Intent intent = new Intent(Intent.ActionCreateDocument);
             intent.AddCategory(Intent.CategoryOpenable);
             intent.SetType("application/zip");
@@ -245,12 +253,12 @@ namespace PMDO.Android
             SetBusy(true);
             try
             {
-                UpdateStatus(requestCode == ImportRuntimeRequest ? "Analysiere PMDO-Ordner …" : "Verarbeite …");
+                UpdateStatus(requestCode == ImportRuntimeRequest ? "Analyzing PMDO folder..." : "Processing...");
                 IProgress<RuntimeImportProgress> progress = new Progress<RuntimeImportProgress>(value =>
                 {
                     double copiedMiB = value.CompletedBytes / 1048576d;
                     double totalMiB = value.TotalBytes / 1048576d;
-                    UpdateStatus($"PMDO-Import: {value.CompletedFiles:N0} / {value.TotalFiles:N0} Dateien\n{copiedMiB:N1} / {totalMiB:N1} MiB");
+                    UpdateStatus($"PMDO import: {value.CompletedFiles:N0} / {value.TotalFiles:N0} files\n{copiedMiB:N1} / {totalMiB:N1} MiB");
                 });
                 string message = await Task.Run(() => ProcessActivityResultAsync(requestCode, uri, progress));
                 if (requestCode == ImportRuntimeRequest)
@@ -260,7 +268,7 @@ namespace PMDO.Android
             catch (Exception ex)
             {
                 Log.Error("PMDO-ANDROID", ex.ToString());
-                UpdateStatus("Fehler: " + ex.Message);
+                UpdateStatus("Error: " + ex.Message);
             }
             finally { SetBusy(false); }
         }
@@ -273,7 +281,7 @@ namespace PMDO.Android
                 using Stream manifestStream = Assets.Open("runtime-manifest.json");
                 RuntimeManifest manifest = await JsonSerializer.DeserializeAsync<RuntimeManifest>(manifestStream, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }).ConfigureAwait(false);
                 ImportResult result = await runtimeImporter.ImportAsync(tree, manifest, default, progress).ConfigureAwait(false);
-                return "PMDO " + result.Version + " importiert.";
+                return "PMDO " + result.Version + " imported.";
             }
             if (requestCode == ImportModFolderRequest)
             {
@@ -305,19 +313,19 @@ namespace PMDO.Android
                         await BoundedStreams.CopyAsync(input, output, ImportLimits.MaxArchiveBytes).ConfigureAwait(false);
                     using FileStream archive = File.OpenRead(temporary);
                     await new SaveBackup(active).ImportAsync(archive).ConfigureAwait(false);
-                    return "Spielstand importiert.";
+                    return "Save imported.";
                 }
                 finally { if (File.Exists(temporary)) File.Delete(temporary); }
             }
             if (requestCode == ImportRawSaveRequest)
             {
                 string active = RequireRuntime();
-                SaveTarget target = pendingSaveTarget ?? throw new PortableImportException("Kein Spielstand-Ziel ausgewählt.");
+                SaveTarget target = pendingSaveTarget ?? throw new PortableImportException("No save destination selected.");
                 pendingSaveTarget = null;
                 using Stream input = ContentResolver.OpenInputStream(uri);
                 RawSaveImportResult result = await new RawSaveImporter(active).ImportAsync(input, target).ConfigureAwait(false);
-                return "SAVE.rssv für " + result.Target.DisplayName + " importiert." +
-                    (result.PreviousSaveBackedUp ? " Vorheriger Spielstand wurde als SAVE.rssv.bak gesichert." : String.Empty);
+                return "SAVE.rssv for " + result.Target.DisplayName + " imported." +
+                    (result.PreviousSaveBackedUp ? " Previous save backed up as SAVE.rssv.bak." : String.Empty);
             }
             if (requestCode == ExportSaveRequest)
             {
@@ -325,9 +333,9 @@ namespace PMDO.Android
                 RawSaveImporter.RecoverPending(active);
                 using Stream output = ContentResolver.OpenOutputStream(uri, "w");
                 await new SaveBackup(active).ExportAsync(output).ConfigureAwait(false);
-                return "Spielstand exportiert.";
+                return "Save exported.";
             }
-            throw new PortableImportException("Unbekannte Dateiauswahl.");
+            throw new PortableImportException("Unknown file selection.");
         }
 
         private async Task<string> ImportMod(IFileTree tree)
@@ -337,10 +345,10 @@ namespace PMDO.Android
             bool autoEnabled = metadata.IsGameVersionCompatible && !metadata.HasUnsupportedFiles;
             if (autoEnabled) ModConfiguration.Enable(active, metadata);
             else ModConfiguration.Disable(active, metadata);
-            string warnings = metadata.Warnings.Count == 0 ? string.Empty : " Warnungen: " + string.Join("; ", metadata.Warnings);
+            string warnings = metadata.Warnings.Count == 0 ? string.Empty : " Warnings: " + string.Join("; ", metadata.Warnings);
             return metadata.Name + (autoEnabled
-                ? " importiert und aktiviert."
-                : " importiert, aber aus Sicherheitsgründen nicht aktiviert. Unter 'Mods verwalten' kann der Mod manuell aktiviert werden.") + warnings;
+                ? " imported and enabled."
+                : " imported but not enabled for safety. You can enable it manually under 'Manage mods'.") + warnings;
         }
 
         private void SetBusy(bool busy)
@@ -350,20 +358,17 @@ namespace PMDO.Android
             bool hasRuntime = runtimeImporter.ActivePath() != null;
             for (int index = 0; index < launcher.ChildCount; index++)
                 if (launcher.GetChildAt(index) is Button button)
-                {
-                    bool requiresRuntime = button.Text is "Mods verwalten" or "Spielstand importieren" or "Spiel starten";
-                    button.Enabled = !busy && (!requiresRuntime || hasRuntime);
-                }
+                    button.Enabled = !busy && (!runtimeDependentButtons.Contains(button) || hasRuntime);
         }
 
-        private string RequireRuntime() => runtimeImporter.ActivePath() ?? throw new PortableImportException("Zuerst PMDO 0.8.12 importieren.");
+        private string RequireRuntime() => runtimeImporter.ActivePath() ?? throw new PortableImportException("Import PMDO 0.8.12 first.");
 
         private void StartGame()
         {
             try
             {
                 string active = RequireRuntime();
-                UpdateStatus("Starte …");
+                UpdateStatus("Starting...");
                 KillCachedGameProcess();
                 RawSaveImporter.RecoverPending(active);
                 Intent intent = new Intent(this, typeof(PlayActivity));
@@ -374,7 +379,7 @@ namespace PMDO.Android
             {
                 Log.Error("PMDO-ANDROID", ex.ToString());
                 ShowLauncher();
-                UpdateStatus("Startfehler: " + ex.Message);
+                UpdateStatus("Startup error: " + ex.Message);
             }
         }
 
@@ -385,22 +390,23 @@ namespace PMDO.Android
             if (!File.Exists(ErrorReportPath)) return;
             string report;
             try { report = File.ReadAllText(ErrorReportPath); }
-            catch (Exception ex) { report = "Fehlerprotokoll konnte nicht gelesen werden: " + ex.Message; }
+            catch (Exception ex) { report = "Could not read error report: " + ex.Message; }
+            report = PlayActivity.NormalizeErrorReport(report);
 
             new AlertDialog.Builder(this)
-                .SetTitle("Letzter PMDO-Fehler")
+                .SetTitle(GetString(Resource.String.dialog_latest_error))
                 .SetMessage(report)
-                .SetPositiveButton("Schließen", (_, _) => { })
-                .SetNegativeButton("Protokoll löschen", (_, _) =>
+                .SetPositiveButton(GetString(Resource.String.button_close), (_, _) => { })
+                .SetNegativeButton(GetString(Resource.String.button_delete_report), (_, _) =>
                 {
                     try { File.Delete(ErrorReportPath); } catch { }
-                    UpdateStatus("Bereit");
+                    UpdateStatus(GetString(Resource.String.status_ready));
                 })
-                .SetNeutralButton("Text kopieren", (_, _) =>
+                .SetNeutralButton(GetString(Resource.String.button_copy_text), (_, _) =>
                 {
                     ClipboardManager clipboard = (ClipboardManager)GetSystemService(ClipboardService);
-                    clipboard.PrimaryClip = ClipData.NewPlainText("PMDO-Fehler", report);
-                    Toast.MakeText(this, "Fehlertext kopiert", ToastLength.Short).Show();
+                    clipboard.PrimaryClip = ClipData.NewPlainText("PMDO error", report);
+                    Toast.MakeText(this, GetString(Resource.String.toast_error_copied), ToastLength.Short).Show();
                 })
                 .Show();
         }
