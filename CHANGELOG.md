@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.10 - 2026-07-23
+
+- Rebuilt the final ARM64 package from a fully clean output tree so the Java
+  activity wrappers and native .NET registration data are from the same
+  compilation. This fixes the immediate `UnsatisfiedLinkError` that prevented
+  the published v0.1.9 APK from opening.
+- Added an APK cold-start and in-place-update regression test that verifies the
+  final signed package on an Android test device before release.
+
 ## 0.1.9 - 2026-07-23
 
 - Deferred Android playback resources until a song actually starts. Browsing

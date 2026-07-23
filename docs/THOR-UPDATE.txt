@@ -3,7 +3,7 @@ PMDO ANDROID - UPDATE FOR AN EXISTING THOR INSTALLATION
 
 This update ZIP contains:
 
-  PMDO-Android-Player-v0.1.9.apk
+  PMDO-Android-Player-v0.1.10.apk
   THOR-UPDATE.txt
 
 Do NOT uninstall the app. Updating it in place preserves the imported PMDO
@@ -16,6 +16,9 @@ runtime, optional mods, settings, and save data.
 
 New in this update:
 
+  - Fixes the immediate startup crash in the published v0.1.9 APK. The final
+    package was rebuilt from a fully clean output tree and verified with both
+    a fresh install and an in-place update before release.
   - Browsing the PMDO music menu no longer reserves an Android audio source for
     every listed track. This removes the source-exhaustion cause identified in
     the reported exception and subsequent audio lockup.
@@ -31,9 +34,9 @@ If Android reports a signature conflict instead of offering an update, do NOT
 uninstall the existing app. Capture the dialog so the installed private data
 remains untouched.
 
-Version: 0.1.9 (versionCode 10)
+Version: 0.1.10 (versionCode 11)
 Signing certificate SHA-256:
 81EF0C48E32C988BA8259CA135ACBC8C812BD9798B8D6B5F1D3750E119459DFB
 
 APK SHA-256:
-BEAC517FD6D04B3B58FC210DFCD34C355DDD5551E004C1A5AAE69D801CADC30E
+C9E60673E69E9B3F516FBA4268C80CBDBC3D48B2CD1286F2BD50D3F8D4C6B766

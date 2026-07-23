@@ -5,6 +5,10 @@ nachgewiesen; offene Punkte brauchen einen echten AYN Thor.
 
 ## Automatisiert und Emulator
 
+- [x] Das finale signierte v0.1.10-APK (`versionCode` 11) startet sowohl nach
+  einer sauberen Installation als auch als In-place-Update über v0.1.9. Der
+  Test installiert ausdrücklich das fertige Release-APK ohne Fast Deployment
+  und prüft, dass der App-Prozess ohne `UnsatisfiedLinkError` aktiv bleibt.
 - [x] Das signierte v0.1.9-APK (`versionCode` 10) wurde als In-place-Update
   installiert. Importierte Runtime, EOTA und Zusatzmods blieben erhalten.
 - [x] Alle vom Android-Player selbst erzeugten Launcher-, Status-, Dialog-,

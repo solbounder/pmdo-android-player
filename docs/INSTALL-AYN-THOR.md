@@ -32,7 +32,7 @@ The expected layout is similar to:
 
 ```text
 Download/
-  PMDO-Android-Player-v0.1.9.apk
+  PMDO-Android-Player-v0.1.10.apk
   DumpAsset/
     Base/
     CONFIG/
@@ -51,7 +51,7 @@ it are what matter.
 ## Install the app
 
 1. Open the Thor's file manager and go to `Download`.
-2. Tap `PMDO-Android-Player-v0.1.9.apk`.
+2. Tap `PMDO-Android-Player-v0.1.10.apk`.
 3. If installation is blocked, enable **Allow from this source** for that file
    manager.
 4. Confirm **Install** and open **PMDO Android Player**.

@@ -1,12 +1,12 @@
 [CmdletBinding()]
 param(
-    [string]$Package = (Join-Path $PSScriptRoot '..\release\PMDO-Android-Player-Thor-Update-v0.1.9.zip')
+    [string]$Package = (Join-Path $PSScriptRoot '..\release\PMDO-Android-Player-Thor-Update-v0.1.10.zip')
 )
 
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression
 $packagePath = (Resolve-Path -LiteralPath $Package).Path
-$expected = @('PMDO-Android-Player-v0.1.9.apk', 'THOR-UPDATE.txt')
+$expected = @('PMDO-Android-Player-v0.1.10.apk', 'THOR-UPDATE.txt')
 $tempRoot = Join-Path ([IO.Path]::GetTempPath()) ('pmdo-thor-audit-' + [guid]::NewGuid().ToString('N'))
 [IO.Directory]::CreateDirectory($tempRoot) | Out-Null
 try {
@@ -27,8 +27,8 @@ try {
             }
         }
 
-        $apkPath = Join-Path $tempRoot 'PMDO-Android-Player-v0.1.9.apk'
-        $apkInput = $archive.GetEntry('PMDO-Android-Player-v0.1.9.apk').Open()
+        $apkPath = Join-Path $tempRoot 'PMDO-Android-Player-v0.1.10.apk'
+        $apkInput = $archive.GetEntry('PMDO-Android-Player-v0.1.10.apk').Open()
         $apkOutput = [IO.File]::Create($apkPath)
         try { $apkInput.CopyTo($apkOutput) }
         finally { $apkInput.Dispose(); $apkOutput.Dispose() }
@@ -38,7 +38,7 @@ try {
         $reader = [IO.StreamReader]::new($guideStream, [Text.Encoding]::UTF8, $true)
         try { $guide = $reader.ReadToEnd() }
         finally { $reader.Dispose(); $guideStream.Dispose() }
-        if (-not $guide.Contains('Version: 0.1.9 (versionCode 10)') -or
+        if (-not $guide.Contains('Version: 0.1.10 (versionCode 11)') -or
             -not $guide.Contains($apkHash)) {
             throw 'Packaged guide does not identify the packaged APK version and SHA-256.'
         }
