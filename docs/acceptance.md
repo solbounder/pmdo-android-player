@@ -1,10 +1,28 @@
 # Android-v1-Abnahme
 
-Stand: 22. Juli 2026. Ein Haken bedeutet automatisiert oder im Emulator
+Stand: 23. Juli 2026. Ein Haken bedeutet automatisiert oder im Emulator
 nachgewiesen; offene Punkte brauchen einen echten AYN Thor.
 
 ## Automatisiert und Emulator
 
+- [x] Das signierte v0.1.9-APK (`versionCode` 10) wurde als In-place-Update
+  installiert. Importierte Runtime, EOTA und Zusatzmods blieben erhalten.
+- [x] Alle vom Android-Player selbst erzeugten Launcher-, Status-, Dialog-,
+  Fehlerbericht-, Tastatur- und Touch-Editor-Texte sind Englisch. Ein
+  Quelltexttest verhindert neue deutsche UI-Literale außerhalb der gezielten
+  Übersetzung alter gespeicherter Fehlerberichte; Launcher, Mod-Auswahl,
+  Save-Import und Texteingabe wurden zusätzlich im Emulator geprüft.
+- [x] Das Öffnen einer Musikliste erzeugt keine Audioquelle mehr pro
+  aufgelistetem Titel. OGG-Metadaten werden ohne dauerhafte Wiedergabeinstanz
+  gelesen; Reader, Puffer und Android-Audioquelle entstehen erst bei `Play`
+  oder `PlayAt` und werden nach Fehlern sowie bei `Dispose` vollständig
+  freigegeben. Der Lifecycle-Regressionscheck, ARM64-Build und ein
+  EOTA-Emulatorlauf mit Titel- und Ground-BGM bestehen ohne
+  `InstancePlayLimitException` oder Audiofehler.
+- [x] Save-Zugriffsfehler erkennen verweigerte Schreibrechte und weisen auf
+  den Launcher-Import von `SAVE.rssv` beziehungsweise die Wiederherstellung
+  korrekter Android-Dateieigentümerschaft hin. Das deckt insbesondere Saves
+  ab, die außerhalb des Players manuell mit Root-Rechten kopiert wurden.
 - [x] Gepinnter PMDO-0.8.12-Graph lässt sich wiederholt neu auschecken, patchen
   und verifizieren.
 - [x] Locked Restore sowie Import-/Backup-/Sicherheits-/Viewporttests bestehen.

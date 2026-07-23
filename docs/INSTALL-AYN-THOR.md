@@ -32,7 +32,7 @@ The expected layout is similar to:
 
 ```text
 Download/
-  PMDO-Android-Player-v0.1.8.apk
+  PMDO-Android-Player-v0.1.9.apk
   DumpAsset/
     Base/
     CONFIG/
@@ -51,7 +51,7 @@ it are what matter.
 ## Install the app
 
 1. Open the Thor's file manager and go to `Download`.
-2. Tap `PMDO-Android-Player-v0.1.8.apk`.
+2. Tap `PMDO-Android-Player-v0.1.9.apk`.
 3. If installation is blocked, enable **Allow from this source** for that file
    manager.
 4. Confirm **Install** and open **PMDO Android Player**.
@@ -81,7 +81,7 @@ supported; use the built-in Android keyboard button instead.
 
 ## Import a regular PMDO save
 
-1. Tap **Import save data**.
+1. Tap **Import save**.
 2. Select **PMDO save (`SAVE.rssv`)** rather than **Android backup (`.zip`)**.
 3. Select the base game or an installed Quest, then select the `SAVE.rssv`
    file.

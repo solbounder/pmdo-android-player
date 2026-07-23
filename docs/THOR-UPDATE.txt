@@ -1,37 +1,39 @@
-PMDO ANDROID – UPDATE FÜR EINE BESTEHENDE THOR-INSTALLATION
-===========================================================
+PMDO ANDROID - UPDATE FOR AN EXISTING THOR INSTALLATION
+======================================================
 
-Dieses Update-ZIP enthält:
+This update ZIP contains:
 
-  PMDO-Android-Player-v0.1.8.apk
+  PMDO-Android-Player-v0.1.9.apk
   THOR-UPDATE.txt
 
-Die App NICHT deinstallieren. Dadurch bleiben die bereits importierte
-PMDO-Runtime, optionale Mods und alle Spielstände erhalten.
+Do NOT uninstall the app. Updating it in place preserves the imported PMDO
+runtime, optional mods, settings, and save data.
 
-1. ZIP auf den Thor in "Interner Speicher\Download" kopieren und vollständig
-   entpacken.
-2. Die APK antippen und "Aktualisieren" beziehungsweise "Installieren"
-   bestätigen.
-3. PMDO Android Player öffnen und "Spiel starten" drücken. Die Runtime,
-   optionale Mods und Spielstände müssen nicht erneut importiert werden.
+1. Copy the ZIP to "Internal storage\Download" on the Thor and extract it.
+2. Tap the APK and confirm "Update" or "Install".
+3. Open PMDO Android Player and tap "Start game". The runtime, optional mods,
+   and save data do not need to be imported again.
 
-Neu in diesem Update:
+New in this update:
 
-  - Lua-Mods können wieder gemeinsam genutzte XNA-Typen wie Color und GameTime
-    auflösen. Damit öffnet sich unter anderem das Menü von Enable Mission Board
-    ohne den zuvor gemeldeten Color-Fehler.
+  - Browsing the PMDO music menu no longer reserves an Android audio source for
+    every listed track. This removes the source-exhaustion cause identified in
+    the reported exception and subsequent audio lockup.
+  - All launcher, status, dialog, error-report, keyboard, and touch-editor text
+    owned by the Android app is now English.
+  - Save permission errors now explain how to recover from files copied
+    manually with incompatible Android ownership.
 
-Quest-Mods sind nicht Bestandteil dieses Player-Pakets. Sie können bei Bedarf
-separat über "Mod-Ordner importieren" hinzugefügt werden.
+Quest mods are not included in this player package. They can be added
+separately through "Import mod folder" or "Import mod ZIP".
 
-Falls Android statt eines Updates einen Signaturkonflikt meldet: NICHT
-deinstallieren, sondern den Dialog fotografieren. Die vorhandenen App-Daten
-bleiben dann unangetastet.
+If Android reports a signature conflict instead of offering an update, do NOT
+uninstall the existing app. Capture the dialog so the installed private data
+remains untouched.
 
-Version: 0.1.8 (versionCode 9)
-Signaturzertifikat SHA-256:
+Version: 0.1.9 (versionCode 10)
+Signing certificate SHA-256:
 81EF0C48E32C988BA8259CA135ACBC8C812BD9798B8D6B5F1D3750E119459DFB
 
 APK SHA-256:
-AFC1DB91ADD130323FFE352CDADFFCB713FA0E80F47169AFE41EC28DE9184EB1
+BEAC517FD6D04B3B58FC210DFCD34C355DDD5551E004C1A5AAE69D801CADC30E

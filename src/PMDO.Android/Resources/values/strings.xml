@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">PMDO Android Player</string>
+  <string name="status_ready">Ready</string>
+  <string name="status_error_report">Error report available - tap here</string>
+  <string name="status_import_pmdo_first">Import PMDO first.</string>
+  <string name="button_import_runtime">Import PMDO 0.8.12 folder</string>
+  <string name="button_import_mod_folder">Import mod folder</string>
+  <string name="button_import_mod_zip">Import mod ZIP</string>
+  <string name="button_start_game">Start game</string>
+  <string name="button_manage_mods">Manage mods</string>
+  <string name="button_import_save">Import save</string>
+  <string name="button_export_backup">Export Android backup (.zip)</string>
+  <string name="button_cancel">Cancel</string>
+  <string name="button_save">Save</string>
+  <string name="button_next">Next</string>
+  <string name="button_close">Close</string>
+  <string name="button_delete_report">Delete report</string>
+  <string name="button_copy_text">Copy text</string>
+  <string name="button_return_launcher">Return to launcher</string>
+  <string name="button_stay_game">Stay in game</string>
+  <string name="button_apply">Apply</string>
+  <string name="button_reset">Reset</string>
+  <string name="button_buttons">Buttons</string>
+  <string name="base_game">PMDO base game</string>
+  <string name="dialog_import_save">Import save</string>
+  <string name="dialog_android_backup">Android backup (.zip)</string>
+  <string name="dialog_pmdo_save">PMDO save (SAVE.rssv)</string>
+  <string name="dialog_choose_save_target">Choose destination for SAVE.rssv</string>
+  <string name="dialog_choose_quest">Choose quest</string>
+  <string name="dialog_choose_additional_mods">Choose additional mods</string>
+  <string name="dialog_latest_error">Latest PMDO error</string>
+  <string name="dialog_device_error">PMDO error on this device</string>
+  <string name="dialog_enter_text">Enter text</string>
+  <string name="dialog_insert_text">Insert</string>
+  <string name="dialog_visible">Visible</string>
+  <string name="dialog_edit_dpad">Edit D-pad</string>
+  <string name="dialog_edit_button">Edit button (long press)</string>
+  <string name="dialog_edit_hidden_button">Edit a button, including hidden buttons</string>
+  <string name="toast_error_copied">Error text copied</string>
+</resources>

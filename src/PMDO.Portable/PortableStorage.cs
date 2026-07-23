@@ -470,7 +470,7 @@ public static class ModConfiguration
 
 public sealed record SaveTarget(string DisplayName, string? QuestDirectoryName)
 {
-    public static SaveTarget BaseGame { get; } = new("PMDO-Basisspiel", null);
+    public static SaveTarget BaseGame { get; } = new("PMDO base game", null);
     public static SaveTarget ForQuest(string directoryName, string displayName) => new(displayName, directoryName);
 }
 

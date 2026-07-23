@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.9 - 2026-07-23
+
+- Deferred Android playback resources until a song actually starts. Browsing
+  the PMDO music menu no longer reserves one OpenAL source per listed track,
+  removing the source-exhaustion cause identified in the reported
+  `InstancePlayLimitException` and audio lockup.
+- Converted every app-owned launcher, status, dialog, error-report, keyboard,
+  and touch-editor surface to English.
+- Added actionable English guidance for save files copied manually with
+  incompatible Android ownership or permissions.
+
 ## 0.1.8 - 2026-07-22
 
 - Load MonoGame's XNA-compatible assembly into the Android Lua runtime before
